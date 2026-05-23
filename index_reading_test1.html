@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Full Reading Test 1 — Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--navy-light:#243860;--gold:#C9A020;--gold-light:#E8C84A;--green:#2A7A4B;--green-bg:#E8F5EE;--red:#B0231A;--red-bg:#FDECEA;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh}
+.screen{display:none}.screen.active{display:block}
+/* WELCOME */
+#screen-welcome{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--navy);background-image:radial-gradient(ellipse at 20% 30%,rgba(201,160,32,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(201,160,32,.08) 0%,transparent 50%);padding:40px 20px;text-align:center}
+.welcome-badge{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;opacity:.8}
+.welcome-title{font-family:var(--display);font-size:clamp(2rem,6vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:6px}
+.welcome-title span{color:var(--gold)}
+.welcome-sub{color:#A8B8D0;font-size:1rem;margin:14px 0 32px;font-weight:300}
+.welcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:560px;margin:0 auto 36px}
+.w-card{background:rgba(255,255,255,.05);border:1px solid rgba(201,160,32,.3);border-radius:10px;padding:16px 12px;text-align:center}
+.w-card-label{font-family:var(--mono);font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.w-card-val{font-family:var(--mono);font-size:1.35rem;font-weight:600;color:#fff}
+.w-card-desc{font-size:.75rem;color:#A8B8D0;margin-top:4px}
+.start-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-size:1.15rem;font-weight:700;padding:16px 52px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;transition:all .2s;box-shadow:0 4px 20px rgba(201,160,32,.35)}
+.start-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+.welcome-footer{margin-top:28px;color:#6A7E9C;font-size:.78rem;font-style:italic}
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.35)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:9px 22px;gap:14px;flex-wrap:wrap}
+.header-left h1{font-family:var(--display);color:var(--gold);font-size:1.05rem;letter-spacing:.02em}
+.header-left p{color:#A8B8D0;font-size:.74rem;font-weight:300;margin-top:2px}
+.header-center{display:flex;gap:10px;align-items:center}
+.part-pip{width:28px;height:5px;border-radius:3px;background:rgba(255,255,255,.15)}
+.part-pip.done{background:var(--green)}.part-pip.active{background:var(--gold)}
+.timer-box{display:flex;flex-direction:column;align-items:center;background:var(--navy-light);border:2px solid var(--gold);border-radius:8px;padding:5px 16px;min-width:104px}
+.timer-label{color:var(--gold);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
+.timer-display{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:#fff}
+.timer-box.orange{border-color:#E8922A;background:#2A1E10}.timer-box.orange .timer-display,.timer-box.orange .timer-label{color:#E8922A}
+.timer-box.red{border-color:#C0231A;background:#2A1010}.timer-box.red .timer-display,.timer-box.red .timer-label{color:#ff4444;animation:blink .7s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.progress-box{color:#A8B8D0;font-size:.76rem;text-align:right}
+.progress-bar-wrap{width:110px;height:5px;background:var(--navy-light);border-radius:3px;margin-top:4px}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+/* MAIN */
+.test-main{max-width:960px;margin:0 auto;padding:28px 18px 80px}
+.part-intro{background:var(--navy);color:#C8D8F0;padding:16px 22px;border-radius:10px;margin-bottom:28px;border-left:4px solid var(--gold)}
+.part-intro h2{font-family:var(--display);color:var(--gold);font-size:1.05rem;margin-bottom:6px}
+.part-intro p{font-size:.85rem;line-height:1.6}
+/* P5 */
+.question-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.question-card.answered{border-left:4px solid var(--gold)}
+.q-number{font-family:var(--mono);font-size:.68rem;color:var(--gold);font-weight:600;letter-spacing:.08em;margin-bottom:9px;text-transform:uppercase}
+.q-sentence{font-size:1rem;line-height:1.7;padding:11px 14px;background:var(--cream);border-radius:6px;margin-bottom:16px;border-left:3px solid var(--border)}
+.blank{display:inline-block;border-bottom:2px solid var(--navy);min-width:70px;text-align:center;font-weight:600;color:var(--navy)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:500px){.choices{grid-template-columns:1fr}}
+.choice-btn{display:flex;align-items:center;gap:9px;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-family:var(--serif);font-size:.88rem;color:var(--text);text-align:left;transition:all .15s;width:100%}
+.choice-btn:hover{border-color:var(--navy);background:#F4F0E8}
+.choice-btn.selected{border-color:var(--navy);background:#EDF1F8;color:var(--navy);font-weight:600}
+.choice-letter{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border);font-family:var(--mono);font-size:.7rem;font-weight:600;flex-shrink:0}
+.choice-btn.selected .choice-letter{background:var(--navy);border-color:var(--navy);color:#fff}
+/* P6 */
+.text-block{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px}
+.text-block h3{font-family:var(--display);color:var(--navy);font-size:.92rem;margin-bottom:14px;padding-bottom:7px;border-bottom:2px solid var(--gold);display:flex;justify-content:space-between;align-items:center}
+.text-block h3 span{font-family:var(--mono);font-size:.68rem;color:var(--muted);font-weight:400}
+.text-passage{font-size:.9rem;line-height:1.85;padding:14px;background:var(--cream);border-radius:8px;margin-bottom:18px;border-left:3px solid var(--border)}
+.blank-num{display:inline-block;background:var(--navy);color:var(--gold);font-family:var(--mono);font-size:.74rem;font-weight:600;padding:1px 6px;border-radius:4px;margin:0 2px;vertical-align:middle}
+.questions-section{border-top:1px solid var(--border);padding-top:16px}
+.q-group{margin-bottom:14px}
+.q-label{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--navy);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
+/* P7 */
+.passage-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px}
+.passage-box h4{font-family:var(--display);color:var(--navy);font-size:.88rem;margin-bottom:11px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.passage-text{font-size:.86rem;line-height:1.8}
+.passage-text p{margin-bottom:.7em}
+.passage-text .meta{color:var(--muted);font-size:.78rem;margin-bottom:7px}
+.passage-text table{width:100%;border-collapse:collapse;font-size:.78rem;margin:6px 0}
+.passage-text th{background:var(--navy);color:var(--gold);padding:4px 7px;text-align:left;font-family:var(--mono);font-size:.68rem}
+.passage-text td{padding:4px 7px;border-bottom:1px solid var(--border)}
+.passage-text td:first-child{font-weight:600}
+.passage-text .chat-msg{margin-bottom:5px;padding:5px 9px;border-radius:5px;background:var(--cream);border-left:2px solid var(--border)}
+.passage-text .chat-name{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--navy);margin-right:5px}
+.passage-text .chat-time{font-family:var(--mono);font-size:.64rem;color:var(--muted)}
+.questions-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px}
+.questions-box h4{font-family:var(--display);color:var(--navy);font-size:.88rem;margin-bottom:13px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.q-item{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #EEE8D5}
+.q-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.q-num{font-family:var(--mono);font-size:.66rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.q-text{font-size:.88rem;font-weight:600;margin-bottom:9px;line-height:1.5}
+.section-label{font-family:var(--display);font-size:.95rem;color:var(--navy);margin:28px 0 14px;padding:9px 15px;background:var(--cream-dark);border-radius:6px;border-left:4px solid var(--gold)}
+/* SUBMIT */
+.submit-wrap{text-align:center;margin:32px 0}
+.submit-btn{background:var(--navy);color:var(--gold);font-family:var(--display);font-size:1rem;padding:13px 42px;border:2px solid var(--gold);border-radius:8px;cursor:pointer;letter-spacing:.04em;transition:all .2s}
+.submit-btn:hover{background:var(--gold);color:var(--navy)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.submit-hint{font-size:.8rem;color:var(--muted);margin-top:7px;font-style:italic}
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.overlay-box{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:38px 48px;text-align:center;color:#fff;max-width:400px}
+.overlay-box h2{font-family:var(--display);color:var(--gold);font-size:1.4rem;margin-bottom:11px}
+.overlay-box p{color:#A8B8D0;margin-bottom:20px;font-size:.92rem}
+.overlay-box button{background:var(--gold);color:var(--navy);border:none;padding:10px 28px;border-radius:6px;font-family:var(--display);font-size:.95rem;cursor:pointer;font-weight:600}
+/* INTERIM */
+.interim-screen{max-width:640px;margin:0 auto;padding:60px 20px}
+.interim-card{background:var(--navy);border:2px solid var(--gold);border-radius:14px;padding:40px;text-align:center;margin-bottom:28px}
+.interim-card h2{font-family:var(--display);color:var(--gold);font-size:1.35rem;margin-bottom:18px}
+.interim-score{font-family:var(--mono);font-size:3.2rem;font-weight:600;color:#fff;margin:8px 0}
+.correct-count{font-family:var(--mono);font-size:1rem;color:var(--gold-light);margin-top:8px}
+.interim-bars{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:20px 0}
+.interim-bar{width:18px;height:18px;border-radius:3px;background:rgba(255,255,255,.15)}
+.interim-bar.filled{background:var(--green)}.interim-bar.wrong{background:var(--red)}
+.next-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-size:1.1rem;font-weight:700;padding:15px 50px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;transition:all .2s;box-shadow:0 3px 16px rgba(201,160,32,.3)}
+.next-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+/* FINAL */
+.final-screen{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+.final-banner{background:var(--navy);border:2px solid var(--gold);border-radius:14px;padding:36px;text-align:center;margin-bottom:36px;background-image:radial-gradient(ellipse at 50% 0%,rgba(201,160,32,.15) 0%,transparent 60%)}
+.final-banner h2{font-family:var(--display);color:var(--gold);font-size:1.5rem;margin-bottom:22px}
+.final-score-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.final-score-item{text-align:center}
+.fsi-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#A8B8D0;margin-bottom:6px}
+.fsi-val{font-family:var(--mono);font-size:2.6rem;font-weight:600;color:#fff}
+.fsi-sub{font-size:.8rem;color:#A8B8D0;margin-top:3px}
+.fsi-gold{color:var(--gold)}
+.divider-v{width:1px;height:60px;background:rgba(255,255,255,.15)}
+.part-summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+@media(max-width:600px){.part-summary-row{grid-template-columns:1fr}}
+.ps-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center}
+.ps-card-label{font-family:var(--mono);font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.ps-card-score{font-family:var(--mono);font-size:1.8rem;font-weight:600;color:var(--navy);margin:4px 0}
+.ps-card-pct{font-size:.8rem;color:var(--muted)}
+.ps-bar-wrap{width:100%;height:6px;background:var(--cream-dark);border-radius:3px;margin-top:10px}
+.ps-bar-fill{height:100%;background:var(--gold);border-radius:3px}
+/* CORRECTION */
+.corr-part-header{font-family:var(--display);color:var(--navy);font-size:1.15rem;margin:32px 0 18px;padding:10px 16px;background:var(--cream-dark);border-radius:8px;border-left:4px solid var(--gold)}
+.corr-card{border-radius:10px;padding:20px;margin-bottom:14px;border:1px solid var(--border)}
+.corr-card.correct-ans{background:var(--green-bg);border-left:4px solid var(--green)}
+.corr-card.wrong-ans{background:var(--red-bg);border-left:4px solid var(--red)}
+.corr-header{display:flex;align-items:center;gap:9px;margin-bottom:11px;flex-wrap:wrap}
+.corr-num{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.68rem;font-weight:600;font-family:var(--mono)}
+.badge-ok{background:#C8EDD6;color:var(--green)}.badge-err{background:#FADBD8;color:var(--red)}
+.corr-sentence,.corr-passage,.q-qtext{font-size:.88rem;line-height:1.7;padding:9px 13px;background:rgba(255,255,255,.6);border-radius:5px;margin-bottom:12px}
+.highlight{background:#FFF0A0;padding:0 3px;border-radius:3px;font-weight:700;color:var(--navy)}
+.corr-choices{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
+@media(max-width:500px){.corr-choices{grid-template-columns:1fr}}
+.corr-choice{padding:6px 11px;border-radius:5px;font-size:.84rem;display:flex;align-items:flex-start;gap:7px}
+.corr-choice.is-correct{background:#C8EDD6;border:1.5px solid var(--green);color:var(--green);font-weight:600}
+.corr-choice.is-wrong-pick{background:#FADBD8;border:1.5px solid var(--red);color:var(--red);text-decoration:line-through}
+.corr-choice.neutral{background:#F4F0E8;border:1.5px solid var(--border);color:var(--muted)}
+.corr-choice .cletter{font-family:var(--mono);font-size:.68rem;font-weight:600;width:18px;flex-shrink:0;padding-top:1px}
+.expl{background:rgba(255,255,255,.7);border-left:3px solid var(--navy);padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px}
+.expl-title{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);font-weight:600;margin-bottom:5px}
+.expl p{font-size:.83rem;line-height:1.65}
+.vocab-box{font-family:var(--mono);font-size:.76rem;background:#F0EDE4;border:1px solid var(--border);border-radius:5px;padding:9px 12px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div id="screen-welcome" class="screen active">
+  <div class="welcome-badge">Marc VASSEUR &nbsp;·&nbsp; Polytech Lille</div>
+  <div class="welcome-title">Full Reading<br><span>TEST 1</span></div>
+  <div class="welcome-sub">Simulation complète TOEIC Reading &nbsp;·&nbsp; 100 questions</div>
+  <div class="welcome-grid">
+    <div class="w-card"><div class="w-card-label">Part 5</div><div class="w-card-val">30</div><div class="w-card-desc">15 min · phrases</div></div>
+    <div class="w-card"><div class="w-card-label">Part 6</div><div class="w-card-val">16</div><div class="w-card-desc">8 min · textes</div></div>
+    <div class="w-card"><div class="w-card-label">Part 7</div><div class="w-card-val">54</div><div class="w-card-desc">48 min · lecture</div></div>
+  </div>
+  <div id="studentForm" style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:24px;width:100%;max-width:320px">
+    <input id="inputNom" type="text" placeholder="Nom *" autocomplete="family-name"
+      style="padding:10px 16px;border-radius:7px;border:1.5px solid rgba(201,160,32,.5);background:rgba(255,255,255,.07);color:#fff;font-family:var(--mono);font-size:.88rem;width:100%;text-align:center;outline:none;transition:border-color .2s"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(201,160,32,.5)'">
+    <input id="inputPrenom" type="text" placeholder="Prénom *" autocomplete="given-name"
+      style="padding:10px 16px;border-radius:7px;border:1.5px solid rgba(201,160,32,.5);background:rgba(255,255,255,.07);color:#fff;font-family:var(--mono);font-size:.88rem;width:100%;text-align:center;outline:none;transition:border-color .2s"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(201,160,32,.5)'">
+    <input id="inputDept" type="text" placeholder="Département / Groupe (ex: 3A-INFO)" autocomplete="off"
+      style="padding:10px 16px;border-radius:7px;border:1.5px solid rgba(201,160,32,.5);background:rgba(255,255,255,.07);color:#fff;font-family:var(--mono);font-size:.88rem;width:100%;text-align:center;outline:none;transition:border-color .2s"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(201,160,32,.5)'">
+    <p id="formError" style="color:#ff6b6b;font-family:var(--mono);font-size:.72rem;display:none;margin-top:2px">⚠ Nom et Prénom obligatoires</p>
+  </div>
+  <button class="start-btn" onclick="startTest()">Commencer le test ▶</button>
+  <div class="welcome-footer">Durée totale conseillée : 71 minutes &nbsp;·&nbsp; Correction complète à la fin</div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <h2>⏰ Temps écoulé</h2>
+    <p id="overlayMsg">Cette partie a été soumise automatiquement.</p>
+    <button onclick="closeOverlay()">Continuer</button>
+  </div>
+</div>
+
+<div id="screen-p5" class="screen">
+  <header class="header"><div class="header-inner">
+    <div class="header-left"><h1>Part 5 — Incomplete Sentences</h1><p>Marc VASSEUR · Polytech Lille</p></div>
+    <div class="header-center"><div class="part-pip active"></div><div class="part-pip"></div><div class="part-pip"></div></div>
+    <div class="timer-box" id="tb5"><span class="timer-label">⏱ Part 5</span><span class="timer-display" id="td5">15:00</span></div>
+    <div class="progress-box"><span id="pr5">0 / 30</span><div class="progress-bar-wrap"><div class="progress-bar-fill" id="pf5" style="width:0%"></div></div></div>
+  </div></header>
+  <div class="test-main">
+    <div class="part-intro"><h2>Part 5 — Incomplete Sentences</h2><p>30 questions · 15 minutes · Choisissez la meilleure réponse pour compléter chaque phrase.</p></div>
+    <div id="qc5"></div>
+    <div class="submit-wrap"><button class="submit-btn" id="sb5" disabled onclick="submitPart(5)">Soumettre Part 5</button><p class="submit-hint" id="sh5">Répondez à toutes les questions pour soumettre.</p></div>
+  </div>
+</div>
+
+<div id="screen-inter5" class="screen">
+  <div class="interim-screen">
+    <div class="interim-card"><h2>✓ Part 5 terminée</h2><div class="interim-score" id="is5">—</div><div class="correct-count" id="ic5"></div><div class="interim-bars" id="ib5"></div></div>
+    <div style="text-align:center"><p style="color:var(--muted);font-size:.85rem;margin-bottom:20px">La correction s'affichera à la fin du test complet.</p><button class="next-btn" onclick="goToPart(6)">Continuer vers Part 6 →</button></div>
+  </div>
+</div>
+
+<div id="screen-p6" class="screen">
+  <header class="header"><div class="header-inner">
+    <div class="header-left"><h1>Part 6 — Text Completion</h1><p>Marc VASSEUR · Polytech Lille</p></div>
+    <div class="header-center"><div class="part-pip done"></div><div class="part-pip active"></div><div class="part-pip"></div></div>
+    <div class="timer-box" id="tb6"><span class="timer-label">⏱ Part 6</span><span class="timer-display" id="td6">08:00</span></div>
+    <div class="progress-box"><span id="pr6">0 / 16</span><div class="progress-bar-wrap"><div class="progress-bar-fill" id="pf6" style="width:0%"></div></div></div>
+  </div></header>
+  <div class="test-main">
+    <div class="part-intro"><h2>Part 6 — Text Completion</h2><p>4 textes · 16 questions · 8 minutes · Complétez chaque texte lacunaire.</p></div>
+    <div id="qc6"></div>
+    <div class="submit-wrap"><button class="submit-btn" id="sb6" disabled onclick="submitPart(6)">Soumettre Part 6</button><p class="submit-hint" id="sh6">Répondez à toutes les questions pour soumettre.</p></div>
+  </div>
+</div>
+
+<div id="screen-inter6" class="screen">
+  <div class="interim-screen">
+    <div class="interim-card"><h2>✓ Part 6 terminée</h2><div class="interim-score" id="is6">—</div><div class="correct-count" id="ic6"></div><div class="interim-bars" id="ib6"></div></div>
+    <div style="text-align:center"><p style="color:var(--muted);font-size:.85rem;margin-bottom:20px">La correction s'affichera à la fin du test complet.</p><button class="next-btn" onclick="goToPart(7)">Continuer vers Part 7 →</button></div>
+  </div>
+</div>
+
+<div id="screen-p7" class="screen">
+  <header class="header"><div class="header-inner">
+    <div class="header-left"><h1>Part 7 — Reading Comprehension</h1><p>Marc VASSEUR · Polytech Lille</p></div>
+    <div class="header-center"><div class="part-pip done"></div><div class="part-pip done"></div><div class="part-pip active"></div></div>
+    <div class="timer-box" id="tb7"><span class="timer-label">⏱ Part 7</span><span class="timer-display" id="td7">48:00</span></div>
+    <div class="progress-box"><span id="pr7">0 / 54</span><div class="progress-bar-wrap"><div class="progress-bar-fill" id="pf7" style="width:0%"></div></div></div>
+  </div></header>
+  <div class="test-main">
+    <div class="part-intro"><h2>Part 7 — Reading Comprehension</h2><p>54 questions · 48 minutes · Lisez chaque document attentivement.</p></div>
+    <div id="qc7"></div>
+    <div class="submit-wrap"><button class="submit-btn" id="sb7" disabled onclick="submitPart(7)">Soumettre — Voir les résultats</button><p class="submit-hint" id="sh7">Répondez à toutes les questions pour soumettre.</p></div>
+  </div>
+</div>
+
+<div id="screen-final" class="screen">
+  <div class="final-screen">
+    <div class="final-banner">
+      <h2>Résultats — Full Reading TEST 1</h2>
+      <div class="final-score-row">
+        <div class="final-score-item"><div class="fsi-label">Bonnes réponses</div><div class="fsi-val" id="fr">—</div><div class="fsi-sub">sur 100 questions</div></div>
+        <div class="divider-v"></div>
+        <div class="final-score-item"><div class="fsi-label">Score estimé TOEIC Reading</div><div class="fsi-val fsi-gold" id="ft">—</div><div class="fsi-sub">/ 495</div></div>
+      </div>
+    </div>
+    <div class="part-summary-row">
+      <div class="ps-card"><div class="ps-card-label">Part 5</div><div class="ps-card-score" id="ps5s">—</div><div class="ps-card-pct" id="ps5p">—</div><div class="ps-bar-wrap"><div class="ps-bar-fill" id="pb5" style="width:0%"></div></div></div>
+      <div class="ps-card"><div class="ps-card-label">Part 6</div><div class="ps-card-score" id="ps6s">—</div><div class="ps-card-pct" id="ps6p">—</div><div class="ps-bar-wrap"><div class="ps-bar-fill" id="pb6" style="width:0%"></div></div></div>
+      <div class="ps-card"><div class="ps-card-label">Part 7</div><div class="ps-card-score" id="ps7s">—</div><div class="ps-card-pct" id="ps7p">—</div><div class="ps-bar-wrap"><div class="ps-bar-fill" id="pb7" style="width:0%"></div></div></div>
+    </div>
+    <div id="corrFinal"></div>
+  </div>
+</div>
+
+<script>
+
+const Q5 = [
+  {
+    num: 101,
+    sentence: "The new location of Nihlean Camera Store ___ a large showroom and a full-service photo lab.",
+    choices: ["include","includes","to include","including"],
+    correct: 1,
+    full: "The new location of Nihlean Camera Store <span class='highlight'>includes</span> a large showroom and a full-service photo lab.",
+    type: "Accord sujet-verbe",
+    expl: "Le sujet est « The new location » (singulier, 3e personne). Le verbe doit donc être conjugué à la 3e personne du singulier du présent simple : <em>includes</em>. (A) <em>include</em> est la forme plurielle. (C) <em>to include</em> est l'infinitif. (D) <em>including</em> est un participe présent ou gérondif, sans auxiliaire : aucun de ces deux derniers ne peut former le prédicat principal.",
+    vocab: null
+  },
+  {
+    num: 102,
+    sentence: "The portable unit produces ten kilograms of ___, enough to fill a large picnic cooler.",
+    choices: ["iced","icier","icy","ice"],
+    correct: 3,
+    full: "The portable unit produces ten kilograms of <span class='highlight'>ice</span>, enough to fill a large picnic cooler.",
+    type: "Classe grammaticale — nom",
+    expl: "Après la préposition « of », on attend un nom dénombrable ou non-dénombrable. Seul (D) <em>ice</em> est un nom (glace). (A) <em>iced</em> et (C) <em>icy</em> sont des adjectifs. (B) <em>icier</em> est le comparatif de l'adjectif <em>icy</em>. Aucun adjectif ne peut être complément direct d'une préposition sans nom.",
+    vocab: "ice (n.) = glace | iced (adj.) = glacé | icy (adj.) = glacial, verglacé"
+  },
+  {
+    num: 103,
+    sentence: "Mr. Adler decided to offer a lifetime warranty on all ___ products.",
+    choices: ["himself","him","his","he"],
+    correct: 2,
+    full: "Mr. Adler decided to offer a lifetime warranty on all <span class='highlight'>his</span> products.",
+    type: "Pronom possessif",
+    expl: "(C) <em>his</em> est le pronom possessif adjectif (déterminant) masculin singulier, qui qualifie le nom « products ». (A) <em>himself</em> est le pronom réfléchi. (B) <em>him</em> est le pronom personnel complément. (D) <em>he</em> est le pronom personnel sujet. Seul un déterminant possessif peut précéder directement un nom.",
+    vocab: null
+  },
+  {
+    num: 104,
+    sentence: "Employee Appreciation Day will be ___ on the first day of September.",
+    choices: ["shown","held","selected","applied"],
+    correct: 1,
+    full: "Employee Appreciation Day will be <span class='highlight'>held</span> on the first day of September.",
+    type: "Collocation — vocabulaire",
+    expl: "(B) <em>held</em> est le participe passé de <em>hold</em> : « an event is held » = un événement a lieu / est organisé. C'est la collocation standard pour les événements. (A) <em>shown</em> = montré. (C) <em>selected</em> = sélectionné. (D) <em>applied</em> = appliqué. Aucune de ces formes ne collocode naturellement avec un événement annuel.",
+    vocab: "to hold an event = organiser/tenir un événement | held = passé de hold"
+  },
+  {
+    num: 105,
+    sentence: "For any questions ___ the subscription, please do not hesitate to contact us.",
+    choices: ["to","by","over","about"],
+    correct: 3,
+    full: "For any questions <span class='highlight'>about</span> the subscription, please do not hesitate to contact us.",
+    type: "Préposition — collocation",
+    expl: "La préposition qui suit « questions » pour introduire un sujet est <em>about</em> (questions au sujet de). (A) <em>to</em> ne s'emploie pas dans cette structure. (B) <em>by</em> exprime l'agent ou le moyen. (C) <em>over</em> peut signifier « à propos de » dans certains contextes argotiques, mais la collocation standard est « questions about ».",
+    vocab: "questions about = questions sur/concernant | regarding = expression formelle équivalente"
+  },
+  {
+    num: 106,
+    sentence: "Processing payments too ___ was one complaint that customers had with the online retailer.",
+    choices: ["clearly","slowly","freely","calmly"],
+    correct: 1,
+    full: "Processing payments too <span class='highlight'>slowly</span> was one complaint that customers had with the online retailer.",
+    type: "Vocabulaire — adverbe",
+    expl: "Le contexte indique une plainte (complaint) des clients. Le traitement des paiements trop <em>lentement</em> (slowly) est logiquement une source d'insatisfaction. (A) <em>clearly</em> = clairement (pas une plainte). (C) <em>freely</em> = librement (positif). (D) <em>calmly</em> = calmement (neutre/positif).",
+    vocab: "slowly (adv.) = lentement | complaint = plainte, réclamation | retailer = détaillant"
+  },
+  {
+    num: 107,
+    sentence: "A summer internship at Cantor Manufacturing is a worthwhile ___.",
+    choices: ["direction","intention","experience","understanding"],
+    correct: 2,
+    full: "A summer internship at Cantor Manufacturing is a worthwhile <span class='highlight'>experience</span>.",
+    type: "Collocation — vocabulaire",
+    expl: "(C) <em>experience</em> est le seul nom qui collocode naturellement avec « worthwhile » dans ce contexte. « A worthwhile experience » = une expérience enrichissante / qui vaut la peine. (A) <em>direction</em> et (B) <em>intention</em> ne s'associent pas à « worthwhile ». (D) <em>understanding</em> est possible mais moins idiomatique pour décrire un stage.",
+    vocab: "worthwhile (adj.) = qui vaut la peine, enrichissant | internship = stage | experience = expérience"
+  },
+  {
+    num: 108,
+    sentence: "Submit the document ___ by sending it as an e-mail attachment or by uploading it to our Web site.",
+    choices: ["also","both","either","and"],
+    correct: 2,
+    full: "Submit the document <span class='highlight'>either</span> by sending it as an e-mail attachment or by uploading it to our Web site.",
+    type: "Corrélation — connecteur",
+    expl: "La structure <em>either … or …</em> présente deux alternatives. Ici : « either by sending… or by uploading… ». (A) <em>also</em> est un adverbe d'addition, pas une corrélation. (B) <em>both … and</em> exprime l'inclusion des deux, non le choix. (D) <em>and</em> seul n'indique pas l'alternative exclusive.",
+    vocab: "either ... or = soit ... soit (deux choix exclusifs) | both ... and = et ... et (inclusion)"
+  },
+  {
+    num: 109,
+    sentence: "Ambero Technology's latest press release highlights its plan to ___ to China next year.",
+    choices: ["inflate","expand","develop","intend"],
+    correct: 1,
+    full: "Ambero Technology's latest press release highlights its plan to <span class='highlight'>expand</span> to China next year.",
+    type: "Vocabulaire — verbe",
+    expl: "(B) <em>expand to</em> = s'étendre à, ouvrir des activités dans (un pays). C'est la collocation standard pour la croissance géographique d'une entreprise. (A) <em>inflate</em> = gonfler (sens négatif ou économique). (C) <em>develop</em> ne prend pas la préposition « to » dans ce sens. (D) <em>intend</em> = avoir l'intention de (ne peut pas être l'objet de « plan to »).",
+    vocab: "to expand to/into = s'étendre à | press release = communiqué de presse | highlight = souligner"
+  },
+  {
+    num: 110,
+    sentence: "Sakura Fine Living offers ___ crafted furniture from around the world to professional decorators.",
+    choices: ["beautifully","beauty","beautify","beauties"],
+    correct: 0,
+    full: "Sakura Fine Living offers <span class='highlight'>beautifully</span> crafted furniture from around the world to professional decorators.",
+    type: "Classe grammaticale — adverbe",
+    expl: "Le mot modifie le participe passé <em>crafted</em> utilisé comme adjectif. Il faut un adverbe : (A) <em>beautifully</em>. (B) <em>beauty</em> est un nom. (C) <em>beautify</em> est un verbe. (D) <em>beauties</em> est un nom pluriel. Seul l'adverbe peut modifier un participe/adjectif.",
+    vocab: "beautifully (adv.) = avec beauté, magnifiquement | crafted = façonné, travaillé | fine (adj.) = raffiné, de qualité"
+  },
+  {
+    num: 111,
+    sentence: "To take advantage of Wilson Paper Supply's return ___, customers must provide the original sales receipt.",
+    choices: ["performance","guarantee","development","formulation"],
+    correct: 1,
+    full: "To take advantage of Wilson Paper Supply's return <span class='highlight'>guarantee</span>, customers must provide the original sales receipt.",
+    type: "Collocation — nom",
+    expl: "(B) <em>return guarantee</em> = garantie de remboursement/retour. C'est la collocation commerciale usuelle. (A) <em>return performance</em> n'existe pas. (C) <em>return development</em> est sans sens ici. (D) <em>return formulation</em> est inexistant.",
+    vocab: "return guarantee = garantie de retour/remboursement | receipt = reçu, ticket de caisse | to take advantage of = profiter de"
+  },
+  {
+    num: 112,
+    sentence: "The results of a second chemical analysis were ___ identical to those of the first.",
+    choices: ["nears","nearly","nearer","nearest"],
+    correct: 1,
+    full: "The results of a second chemical analysis were <span class='highlight'>nearly</span> identical to those of the first.",
+    type: "Classe grammaticale — adverbe",
+    expl: "Le mot modifie l'adjectif <em>identical</em> : il faut un adverbe. (B) <em>nearly</em> = presque, pratiquement. (A) <em>nears</em> est un verbe (3e pers. sing.). (C) <em>nearer</em> est le comparatif de l'adjectif <em>near</em>. (D) <em>nearest</em> est le superlatif.",
+    vocab: "nearly (adv.) = presque, pratiquement | identical = identique | analysis = analyse"
+  },
+  {
+    num: 113,
+    sentence: "___, the Justom Company stock price has been on the rise.",
+    choices: ["Yet","Lately","Recent","Because"],
+    correct: 1,
+    full: "<span class='highlight'>Lately</span>, the Justom Company stock price has been on the rise.",
+    type: "Adverbe de temps — present perfect",
+    expl: "(B) <em>Lately</em> = ces derniers temps, récemment. Il s'emploie avec le present perfect ou past perfect, ce qui correspond à « has been ». (A) <em>Yet</em> s'utilise dans les phrases négatives/interrogatives. (C) <em>Recent</em> est un adjectif, non un adverbe. (D) <em>Because</em> est une conjonction causale qui demande une proposition subordonnée.",
+    vocab: "lately (adv.) = récemment, ces derniers temps | on the rise = en hausse | stock price = cours de l'action"
+  },
+  {
+    num: 114,
+    sentence: "Kathy Wells was offered the position in marketing due to her ___ responses to the interview questions.",
+    choices: ["imaginatively","imagination","imaginative","imagined"],
+    correct: 2,
+    full: "Kathy Wells was offered the position in marketing due to her <span class='highlight'>imaginative</span> responses to the interview questions.",
+    type: "Classe grammaticale — adjectif",
+    expl: "Le mot qualifie le nom « responses » : adjectif requis. (C) <em>imaginative</em> = créatif, plein d'imagination. (A) <em>imaginatively</em> est un adverbe. (B) <em>imagination</em> est un nom. (D) <em>imagined</em> = imaginé (sens passif, pas logique ici).",
+    vocab: "imaginative (adj.) = imaginatif, créatif | due to = en raison de | responses = réponses"
+  },
+  {
+    num: 115,
+    sentence: "___ its award-winning pastries, Rockstone Bakery also sells coffee and tea.",
+    choices: ["Instead of","Even though","In addition to","On account of"],
+    correct: 2,
+    full: "<span class='highlight'>In addition to</span> its award-winning pastries, Rockstone Bakery also sells coffee and tea.",
+    type: "Préposition composée — addition",
+    expl: "(C) <em>In addition to</em> + nom = en plus de. C'est le seul choix cohérent : la boulangerie vend des viennoiseries ET du café/thé. (A) <em>Instead of</em> = au lieu de (remplacement). (B) <em>Even though</em> = bien que (conjonction de concession, demande une proposition). (D) <em>On account of</em> = en raison de (cause).",
+    vocab: "in addition to = en plus de, outre | award-winning = primé | pastry = viennoiserie, pâtisserie"
+  },
+  {
+    num: 116,
+    sentence: "There is a ___ meeting at 3:00 P.M. this Tuesday for all employees in the research division.",
+    choices: ["convincing","punctual","successful","mandatory"],
+    correct: 3,
+    full: "There is a <span class='highlight'>mandatory</span> meeting at 3:00 P.M. this Tuesday for all employees in the research division.",
+    type: "Vocabulaire — adjectif",
+    expl: "(D) <em>mandatory</em> = obligatoire. La réunion concerne TOUS les employés → notion d'obligation. (A) <em>convincing</em> = convaincant. (B) <em>punctual</em> = ponctuel (qualifie une personne, pas une réunion). (C) <em>successful</em> = réussi (ne peut pas qualifier une réunion future).",
+    vocab: "mandatory (adj.) = obligatoire | compulsory = synonyme | optional = antonyme"
+  },
+  {
+    num: 117,
+    sentence: "After Mr. Maida's train to Bonn was canceled, he decided to take a ___ car instead.",
+    choices: ["rental","to rent","rents","will rent"],
+    correct: 0,
+    full: "After Mr. Maida's train to Bonn was canceled, he decided to take a <span class='highlight'>rental</span> car instead.",
+    type: "Nom composé — adjectif antéposé",
+    expl: "(A) <em>rental car</em> = voiture de location. Ici, <em>rental</em> fonctionne comme adjectif (nom épithète) devant « car ». (B) <em>to rent</em> est un infinitif. (C) <em>rents</em> est un verbe conjugué. (D) <em>will rent</em> est un futur.",
+    vocab: "rental car = voiture de location | car rental = location de voiture | hire car (BrE) = voiture de location"
+  },
+  {
+    num: 118,
+    sentence: "Since Miyamoto Bicycle's sales have increased substantially, the company has split its sales force ___ three teams.",
+    choices: ["up","into","inside","against"],
+    correct: 1,
+    full: "Since Miyamoto Bicycle's sales have increased substantially, the company has split its sales force <span class='highlight'>into</span> three teams.",
+    type: "Préposition — phrasal verb",
+    expl: "(B) <em>split into</em> = diviser en (groupes distincts). C'est la préposition standard après <em>split</em> pour exprimer la division. (A) <em>split up</em> = se séparer (verbe intransitif). (C) <em>inside</em> = à l'intérieur. (D) <em>against</em> = contre.",
+    vocab: "to split into = diviser en | to split up = se séparer | sales force = force de vente"
+  },
+  {
+    num: 119,
+    sentence: "Visitors to the Midland Museum of Art may not tour exhibits ___ a ticket.",
+    choices: ["unless","without","purchase","before"],
+    correct: 1,
+    full: "Visitors to the Midland Museum of Art may not tour exhibits <span class='highlight'>without</span> a ticket.",
+    type: "Préposition — condition négative",
+    expl: "(B) <em>without</em> = sans. « May not … without a ticket » = ne peuvent pas … sans billet. (A) <em>unless</em> est une conjonction de subordination qui demande une proposition (unless + sujet + verbe). (C) <em>purchase</em> est un verbe ou nom. (D) <em>before</em> = avant.",
+    vocab: "without (prép.) = sans | unless = à moins que (+ clause) | exhibit = œuvre exposée, exposition"
+  },
+  {
+    num: 120,
+    sentence: "Dorenda Gallery is ___ to announce its group exhibition of nature-inspired works by twenty local artists.",
+    choices: ["pleased","serious","necessary","important"],
+    correct: 0,
+    full: "Dorenda Gallery is <span class='highlight'>pleased</span> to announce its group exhibition of nature-inspired works by twenty local artists.",
+    type: "Collocation — expression figée",
+    expl: "(A) <em>pleased to announce</em> = ravi(e) d'annoncer. Expression figée très courante dans les communiqués officiels. (B) <em>serious</em>, (C) <em>necessary</em>, (D) <em>important</em> ne se construisent pas avec « to announce » de cette façon idiomatique.",
+    vocab: "pleased to announce = ravi d'annoncer | delighted to announce = synonyme formel | nature-inspired = inspiré de la nature"
+  },
+  {
+    num: 121,
+    sentence: "Many technology companies have expanded to the city's suburbs, but ___ are operating in surrounding rural areas.",
+    choices: ["few","any","another","that"],
+    correct: 0,
+    full: "Many technology companies have expanded to the city's suburbs, but <span class='highlight'>few</span> are operating in surrounding rural areas.",
+    type: "Pronom indéfini quantificateur",
+    expl: "(A) <em>few</em> = peu (de sociétés), nombre limité → contraste avec « many ». (B) <em>any</em> s'emploie dans les phrases négatives/interrogatives ou indique n'importe lequel. (C) <em>another</em> est singulier. (D) <em>that</em> est un relatif ou démonstratif, incompatible ici.",
+    vocab: "few (adj./pron.) = peu de | many (adj.) = beaucoup de | rural = rural | suburban = de banlieue"
+  },
+  {
+    num: 122,
+    sentence: "Conglo Moto plans to open its second assembly ___ in Mexico this September.",
+    choices: ["planting","to plant","planted","plant"],
+    correct: 3,
+    full: "Conglo Moto plans to open its second assembly <span class='highlight'>plant</span> in Mexico this September.",
+    type: "Nom composé — vocabulaire industriel",
+    expl: "(D) <em>assembly plant</em> = usine d'assemblage. Terme technique courant dans l'industrie automobile. (A) <em>planting</em> = action de planter (gérondif/nom verbal). (B) <em>to plant</em> est un infinitif. (C) <em>planted</em> est un participe passé.",
+    vocab: "assembly plant = usine d'assemblage | manufacturing facility = installation de fabrication | plant (n.) = usine"
+  },
+  {
+    num: 123,
+    sentence: "It is easy to create a persuasive sales presentation ___ using a template from the Anew software package.",
+    choices: ["your","yourself","you","yours"],
+    correct: 1,
+    full: "It is easy to create a persuasive sales presentation <span class='highlight'>yourself</span> using a template from the Anew software package.",
+    type: "Pronom réfléchi emphatique",
+    expl: "(B) <em>yourself</em> est le pronom réfléchi/emphatique de la 2e personne : « vous-même », sans l'aide de personne. Il renforce le sens d'autonomie. (A) <em>your</em> est un déterminant possessif. (C) <em>you</em> est le pronom sujet ou COD. (D) <em>yours</em> est le pronom possessif autonome (sans nom).",
+    vocab: "yourself (pron.) = toi-même, vous-même | on your own = par vos propres moyens (équivalent)"
+  },
+  {
+    num: 124,
+    sentence: "We will now use an online form to book conference rooms, ___ paper schedules were frequently misplaced.",
+    choices: ["although","after all","together with","since"],
+    correct: 3,
+    full: "We will now use an online form to book conference rooms, <span class='highlight'>since</span> paper schedules were frequently misplaced.",
+    type: "Conjonction causale",
+    expl: "(D) <em>since</em> = puisque, étant donné que (cause). La raison du changement est que les plannings papier étaient perdus. (A) <em>although</em> = bien que (concession, sens opposé). (B) <em>after all</em> = après tout (adverbe de concession). (C) <em>together with</em> = ainsi que (préposition).",
+    vocab: "since (conj.) = puisque, étant donné que | misplace = égarer | frequently = fréquemment"
+  },
+  {
+    num: 125,
+    sentence: "Zoning changes have made the eastern district of the city more ___ to pedestrians.",
+    choices: ["situated","reliable","eligible","accessible"],
+    correct: 3,
+    full: "Zoning changes have made the eastern district of the city more <span class='highlight'>accessible</span> to pedestrians.",
+    type: "Vocabulaire — adjectif",
+    expl: "(D) <em>accessible to</em> = accessible à. Les changements de zonage facilitent l'accès des piétons. (A) <em>situated</em> = situé (ne s'emploie pas avec « to pedestrians »). (B) <em>reliable</em> = fiable. (C) <em>eligible to</em> = éligible à (sens légal/administratif, pas physique).",
+    vocab: "accessible (adj.) = accessible | zoning = zonage urbain | pedestrian = piéton"
+  },
+  {
+    num: 126,
+    sentence: "Hogue Energy ___ bid to be named the chief sponsor of the Darla Arts Fest, a role it had sought for years.",
+    choices: ["successfully","brightly","restfully","potentially"],
+    correct: 0,
+    full: "Hogue Energy <span class='highlight'>successfully</span> bid to be named the chief sponsor of the Darla Arts Fest, a role it had sought for years.",
+    type: "Vocabulaire — adverbe",
+    expl: "(A) <em>successfully</em> = avec succès. L'entreprise « avait cherché ce rôle pendant des années » → elle a finalement réussi. (B) <em>brightly</em> = brillamment (sens physique ou figuré mais non pertinent). (C) <em>restfully</em> = paisiblement. (D) <em>potentially</em> = potentiellement (incertitude, incompatible avec le contexte réussi).",
+    vocab: "to bid = soumissionner, faire une offre | sponsor = parrain, commanditaire | sought = past de seek (chercher)"
+  },
+  {
+    num: 127,
+    sentence: "If funding is approved, Ms. Preston will be looking for ___ else to join the new project team.",
+    choices: ["those","others","something","somebody"],
+    correct: 3,
+    full: "If funding is approved, Ms. Preston will be looking for <span class='highlight'>somebody</span> else to join the new project team.",
+    type: "Pronom indéfini — personne",
+    expl: "(D) <em>somebody else</em> = quelqu'un d'autre. On cherche une personne pour rejoindre l'équipe. (A) <em>those</em> = ceux, celles (démonstratif pluriel). (B) <em>others</em> peut fonctionner mais « others else » n'est pas idiomatique — on ne dit pas « others else ». (C) <em>something</em> = quelque chose (non-humain).",
+    vocab: "somebody else = quelqu'un d'autre | anyone else = quiconque d'autre | funding = financement"
+  },
+  {
+    num: 128,
+    sentence: "The data in this report is confidential and should not be ___ to anyone.",
+    choices: ["revealed","pretended","managed","protected"],
+    correct: 0,
+    full: "The data in this report is confidential and should not be <span class='highlight'>revealed</span> to anyone.",
+    type: "Vocabulaire — verbe passif",
+    expl: "(A) <em>revealed to</em> = divulguée à. Passif de « reveal » : les données confidentielles ne doivent pas être divulguées. (B) <em>pretended</em> = prétendu (sens différent). (C) <em>managed</em> = géré (positif, pas de sens de divulgation). (D) <em>protected</em> est le contraire souhaité : la donnée DOIT être protégée, mais grammaticalement « should not be protected » est absurde ici.",
+    vocab: "to reveal = révéler, divulguer | confidential = confidentiel | disclosed = synonym formel de revealed"
+  },
+  {
+    num: 129,
+    sentence: "The Sheerney Hotel is popular with tourists due to its ___ to various entertainment venues.",
+    choices: ["relationship","reach","similarity","proximity"],
+    correct: 3,
+    full: "The Sheerney Hotel is popular with tourists due to its <span class='highlight'>proximity</span> to various entertainment venues.",
+    type: "Collocation — nom",
+    expl: "(D) <em>proximity to</em> = proximité de. L'hôtel est populaire parce qu'il est proche des lieux de divertissement. (A) <em>relationship to</em> = relation avec (abstrait). (B) <em>reach</em> = portée (ne collocode pas avec « to venues »). (C) <em>similarity to</em> = ressemblance avec (sens différent).",
+    vocab: "proximity (n.) = proximité | in close proximity to = à proximité de | venue = lieu (de spectacle, d'événement)"
+  },
+  {
+    num: 130,
+    sentence: "The recent release of the third-quarter sales report ___ what the sales manager already suspected.",
+    choices: ["reinforce","was reinforced","has reinforced","are reinforcing"],
+    correct: 2,
+    full: "The recent release of the third-quarter sales report <span class='highlight'>has reinforced</span> what the sales manager already suspected.",
+    type: "Temps verbal — present perfect",
+    expl: "(C) <em>has reinforced</em> est le present perfect singulier, accordé avec le sujet « The recent release » (singulier). L'adjectif « recent » et le contexte d'un rapport qui vient de paraître impliquent un lien avec le présent → present perfect. (A) <em>reinforce</em> = présent simple pluriel (désaccord). (B) <em>was reinforced</em> = voix passive. (D) <em>are reinforcing</em> = forme progressive plurielle (désaccord).",
+    vocab: "to reinforce = renforcer, confirmer | quarterly = trimestriel | suspect (v.) = soupçonner, supposer"
+  }
+];
+const Q6_TEXTS = [
+  {
+    title: "Advertisement — Nistcom Communications",
+    questions: "Q131–134",
+    passage_template: `Become a better leader today by <b class="blank-num" id="bn-131">(131)</b> up for one of the many management seminars offered by Nistcom Communications. Taught by international and national business leaders, our seminars cover <b class="blank-num" id="bn-132">(132)</b> ranging from performance management to team development. <b class="blank-num" id="bn-133">(133)</b>. They include interactive activities designed to inspire and engage participants in the fundamental aspects of management. <b class="blank-num" id="bn-134">(134)</b>, participants gain unlimited access to online training modules after completing their first seminar with us.`,
+    qs: [
+      {
+        num: 131,
+        choices: ["signed","sign","signs","signing"],
+        correct: 3,
+        context_with_answer: `Become a better leader today by <span class='highlight'>signing</span> up for one of the many management seminars…`,
+        type: "Gérondif après préposition",
+        expl: "Après la préposition <em>by</em>, on emploie obligatoirement la forme en <em>-ing</em> (gérondif). (D) <em>signing</em> est donc correct. (A) <em>signed</em> est un participe passé. (B) <em>sign</em> est l'infinitif nu. (C) <em>signs</em> est la 3e personne du singulier.",
+        vocab: "to sign up = s'inscrire | by + V-ing = en faisant qqch | seminar = séminaire"
+      },
+      {
+        num: 132,
+        choices: ["facts","topics","costs","errors"],
+        correct: 1,
+        context_with_answer: `…our seminars cover <span class='highlight'>topics</span> ranging from performance management to team development.`,
+        type: "Vocabulaire — cohérence textuelle",
+        expl: "(B) <em>topics</em> = thèmes, sujets abordés. C'est le seul mot qui s'accorde avec « ranging from … to » (qui décrit l'étendue des contenus). (A) <em>facts</em> = faits (trop précis). (C) <em>costs</em> = coûts (hors sujet). (D) <em>errors</em> = erreurs (sens négatif, incohérent).",
+        vocab: "topic (n.) = thème, sujet | ranging from ... to = allant de ... à | performance management = gestion de la performance"
+      },
+      {
+        num: 133,
+        choices: [
+          "All seminars can be attended either online or in person.",
+          "Our part-time instructors receive excellent benefits.",
+          "Participants should register early to avoid late fees.",
+          "Nistcom Communications was founded ten years ago."
+        ],
+        correct: 0,
+        context_with_answer: `…team development. <span class='highlight'>All seminars can be attended either online or in person.</span> They include interactive activities…`,
+        type: "Insertion de phrase — cohérence logique",
+        expl: "La phrase insérée doit introduire les séminaires (format) avant de décrire leur contenu (« They include… »). (A) décrit la modalité de participation (en ligne ou présentiel), ce qui est naturel avant de décrire le contenu pédagogique. (B) parle des formateurs : hors-sujet ici. (C) parle des frais d'inscription : hors contexte dans un enchaînement logique. (D) donne la date de fondation : information isolée.",
+        vocab: "either ... or = soit ... soit | in person = en présentiel | online = en ligne"
+      },
+      {
+        num: 134,
+        choices: ["Instead","Similarly","Additionally","Therefore"],
+        correct: 2,
+        context_with_answer: `<span class='highlight'>Additionally</span>, participants gain unlimited access to online training modules after completing their first seminar with us.`,
+        type: "Connecteur d'addition",
+        expl: "(C) <em>Additionally</em> = de plus, en outre. On ajoute un avantage supplémentaire (accès aux modules en ligne). (A) <em>Instead</em> = au lieu de cela (contraste). (B) <em>Similarly</em> = de même (comparaison). (D) <em>Therefore</em> = par conséquent (cause à effet, pas pertinent ici).",
+        vocab: "additionally = de plus, en outre | furthermore = synonyme formel | moreover = synonyme formel"
+      }
+    ]
+  },
+  {
+    title: "Notice — Lewis Camping Suppliers",
+    questions: "Q135–138",
+    passage_template: `Come visit Lewis Camping Suppliers at the Northeast Outsiders Show in Burlington, Vermont, from May 20 to May 22. Whether you are an <b class="blank-num" id="bn-135">(135)</b> outdoors enthusiast or a beginning hiker, let us help. We can prepare you for your next <b class="blank-num" id="bn-136">(136)</b>. Lewis Camping Suppliers sells everything from tents and sleeping bags to small essentials like compasses and flashlights. <b class="blank-num" id="bn-137">(137)</b>. Stop by our booth any day between 9:00 A.M. and 5:00 P.M. The first twenty visitors each day <b class="blank-num" id="bn-138">(138)</b> a free insulated mug.`,
+    qs: [
+      {
+        num: 135,
+        choices: ["experienced","experiencing","experiences","experience"],
+        correct: 0,
+        context_with_answer: `Whether you are an <span class='highlight'>experienced</span> outdoors enthusiast or a beginning hiker…`,
+        type: "Adjectif épithète",
+        expl: "(A) <em>experienced</em> = expérimenté, chevronné. Adjectif qualifiant « outdoors enthusiast ». Le contraste avec « beginning hiker » (débutant) confirme que l'on cherche l'antonyme. (B) <em>experiencing</em> est un participe présent (verbe ou adjectif verbal, pas idiomatique ici). (C) <em>experiences</em> et (D) <em>experience</em> sont des noms.",
+        vocab: "experienced (adj.) = expérimenté | beginner = débutant | outdoors enthusiast = passionné de plein air"
+      },
+      {
+        num: 136,
+        choices: ["appointment","inspection","interview","adventure"],
+        correct: 3,
+        context_with_answer: `We can prepare you for your next <span class='highlight'>adventure</span>.`,
+        type: "Vocabulaire — cohérence thématique",
+        expl: "(D) <em>adventure</em> = aventure. Le contexte est une foire de plein air, randonnée, camping. « Prepare for your next adventure » est l'expression naturelle. (A) <em>appointment</em> = rendez-vous (professionnel/médical). (B) <em>inspection</em> = inspection. (C) <em>interview</em> = entretien.",
+        vocab: "adventure (n.) = aventure | outdoor activities = activités de plein air | prepare for = se préparer à"
+      },
+      {
+        num: 137,
+        choices: [
+          "On the other hand, we need to order more camping stoves.",
+          "We also have experts on hand to give you advice.",
+          "Our booth was moved to a better location this year.",
+          "In fact, the sale on our flashlights just ended."
+        ],
+        correct: 1,
+        context_with_answer: `Lewis Camping Suppliers sells everything from tents… <span class='highlight'>We also have experts on hand to give you advice.</span> Stop by our booth…`,
+        type: "Insertion de phrase — cohérence logique",
+        expl: "Après avoir listé les produits vendus, (B) ajoute un service complémentaire (experts disponibles). C'est une progression logique : produits → conseils. (A) est une note interne hors-sujet. (C) parle de l'emplacement du stand (détail logistique). (D) contredit le positif du texte.",
+        vocab: "on hand = disponible, sur place | expert = spécialiste | advice = conseil (indénombrable)"
+      },
+      {
+        num: 138,
+        choices: ["will receive","received","to receive","have received"],
+        correct: 0,
+        context_with_answer: `The first twenty visitors each day <span class='highlight'>will receive</span> a free insulated mug.`,
+        type: "Temps verbal — futur",
+        expl: "(A) <em>will receive</em> = futur simple. L'événement est futur (May 20–22) et la phrase décrit une offre promotionnelle à venir. (B) <em>received</em> = prétérit (passé). (C) <em>to receive</em> = infinitif (sans auxiliaire, ne forme pas un prédicat). (D) <em>have received</em> = present perfect (exprime une action passée liée au présent).",
+        vocab: "will receive = recevra | insulated mug = tasse isotherme | promotional offer = offre promotionnelle"
+      }
+    ]
+  },
+  {
+    title: "E-mail — Antlia Electronics Study",
+    questions: "Q139–142",
+    passage_template: `As I mentioned to you during our last meeting, in March the management of Antlia Electronics conducted a <b class="blank-num" id="bn-139">(139)</b> study concerning the effectiveness of our promotional methods. We selected eight of our stores, all of <b class="blank-num" id="bn-140">(140)</b> offered a fifteen percent discount on selected items. However, in four stores, customers had to redeem a rebate coupon before they were eligible for the discount. In the other stores, customers automatically qualified for the discount. <b class="blank-num" id="bn-141">(141)</b>. We found that sales were significantly higher in the first group of stores than in the second. These <b class="blank-num" id="bn-142">(142)</b> will be presented in more detail at the May 10 meeting. At that time, we will discuss how to apply what we have learned to Antlia Electronics' sales strategy for the second half of the year.`,
+    qs: [
+      {
+        num: 139,
+        choices: ["comprehensive","comprehend","comprehending","comprehension"],
+        correct: 0,
+        context_with_answer: `…conducted a <span class='highlight'>comprehensive</span> study concerning the effectiveness…`,
+        type: "Classe grammaticale — adjectif",
+        expl: "(A) <em>comprehensive</em> = complet, approfondi. Adjectif épithète devant « study ». (B) <em>comprehend</em> = comprendre (verbe). (C) <em>comprehending</em> = participe présent/gérondif. (D) <em>comprehension</em> = compréhension (nom). Seul un adjectif peut qualifier directement un nom.",
+        vocab: "comprehensive (adj.) = complet, approfondi | study = étude | promotional methods = méthodes promotionnelles"
+      },
+      {
+        num: 140,
+        choices: ["they","that","whose","which"],
+        correct: 3,
+        context_with_answer: `We selected eight of our stores, all of <span class='highlight'>which</span> offered a fifteen percent discount…`,
+        type: "Pronom relatif — which",
+        expl: "(D) <em>which</em> est le pronom relatif correct dans la structure « all of which » (antécédent : « stores »). Cette structure est formelle et très courante en TOEIC. (A) <em>they</em> = pronom personnel (crée une phrase incorrecte). (B) <em>that</em> ne peut pas suivre une préposition (« of »). (C) <em>whose</em> exprime la possession.",
+        vocab: "all of which = dont tous | relative clause = proposition relative | antecedent = antécédent"
+      },
+      {
+        num: 141,
+        choices: [
+          "In other words, no voucher was required.",
+          "A new Antlia store opened in late March.",
+          "Several products were also available online.",
+          "Instead, we decided to lower prices."
+        ],
+        correct: 0,
+        context_with_answer: `In the other stores, customers automatically qualified for the discount. <span class='highlight'>In other words, no voucher was required.</span> We found that sales were significantly higher…`,
+        type: "Insertion de phrase — reformulation",
+        expl: "La phrase précédente décrit les magasins où la remise est automatique (sans coupon). (A) reformule cette information : « en d'autres termes, aucun bon de réduction n'était requis ». C'est une clarification logique. (B) est hors-sujet. (C) parle de vente en ligne, non pertinent. (D) contredit l'étude (ils n'ont pas décidé de baisser les prix).",
+        vocab: "in other words = en d'autres termes | voucher = bon de réduction, coupon | required = requis"
+      },
+      {
+        num: 142,
+        choices: ["lists","results","opportunities","recommendations"],
+        correct: 1,
+        context_with_answer: `These <span class='highlight'>results</span> will be presented in more detail at the May 10 meeting.`,
+        type: "Vocabulaire — cohérence textuelle",
+        expl: "(B) <em>results</em> = résultats. L'e-mail décrit les résultats d'une étude comparative → « These results will be presented ». (A) <em>lists</em> = listes (trop générique). (C) <em>opportunities</em> = opportunités (non mentionnées). (D) <em>recommendations</em> = recommandations (pas encore formulées).",
+        vocab: "results (n.) = résultats | findings = conclusions (synonyme) | present = présenter"
+      }
+    ]
+  },
+  {
+    title: "Job Notice — Granholm Research",
+    questions: "Q143–146",
+    passage_template: `The Communications Department at Granholm Research is seeking a Web Applications Developer. This is a full-time position with ten paid vacation days per year. Other <b class="blank-num" id="bn-143">(143)</b> include bonuses and annual pay raises. <b class="blank-num" id="bn-144">(144)</b> the Director of Communication's leadership, the successful applicant will be responsible for assisting with online marketing and communications. <b class="blank-num" id="bn-145">(145)</b>. The developer may be asked to complete other tasks based on the priorities of Granholm Research.<br><br>Requirements include a university degree in a relevant field and four years of increasing responsibility in designing Web pages and working with <b class="blank-num" id="bn-146">(146)</b> programming languages. Apply at www.granholmresearch.com/position4398.`,
+    qs: [
+      {
+        num: 143,
+        choices: ["expenses","strategies","benefits","views"],
+        correct: 2,
+        context_with_answer: `Other <span class='highlight'>benefits</span> include bonuses and annual pay raises.`,
+        type: "Vocabulaire — emploi et avantages",
+        expl: "(C) <em>benefits</em> = avantages (salariaux). Les primes et augmentations annuelles sont des « employee benefits ». (A) <em>expenses</em> = dépenses (sens contraire). (B) <em>strategies</em> = stratégies (hors contexte). (D) <em>views</em> = opinions/vues.",
+        vocab: "benefits (n.) = avantages (emploi) | bonus = prime | pay raise = augmentation de salaire"
+      },
+      {
+        num: 144,
+        choices: ["Within","Under","Down","Around"],
+        correct: 1,
+        context_with_answer: `<span class='highlight'>Under</span> the Director of Communication's leadership, the successful applicant will be responsible for…`,
+        type: "Préposition — hiérarchie",
+        expl: "(B) <em>Under</em> + leadership = sous la direction de. Expression figée en anglais professionnel. (A) <em>Within</em> = à l'intérieur de (espace/délai). (C) <em>Down</em> ne s'emploie pas avec « leadership ». (D) <em>Around</em> = autour de.",
+        vocab: "under someone's leadership = sous la direction de | responsible for = chargé de | applicant = candidat"
+      },
+      {
+        num: 145,
+        choices: [
+          "The person hired will also manage the company Web site.",
+          "If you are interested in the position, please call 555-0123.",
+          "Please run this notice for two full weeks in your newspaper.",
+          "Other open positions in the company include management and support staff."
+        ],
+        correct: 0,
+        context_with_answer: `…responsible for assisting with online marketing and communications. <span class='highlight'>The person hired will also manage the company Web site.</span> The developer may be asked to complete other tasks…`,
+        type: "Insertion de phrase — cohérence des responsabilités",
+        expl: "Le paragraphe décrit les responsabilités du poste. (A) ajoute une responsabilité supplémentaire (gestion du site web), cohérente avec un développeur d'applications web. (B) serait une invitation à postuler — prématurée ici. (C) s'adresse à un journal, non au candidat. (D) est hors sujet (autres postes).",
+        vocab: "manage = gérer | company Web site = site de l'entreprise | responsibilities = responsabilités"
+      },
+      {
+        num: 146,
+        choices: ["relate","relates","related","relating"],
+        correct: 2,
+        context_with_answer: `…working with <span class='highlight'>related</span> programming languages.`,
+        type: "Adjectif épithète — participe passé",
+        expl: "(C) <em>related</em> = connexes, apparentés. Le participe passé de « relate » fonctionne comme adjectif : « related programming languages » = langages de programmation connexes/appropriés. (A) <em>relate</em> = verbe infinitif. (B) <em>relates</em> = 3e pers. sing. (D) <em>relating</em> = participe présent (moins idiomatique dans ce sens).",
+        vocab: "related (adj.) = connexe, apparenté | programming language = langage de programmation | relevant = pertinent (synonyme possible)"
+      }
+    ]
+  }
+];
+const Q7_PASSAGES = [
+  {
+    type:"single",
+    docType:"Text Message Chain",
+    passage:`<div class="chat-msg"><span class="chat-name">Julie Marin</span><span class="chat-time">(8:09 A.M.)</span> Ichiro, I'm having trouble opening the presentation file that I saved to my flash drive. Can you help?</div>
+<div class="chat-msg"><span class="chat-name">Ichiro Kudo</span><span class="chat-time">(8:12 A.M.)</span> Sure, what do you need?</div>
+<div class="chat-msg"><span class="chat-name">Julie Marin</span><span class="chat-time">(8:15 A.M.)</span> I think the file got corrupted. Could you find it on the shared drive and e-mail it to me? It's the file called "Quarter Results," and it's in the March Sales folder. I'd like to have it before leaving my hotel room if possible.</div>
+<div class="chat-msg"><span class="chat-name">Ichiro Kudo</span><span class="chat-time">(8:17 A.M.)</span> Well, I'm on a bus and won't be at the office until 9:00. Is that too late?</div>
+<div class="chat-msg"><span class="chat-name">Julie Marin</span><span class="chat-time">(8:19 A.M.)</span> There's another session in the room before mine. I can't start setting up until about 10:15 anyway. So that should be fine.</div>
+<div class="chat-msg"><span class="chat-name">Ichiro Kudo</span><span class="chat-time">(8:20 A.M.)</span> OK. I'll take care of it.</div>`,
+    qs:[
+      {num:147,text:"What does Ms. Marin want Mr. Kudo to do?",choices:["Attend a session","E-mail a presentation","Reserve a hotel room","Make changes to a file"],correct:1,
+       expl:"Ms. Marin demande : « Could you find it on the shared drive and e-mail it to me? » → elle veut qu'il lui envoie le fichier de présentation par e-mail. (A) assister = non mentionné pour Kudo. (C) hôtel = non. (D) modifications = non.",
+       type:"Question sur l'action demandée",vocab:"corrupted = corrompu | shared drive = disque partagé | flash drive = clé USB"},
+      {num:148,text:'At 8:19 A.M., what does Ms. Marin most likely mean when she writes, "So that should be fine"?',choices:["She can take the bus.","Her session can begin early.","Mr. Kudo has plenty of time.","The accommodations seem acceptable."],correct:2,
+       expl:"À 8:19, Marin explique qu'une autre session précède la sienne et qu'elle ne peut commencer l'installation qu'à 10h15. Kudo n'arrive au bureau qu'à 9h00 → il a largement le temps d'envoyer le fichier. (A) bus = hors sujet. (B) session early = faux. (D) accommodations = hors sujet.",
+       type:"Sens implicite d'une phrase",vocab:"plenty of time = amplement le temps | accommodate = loger | set up = installer"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Web Page",
+    passage:`<p class="meta">http://www.singaporemediacompany.com.sg</p>
+<p><strong>Why Choose Singapore Media Company?</strong></p>
+<p>Singapore is a fast-paced city. — [1] —. And it's important to get your business noticed. At Singapore Media Company (SMC), we put your advertisements in places where they will be seen.</p>
+<p>Our advertisements appear in taxis, buses, trains, and stations. — [2] —. They get the attention of the people who live and work here: the commuters, the daily shoppers, the businesspeople, and the students.</p>
+<p>SMC works exclusively in Singapore. — [3] —. So we know this market well. We can create advertisements in your language of choice: English, Mandarin, Malay, or Tamil.</p>
+<p>— [4] —. Please contact us at www.singaporemediacompany.com.sg to set up a personal meeting.</p>`,
+    qs:[
+      {num:149,text:"For whom most likely is the Web page written?",choices:["Public transportation users","Customers of local businesses","Company owners","University students"],correct:2,
+       expl:"La page s'adresse aux entreprises qui veulent faire de la publicité (« get your business noticed », « put your advertisements »). Les propriétaires d'entreprise (C) sont les clients cibles. (A)(D) sont des audiences des publicités, pas de la page.",
+       type:"Question sur le lectorat cible",vocab:"target audience = audience cible | advertisement = publicité | commuter = navetteur"},
+      {num:150,text:"What is indicated about SMC?",choices:["It creates materials in any language.","It places advertisements worldwide.","It arranges online consultations.","It puts advertisements on public transport vehicles."],correct:3,
+       expl:"« Our advertisements appear in taxis, buses, trains, and stations » → présence dans les transports en commun (D). (A) faux : seulement 4 langues. (B) faux : exclusivement à Singapour. (C) faux : réunion personnelle proposée.",
+       type:"Question de détail / information explicite",vocab:"public transport = transports en commun | exclusively = exclusivement | consult = consulter"},
+      {num:151,text:'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "We can help you create an individualized plan."',choices:["[1]","[2]","[3]","[4]"],correct:3,
+       expl:"En position [4], avant l'invitation à prendre contact, « We can help you create an individualized plan » sert de transition naturelle vers l'appel à l'action (contact pour une réunion personnelle). Les positions [1][2][3] sont en milieu de paragraphe descriptif.",
+       type:"Insertion de phrase — cohérence logique",vocab:"individualized = personnalisé | plan = plan, stratégie | position = emplacement dans le texte"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Schedule",
+    passage:`<p><strong>Northwoods School of Rock Music — Daily Course Schedule: Wednesdays</strong></p>
+<table>
+<tr><th>Time</th><th>Burton Reid</th><th>Diane Garcia</th><th>Paul Ngono</th><th>Noelle Arcand</th></tr>
+<tr><td>10–11 A.M.</td><td>Introduction to guitar chords</td><td>Beginning songwriting</td><td></td><td></td></tr>
+<tr><td>11 A.M.–12 noon</td><td></td><td>Advanced songwriting</td><td></td><td></td></tr>
+<tr><td>12 noon–1 P.M.</td><td>Improvising with melody (guitar)</td><td></td><td>Choosing the best wood for a guitar</td><td>Fixing a cracked guitar body</td></tr>
+<tr><td>1–2 P.M.</td><td></td><td>Writing music for commercials</td><td></td><td></td></tr>
+<tr><td>2–3 P.M.</td><td>Advanced rhythm piano</td><td></td><td></td><td>Straightening a guitar neck</td></tr>
+<tr><td>3–4 P.M.</td><td></td><td></td><td>Shaping a guitar body</td><td></td></tr>
+<tr><td>4–5 P.M.</td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p style="font-size:.82rem;margin-top:8px;color:var(--muted)">Reserve your spot up to four weeks in advance by calling 705-555-0191. Reservations must be received no later than one week before the start of classes. Cancellations must be received at least two full days in advance for complete refund.</p>`,
+    qs:[
+      {num:152,text:"What does Ms. Garcia teach?",choices:["Music performance","Music composition","Guitar construction","Songwriting"],correct:1,
+       expl:"Garcia enseigne : Beginning songwriting, Advanced songwriting, Writing music for commercials. Les trois cours relèvent de la composition musicale (B). (D) Songwriting seul n'englobe pas « Writing music for commercials ». (A)(C) ne correspondent pas.",
+       type:"Question de détail — emploi du temps",vocab:"composition = composition | songwriting = écriture de chansons | commercials = spots publicitaires"},
+      {num:153,text:"When does Ms. Arcand finish her second class?",choices:["At 1:00 P.M.","At 2:00 P.M.","At 3:00 P.M.","At 4:00 P.M."],correct:2,
+       expl:"Arcand enseigne : 1er cours = Fixing a cracked guitar body (12–1 P.M.), 2e cours = Straightening a guitar neck (2–3 P.M.). Son deuxième cours se termine à 15h00 (C).",
+       type:"Question de détail — emploi du temps",vocab:"cracked = fissuré | straightening = redresser | neck = manche (de guitare)"},
+      {num:154,text:"How much advance notice must a student give when booking a class?",choices:["More than four weeks","At least one week","Two full days","Only one day"],correct:1,
+       expl:"« Reservations must be received no later than one week before the start of classes » → au moins une semaine à l'avance (B). « Up to four weeks » = délai maximum pour réserver, non minimum. « Two full days » = délai pour annulation.",
+       type:"Question de détail — réglementation",vocab:"advance notice = préavis | reservation = réservation | cancellation = annulation | refund = remboursement"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"E-mail",
+    passage:`<p class="meta">From: Agnieszka Sklodowska · To: Healthy Treats Marketing Staff · Date: February 26 · Subject: Working dinner</p>
+<p>Dear Marketing Colleagues,</p>
+<p>Please join me for an evening of brainstorming on Monday, March 5, at 7 P.M. The event will take place in the large conference room and will last about three hours. A gourmet dinner will be provided as we discuss ideas related to the future launch of our new line of treats. We will be using last year's Kebabs for Athletes campaign as our model.</p>
+<p>Please RSVP to James Cole in Human Resources by March 2 and indicate any dietary restrictions you may have. Note that Cater At All Times must receive our order three days in advance.</p>
+<p>I look forward to hearing your ideas!<br>Sincerely, Agnieszka Sklodowska, Director of Marketing, Healthy Treats, Inc.</p>`,
+    qs:[
+      {num:155,text:"What is the purpose of the e-mail?",choices:["To welcome a new employee","To invite employees to an event","To reserve a room for a meeting","To offer samples of a new product"],correct:1,
+       expl:"L'e-mail invite le personnel marketing à une soirée de brainstorming (dîner de travail). (B) est la réponse directe. (A)(C)(D) ne correspondent pas à l'objet principal.",
+       type:"Question sur l'objectif du document",vocab:"brainstorming = séance créative | launch = lancement | dietary restrictions = régimes alimentaires"},
+      {num:156,text:"What is suggested about James Cole?",choices:["He will order food from Cater At All Times.","He led the Kebabs for Athletes campaign.","He is Ms. Sklodowska's personal assistant.","He is the director of Human Resources."],correct:0,
+       expl:"Cole reçoit les RSVP avec les restrictions alimentaires → il transmettra la commande au traiteur (Cater At All Times), qui doit recevoir la commande 3 jours à l'avance. (A) est l'inférence logique. (B)(C) non mentionnés. (D) Il travaille dans les RH mais n'est pas dit directeur.",
+       type:"Question d'inférence",vocab:"RSVP = répondez s'il vous plaît | dietary restrictions = régimes | cater = traiteur, restaurateur"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Web Form",
+    passage:`<p class="meta">http://www.drive-emporium.com/vehiclesearch/options.htm</p>
+<p><strong>VEHICLE OPTIONS FORM</strong></p>
+<p>Select from the list below to see all available vehicles with your desired features. The search will return only vehicles that match <em>all</em> options selected. If your search does not produce enough vehicles to choose from, you can select fewer options and rerun the search. To see inventory from more dealerships, extend the search area.</p>
+<p>[ ] Four-Wheel Drive &nbsp; [ ] Power Door Locks &nbsp; [ ] Air-Conditioning &nbsp; [ ] Power Steering<br>
+[ ] Power Seats &nbsp; [ ] Remote Starter &nbsp; [ ] Heated Seats &nbsp; [ ] Satellite Radio<br>
+[ ] Navigation System &nbsp; [ ] Chrome Wheels</p>
+<p>Search dealer locations within [10] miles of [Gaineston].</p>`,
+    qs:[
+      {num:157,text:"For whom is the form most likely intended?",choices:["A technician working at an automobile repair shop","A person working at a car manufacturer","A driver operating a work vehicle","A person shopping for an automobile"],correct:3,
+       expl:"Le formulaire permet de rechercher un véhicule selon des options souhaitées → destiné à un acheteur potentiel (D). (A)(B)(C) ne cherchent pas à acheter un véhicule.",
+       type:"Question sur le lectorat cible",vocab:"intended for = destiné à | dealership = concessionnaire | inventory = stock"},
+      {num:158,text:"According to the form, what will a user increase by selecting fewer options?",choices:["The number of vehicles","The accuracy of the results","The number of dealer locations","The availability of specific features"],correct:0,
+       expl:"« If your search does not produce enough vehicles … you can select fewer options » → sélectionner moins d'options augmente le nombre de véhicules trouvés (A). (B)(C)(D) ne sont pas mentionnés.",
+       type:"Question de détail",vocab:"fewer = moins de | options = critères | produce = produire, retourner (résultats)"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Advertisement",
+    passage:`<p><strong>Pressler and Associates — "It's a better fit for everyone!"</strong></p>
+<p>We moved only a couple of kilometres from our former location, but when you visit our new showroom, you will find a completely different experience. We have expanded to better serve you!</p>
+<p>With more space, we expanded our collection of eyeglasses to offer even more of the latest styles for men, women, and children. We hired more sales staff and on-site technicians, so we can provide you with the best service in the business.</p>
+<p>Come visit us in the Woodmere Plaza. We are located between Taylor's Groceries and the Sunshine Coffee Café, and just a few minutes away from Shraton University.</p>
+<p class="meta">430 Bailey Street, Sydney NSW 2000 – Phone: +61 2 7110-9999</p>`,
+    qs:[
+      {num:159,text:"What is a purpose of the advertisement?",choices:["To promote a new product","To give details about an event","To explain a policy change","To announce a location change"],correct:3,
+       expl:"L'annonce explique que le magasin a déménagé (« We moved … from our former location ») → annonce un changement de lieu (D). (A)(B)(C) ne correspondent pas à l'objectif principal.",
+       type:"Question sur l'objectif du document",vocab:"showroom = salle d'exposition | former = ancien | expand = agrandir, développer"},
+      {num:160,text:"What is indicated about Pressler and Associates?",choices:["It will close for one week.","It sells coffee and other beverages.","It hired new employees.","It offers discounts to students."],correct:2,
+       expl:"« We hired more sales staff and on-site technicians » → l'entreprise a recruté de nouveaux employés (C). (A)(B)(D) ne sont pas mentionnés.",
+       type:"Question de détail",vocab:"hire = embaucher | technician = technicien | on-site = sur place"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Online Chat Discussion",
+    passage:`<div class="chat-msg"><span class="chat-name">John Doss</span><span class="chat-time">(8:07 A.M.)</span> Hi, Bethany. Greetings from the San Francisco office. Things are going well here since the promotion, although I'm still getting used to the bus system. I wanted to let you know that I've completed the online training modules about our updated marketing strategy.</div>
+<div class="chat-msg"><span class="chat-name">Bethany Wirth</span><span class="chat-time">(8:08 A.M.)</span> Hi John, thanks for letting me know. Are you available for a conference call on Thursday to discuss your thoughts?</div>
+<div class="chat-msg"><span class="chat-name">John Doss</span><span class="chat-time">(8:09 A.M.)</span> Sure. What time were you thinking?</div>
+<div class="chat-msg"><span class="chat-name">Bethany Wirth</span><span class="chat-time">(8:10 A.M.)</span> How about 2 P.M. New York time? I'm meeting a client for lunch at 12 noon and our director of regional sales at 3, but I could fit you in at 2.</div>
+<div class="chat-msg"><span class="chat-name">John Doss</span><span class="chat-time">(8:11 A.M.)</span> That's 11 A.M. for me. That works.</div>
+<div class="chat-msg"><span class="chat-name">Bethany Wirth</span><span class="chat-time">(8:12 A.M.)</span> Great! Jayla, can you join us on that call? She'll be taking over for me while I'm in Mexico next month. I've included her in this group chat.</div>
+<div class="chat-msg"><span class="chat-name">Jayla Mason</span><span class="chat-time">(8:13 A.M.)</span> Hi. Unfortunately, I have a conflict at that time. Bethany, how about you fill me in afterward? Perhaps on Friday when we're both in the office?</div>
+<div class="chat-msg"><span class="chat-name">Bethany Wirth</span><span class="chat-time">(8:14 A.M.)</span> OK, Jayla.</div>
+<div class="chat-msg"><span class="chat-name">Jayla Mason</span><span class="chat-time">(8:15 A.M.)</span> Thanks. John, it was great meeting you at the corporate retreat two weekends ago. Best of luck in San Francisco. I look forward to working with you by phone or online chat.</div>`,
+    qs:[
+      {num:161,text:"What is true about the writers?",choices:["They work in different departments.","They have never met in person.","They are all new to the company.","They do not all work in the same city."],correct:3,
+       expl:"Doss est à San Francisco, Wirth et Mason apparemment à New York → ils ne travaillent pas tous dans la même ville (D). (A) non précisé. (B) faux : Mason et Doss se sont rencontrés lors d'un corporate retreat. (C) faux.",
+       type:"Question d'inférence multi-information",vocab:"corporate retreat = séminaire d'entreprise | promotion = promotion professionnelle"},
+      {num:162,text:"What is implied about Mr. Doss?",choices:["He has updated the company's marketing strategy.","He recently moved to San Francisco.","He commutes to work by car.","He has created an online training module."],correct:1,
+       expl:"Doss dit « Greetings from the San Francisco office » et « I'm still getting used to the bus system » → il vient de s'installer à San Francisco (B). (A) faux : il a suivi les modules, pas mis à jour la stratégie. (C) faux : il prend le bus. (D) faux.",
+       type:"Question d'inférence",vocab:"commute = faire la navette | imply = sous-entendre | get used to = s'habituer à"},
+      {num:163,text:'At 8:11 A.M., what does Mr. Doss most likely mean when he writes, "That works"?',choices:["A meeting will require preparation.","Ms. Wirth's client should enjoy a lunch.","A proposed time fits into his schedule.","Ms. Mason is on a team that he leads."],correct:2,
+       expl:"Wirth propose 14h NY = 11h SF. Doss répond « That's 11 A.M. for me. That works. » → le créneau proposé convient à son agenda (C).",
+       type:"Sens implicite d'une phrase",vocab:"proposed time = horaire proposé | schedule = emploi du temps | fit in = s'insérer dans"},
+      {num:164,text:"What is indicated about Ms. Mason?",choices:["She does not usually work on Friday.","She is looking forward to her Mexico trip.","She will attend a corporate retreat.","She will be unable to join a call."],correct:3,
+       expl:"Mason dit : « Unfortunately, I have a conflict at that time » → elle ne peut pas rejoindre l'appel (D). (A) non indiqué. (B) c'est Wirth qui va au Mexique. (C) le retreat est passé.",
+       type:"Question de détail",vocab:"conflict = empêchement, conflit d'agenda | fill me in = me mettre au courant | take over = prendre la relève"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Letter",
+    passage:`<p class="meta">June 3 · Dawn Alvarez, Manager · Bistrona Catering Hall · Devon, PA</p>
+<p>Dear Ms. Alvarez,</p>
+<p>It was my pleasure to meet with you last week to talk about how Landria Supplies can help with your catering hall's linen needs. As we discussed, we will provide a full line of high-quality tablecloths and cloth napkins. All your restaurant linens will be picked up, expertly laundered, and automatically replaced on a weekly basis. Your fresh shipment will arrive every Monday, as per your request.</p>
+<p>Enclosed with this letter is a preliminary price quote for our services. If you are happy with the quote, I urge you to act quickly. Many of our suppliers are increasing their prices this summer, and the cost of our services will have to be raised as well. I can hold the prices in this quote for only a short time. To lock in the current price, sign the contract available online at www.landriasupplies.com. Enter this code to access your account: 78524.</p>
+<p>Sincerely, Louis Sherman, Owner, Landria Supplies</p>`,
+    qs:[
+      {num:165,text:"What service does Landria Supplies provide?",choices:["Regular replacement of linens","Cleaning of staff uniforms","Meal shipments for catered parties","Rentals of restaurant furniture"],correct:0,
+       expl:"Landria ramasse, lave et remplace automatiquement les linges de table chaque semaine → remplacement régulier du linge (A). (B)(C)(D) non mentionnés.",
+       type:"Question de détail",vocab:"linen = linge de table | launder = laver, blanchir | shipment = livraison"},
+      {num:166,text:'The word "hold" in paragraph 2, line 4, is closest in meaning to',choices:["keep","take","understand","stop"],correct:0,
+       expl:"« I can hold the prices » = maintenir les prix à leur niveau actuel = keep (A). (B) take. (C) understand. (D) stop ne correspond pas à l'usage ici.",
+       type:"Question de vocabulaire en contexte",vocab:"hold (v.) = maintenir, conserver (un prix) | lock in = figer, garantir | quote = devis"},
+      {num:167,text:"What should Ms. Alvarez do if she wants to hire Landria Supplies?",choices:["E-mail the company","Call Mr. Sherman","Request an account code","Go to a Web page"],correct:3,
+       expl:"« sign the contract available online at www.landriasupplies.com » → aller sur le site web (D). Le code est fourni dans la lettre, pas à demander. Ni e-mail ni téléphone ne sont mentionnés.",
+       type:"Question de détail",vocab:"hire = engager, recruter | sign a contract = signer un contrat | access code = code d'accès"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Article",
+    passage:`<p><strong>Annual Event Honours Farmers</strong></p>
+<p>SUNFIELD (15 September) — The twenty-fifth annual Farmers Festival will once again honour local farmers. — [1] —. The event, hosted and subsidised by Tandi Tractor Factory, will take place at Stourbridge Farms in Sunfield. The festivities are set for Saturday, 2 October, from 9 A.M. to 10 P.M., and Sunday, 3 October, from 11 A.M. to 6 P.M. On-site parking will be available for £5 per vehicle.</p>
+<p>In addition to food sales, the festival will feature performances by area music bands, games and crafts for children, and live demonstrations of farm equipment. — [2] —. There will also be a baking competition with gifts for all entrants and monetary prizes for winners. — [3] —. Best of all, the festival is known for its tractor parade on both days, a favorite of adults and children alike.</p>
+<p>"Tandi Tractor Factory is grateful for the hard work of farmers," says Isaac Gladson, company spokesperson. "Each year, we celebrate their contributions to the community and to the world. — [4] —. Admission is free, so we hope the whole community will join us in our fun tribute to farmworkers."</p>`,
+    qs:[
+      {num:168,text:"What is indicated about the Farmers Festival?",choices:["It is held every year.","It will last for a week.","It will have farm supplies for sale.","It offers free parking."],correct:0,
+       expl:"« twenty-fifth annual » = 25e édition annuelle → le festival a lieu chaque année (A). (B) faux : 2 jours. (C) non mentionné. (D) faux : le parking coûte £5.",
+       type:"Question de détail / inférence",vocab:"annual = annuel | subsidised = subventionné | on-site = sur place"},
+      {num:169,text:"What is true about Mr. Gladson?",choices:["He lives in Sunfield.","He won a monetary prize.","He represents a tractor company.","He owns Stourbridge Farms."],correct:2,
+       expl:"Gladson est « company spokesperson » de Tandi Tractor Factory → il représente une entreprise de tracteurs (C). (A)(B)(D) non mentionnés.",
+       type:"Question de détail",vocab:"spokesperson = porte-parole | represent = représenter | monetary prize = prix en argent"},
+      {num:170,text:"What will NOT take place at the festival?",choices:["Live music","Children's games","Tractor parades","Baking lessons"],correct:3,
+       expl:"Il y a une compétition de pâtisserie, NON des cours de pâtisserie (D). Live music (A), children's games (B), tractor parades (C) sont tous mentionnés.",
+       type:"Question négative — NOT",vocab:"baking competition = concours de pâtisserie | tractor parade = défilé de tracteurs | entrant = participant"},
+      {num:171,text:'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "The contest categories include fruit pies, meat pies, and cakes."',choices:["[1]","[2]","[3]","[4]"],correct:2,
+       expl:"La phrase décrit les catégories du concours de pâtisserie. Elle s'insère en [3], juste après l'annonce du concours (« There will also be a baking competition »), pour en préciser les catégories. [4] est dans la citation directe.",
+       type:"Insertion de phrase — cohérence logique",vocab:"contest = concours | category = catégorie | pie = tourte, tarte"}
+    ]
+  },
+  {
+    type:"single",
+    docType:"Letter",
+    passage:`<p class="meta">Lankard Ltd. · Newmarket Industrial Park · 12 April</p>
+<p>Dear Mr. Shaw:</p>
+<p>As a successful businessperson, you know the importance of using creative marketing strategies to get your message out to the public. But what about those times when callers to Shaw Medical Supplies are on hold for a few minutes? Are they just listening to music—or even waiting in silence? Wouldn't this time be better used for sharing with your customers information about your products? With Lankard's help, you could be making the most of that opportunity in as little as three weeks.</p>
+<p>First, a Lankard service specialist will come to your workplace to collect details about your current marketing plan, mission statement, brand identification, etc. Next, our experienced copywriters will craft a personalised script for you. Once approved, the script will be recorded by one of our talented voice actors. In no time, you'll be enjoying highly effective advertising targeted toward a key audience—your current customer base!</p>
+<p>To indicate your interest, just fill out the enclosed information card and drop it in the mail.</p>`,
+    qs:[
+      {num:172,text:"Who is the intended audience for the advertisements created by Lankard Ltd.?",choices:["Listeners to radio stations","People who call in to a business","Visitors to a company's Web site","Patients seated in waiting rooms"],correct:1,
+       expl:"Les publicités sont destinées aux personnes qui appellent l'entreprise et sont mises en attente (B). Le texte porte sur la mise en attente téléphonique (« callers… on hold »).",
+       type:"Question de détail",vocab:"on hold = en attente (téléphonique) | caller = appelant | target audience = audience cible"},
+      {num:173,text:"Why does Ms. Leong mention a period of three weeks?",choices:["To indicate when she can begin an assignment","To remind Mr. Shaw about a deadline","To estimate how long a project will take","To specify when special pricing will end"],correct:2,
+       expl:"« you could be making the most of that opportunity in as little as three weeks » → estimation de la durée du projet (C). Ce n'est pas un délai limite ni une tarification spéciale.",
+       type:"Question de détail",vocab:"estimate = estimer | in as little as = en seulement | assignment = mission"},
+      {num:174,text:"What is the first step in the process mentioned in the letter?",choices:["Voice actors are selected.","A preliminary payment is received.","An advertising proposal is presented.","Information on a company is collected."],correct:3,
+       expl:"« First, a Lankard service specialist will come to your workplace to collect details about your current marketing plan » → collecte d'informations sur l'entreprise (D) est la première étape.",
+       type:"Question de processus",vocab:"mission statement = énoncé de mission | brand identification = identité de marque | copywriter = rédacteur publicitaire"},
+      {num:175,text:"What is included with the letter?",choices:["A brochure","A blank form","A business card","A product sample"],correct:1,
+       expl:"« fill out the enclosed information card » → une carte/formulaire vierge est joint(e) à la lettre (B). (A)(C)(D) non mentionnés.",
+       type:"Question de détail",vocab:"enclosed = ci-joint | fill out = remplir | drop in the mail = glisser dans la boîte aux lettres"}
+    ]
+  },
+  {
+    type:"double",
+    docType:"E-mail + Report",
+    passages:[
+      {label:"E-mail — Markup Sports League",text:`<p class="meta">To: mwalker@klzmail.com · From: cfrancona@markupsl.com · Date: May 2 · Subject: Markup Sports League</p>
+<p>Congratulations on becoming a Markup Sports League softball umpire.</p>
+<p>Although we realize Markup officials like you have already reviewed our handbook, I would like to emphasize a few rules:</p>
+<p>• Rule 1: Officials must not handle payments. Players must submit fees on the Markup Web site.<br>
+• Rule 2: Officials must arrive fifteen minutes before the start time of a game.<br>
+• Rule 3: Officials must not leave until the official for the next game arrives. Overtime will be compensated.<br>
+• Rule 4: Officials must file a summary report on the same day that they work.</p>
+<p>Also, if you or anyone you know would be interested in officiating for our soccer or basketball leagues, we are currently looking for qualified referees.</p>`},
+      {label:"Markup Sports League Summary Report",text:`<table>
+<tr><th>Location</th><th>Sport</th><th>Official</th><th>Game date</th><th>Report filed</th><th>Shift time</th></tr>
+<tr><td>Otter Park / Denway Field</td><td>Softball</td><td>Martin Walker</td><td>May 6</td><td>May 6, 4:30 P.M.</td><td>9:45 A.M.–4:10 P.M.</td></tr>
+</table>
+<table style="margin-top:10px">
+<tr><th>Schedule</th><th>Staffing</th><th>Field/Court Condition</th><th>Notes</th></tr>
+<tr><td>All 3 games started on time at 10:00 A.M., 12:00 P.M., and 2:00 P.M.</td><td>Todd Keyes was not on time for his 4:00 game, but texted to tell me he would be 10 minutes late. I left after he arrived.</td><td>When I arrived, I noticed the softball field was a little muddy from the previous night's rain. I spread some sand to help dry the infield.</td><td>Keilani Jones from the Downtown Tigers attempted to give me a check for her team registration. I directed her to the Web site.</td></tr>
+</table>`}
+    ],
+    qs:[
+      {num:176,text:"What does Ms. Francona assume Mr. Walker has read?",choices:["A Markup Sports League handbook","The Markup Sports League Web site","A summary report from May 2","The weekly game schedule"],correct:0,
+       expl:"« Although we realize Markup officials like you have already reviewed our handbook » → Francona suppose que Walker a lu le règlement/manuel (A).",
+       type:"Question de détail",vocab:"assume = supposer | handbook = manuel, règlement | emphasize = souligner, insister sur"},
+      {num:177,text:"What is indicated about Markup Sports League?",choices:["It accepts players of all ages.","It uses Laurel Park for all of its games.","It runs leagues for a variety of different sports.","It requires a physical exam for its softball umpires."],correct:2,
+       expl:"L'e-mail mentionne softball, soccer et basketball → ligues pour plusieurs sports (C). (A)(B)(D) ne sont pas indiqués.",
+       type:"Question de détail",vocab:"variety = variété | umpire = arbitre (baseball/softball) | referee = arbitre (football, basket)"},
+      {num:178,text:"According to the report, what did Mr. Walker do at 9:45 A.M.?",choices:["Contact Ms. Francona","Inspect the playing field","Collect some equipment","Check the weather report"],correct:1,
+       expl:"La prise de poste de Walker débute à 9:45 A.M. → à cette heure, il a remarqué le terrain boueux et répandu du sable. Il a donc inspecté le terrain (B).",
+       type:"Question de détail — rapport",vocab:"inspect = inspecter | muddy = boueux | infield = champ intérieur (terrain)"},
+      {num:179,text:"Who most likely is Mr. Keyes?",choices:["A park groundskeeper","Mr. Walker's supervisor","A softball player","A softball umpire"],correct:3,
+       expl:"Keyes devait être là pour « his 4:00 game » — Walker attendait que l'officiel suivant arrive (Règle 3). Keyes est donc l'arbitre du match de 16h00 (D).",
+       type:"Question d'inférence",vocab:"groundskeeper = jardinier de terrain | umpire = arbitre | overtime = heures supplémentaires"},
+      {num:180,text:"What rule was most likely explained to Ms. Jones?",choices:["Rule 1","Rule 2","Rule 3","Rule 4"],correct:0,
+       expl:"Jones a essayé de remettre un chèque à Walker. Walker l'a redirigée vers le site web → cela correspond à la Règle 1 : « Officials must not handle payments. Players must submit fees on the Markup Web site. »",
+       type:"Question de croisement documents",vocab:"handle = gérer, traiter | payment = paiement | submit = soumettre"}
+    ]
+  },
+  {
+    type:"double",
+    docType:"Memo + E-mail",
+    passages:[
+      {label:"Memo — GR Systems Security",text:`<p class="meta">From: GR Systems Security · To: All GR Systems Employees · Date: 2 September · Subject: Updated building access policy</p>
+<p><strong>Effective immediately, please follow the revised policy for entering the office building.</strong></p>
+<p>All employees have been issued identification badges, which must be worn throughout the workday. Employees can access the building by touching their badge to the keypad next to the door. They may enter the building no earlier than 8:00 A.M. and are expected to vacate it no later than 9:00 P.M. Temporary employees must turn in their identification badges upon expiration of their contract. Visitors must check in at the security desk and then be signed in by an employee.</p>
+<p>If any exceptions to this policy are needed, please contact the security manager.</p>`},
+      {label:"E-mail — Early Building Access Request",text:`<p class="meta">To: gholden@grsystems.ie · From: bagan@grsystems.ie · Date: 5 October · Subject: Early building access</p>
+<p>Good morning, Ms. Holden.</p>
+<p>Throughout the week of Monday, 12 October, the members of my product development team will need access to the office building at 7:30 A.M. to work on a product presentation. Additionally, on Friday, 16 October, three members of the marketing team, namely Amina Diriye, Siobhan Walsh, and Tim Maher, will need access to the building at 7:30 A.M.</p>
+<p>Also on Friday, executives of Brennan Kelly Technologies, including the company's chief financial officer, Mr. Mark O'Connor, will be arriving at 9:00 A.M. for the product presentation. Please have the security desk clerk on duty contact me when those executives have arrived so that I can sign them in.</p>
+<p>Thank you for your help. Brody Agan, Director, Product Development</p>`}
+    ],
+    qs:[
+      {num:181,text:"What is NOT mentioned as part of the updated employee policy?",choices:["The building is closed to employees after 9:00 P.M.","Identification badges are used to unlock doors.","Lost identification badges are replaced for a fee.","Guests must report to the security desk."],correct:2,
+       expl:"Le remplacement des badges perdus contre paiement (C) n'est pas mentionné dans le mémo. (A)(B)(D) sont tous explicitement indiqués.",
+       type:"Question négative — NOT",vocab:"vacate = quitter | keypad = clavier | identification badge = badge d'identification"},
+      {num:182,text:'In the memo, the word "follow" in paragraph 1, line 1, is closest in meaning to',choices:["obey","chase","go next","let go"],correct:0,
+       expl:"« please follow the revised policy » = respecter, se conformer à la politique révisée = obey (A). (B) chaser. (C) suivre au sens séquentiel. (D) laisser aller.",
+       type:"Question de vocabulaire en contexte",vocab:"follow a policy = respecter/appliquer une politique | obey = obéir, se conformer | comply with = se conformer à"},
+      {num:183,text:"Who most likely is Ms. Holden?",choices:["A security manager","A marketing specialist","A research and development supervisor","A chief financial officer"],correct:0,
+       expl:"Agan lui écrit pour demander des exceptions à la politique d'accès. Le mémo dit : « If any exceptions … are needed, please contact the security manager » → Holden est responsable de sécurité (A).",
+       type:"Question d'inférence croisée",vocab:"exception = dérogation | security manager = responsable de sécurité"},
+      {num:184,text:"What will happen on October 16?",choices:["New security measures will be implemented.","A new employee will begin work.","Business hours will be changed.","A presentation will be made."],correct:3,
+       expl:"Le 16 octobre (vendredi), les équipes arrivent tôt ET des cadres de Brennan Kelly viennent pour une présentation produit → présentation (D). (A)(B)(C) non mentionnés.",
+       type:"Question de détail",vocab:"implement = mettre en place | executive = cadre dirigeant | product presentation = présentation produit"},
+      {num:185,text:"Who will Mr. Agan most likely sign in?",choices:["Ms. Diriye","Ms. Walsh","Mr. Maher","Mr. O'Connor"],correct:3,
+       expl:"Agan demande à être contacté quand les cadres de Brennan Kelly arrivent pour les faire entrer. M. O'Connor (CFO de Brennan Kelly) sera signé par Agan (D). Les 3 membres marketing sont des employés internes (badges).",
+       type:"Question de détail — croisement documents",vocab:"sign in = faire entrer (en signant), enregistrer | CFO = directeur financier"}
+    ]
+  },
+  {
+    type:"triple",
+    docType:"Web Page + Chart + Letter",
+    passages:[
+      {label:"Sustainashoes — Web Page",text:`<p><strong>At Sustainashoes, we do business the right way.</strong></p>
+<p>• We use only renewable and recycled materials to produce shoes that will last.<br>
+• We ensure competitive pay and safe working conditions for our employees.<br>
+• We offer tours of our production facilities for anyone who wishes to visit.</p>
+<p>Our efforts at transparency go beyond those of our competitors:<br>
+• Customers can watch videos that give the unique story behind each product's <strong>materials</strong> and manufacture.<br>
+• We have taken the unprecedented step of disclosing the cost of manufacturing for each item.<br>
+• Learn about the people who make the product. Watch a video of an interview with our employees.</p>`},
+      {label:"Sustainashoes' New Summer Line",text:`<table>
+<tr><th>Style</th><th>Sizes</th><th>Materials</th><th>Retail Price</th></tr>
+<tr><td>Strappy sandals</td><td>Adult</td><td>Leather, reclaimed wood, natural hemp fiber</td><td>$135</td></tr>
+<tr><td>Flip-flops</td><td>Adult, child</td><td>Recycled rubber sole</td><td>$24</td></tr>
+<tr><td>Flats</td><td>Adult, child</td><td>Leather, linen-canvas blend</td><td>$115</td></tr>
+<tr><td>Block sandals</td><td>Adult</td><td>Suede, reclaimed wood</td><td>$145</td></tr>
+</table>`},
+      {label:"Letter from Claire Stauffer",text:`<p>Dear Director of Product Development,</p>
+<p>My name is Claire Stauffer, and I run a company that produces women's beach shoes made from ethically sourced materials. My company is small and new, but I'm eager to see it expand and prosper.</p>
+<p>Our companies could collaborate, as our product lines complement each other. For example, I sell strappy sandals and block sandals for <strong>children</strong>, whereas you produce them only for adults. Furthermore, I produce flip-flops as well, but at costs lower than yours. Mine all use recycled foam for the sole. I could work with you to implement foam as the primary material for your flip-flop line.</p>
+<p>It would be a privilege to work with you. Claire Stauffer</p>`}
+    ],
+    qs:[
+      {num:186,text:"What is the purpose of the information on the Sustainashoes Web page?",choices:["To share its values with customers","To explain its low prices","To tell how the company was started","To describe the location of its operations"],correct:0,
+       expl:"La page partage les valeurs de l'entreprise (matériaux durables, conditions de travail, transparence) avec les clients (A). (B)(C)(D) non mentionnés.",
+       type:"Question sur l'objectif du document",vocab:"values = valeurs | transparency = transparence | renewable = renouvelable"},
+      {num:187,text:"What can one learn by watching the company's videos?",choices:["Which styles have been discontinued","When new styles are introduced","How facilities were constructed","Who makes the products they sell"],correct:3,
+       expl:"« Watch a video of an interview with our employees » → on apprend qui fabrique les produits (D). (A)(B)(C) non mentionnés.",
+       type:"Question de détail",vocab:"discontinue = cesser de produire | manufacture = fabrication | facility = installation"},
+      {num:188,text:"What information in the chart was mentioned in the company's transparency policy?",choices:["Style of shoe","Available sizes","Materials","Retail price"],correct:2,
+       expl:"La politique de transparence mentionne explicitement : « videos that give the unique story behind each product's <em>materials</em> » → Materials (C) est la colonne du tableau directement évoquée.",
+       type:"Question de croisement document + tableau",vocab:"transparency policy = politique de transparence | material = matériau | disclose = divulguer"},
+      {num:189,text:"What is indicated by Ms. Stauffer?",choices:["Her products are worn for formal events.","Her company was established recently.","She currently cooperates with another company.","She plans to make shoes for men."],correct:1,
+       expl:"« My company is small and new » → l'entreprise a été créée récemment (B). (A)(C)(D) non indiqués ou faux.",
+       type:"Question de détail",vocab:"established = fondé | ethically sourced = d'origine éthique | collaborate = collaborer"},
+      {num:190,text:"What material used by Sustainashoes would Ms. Stauffer most likely replace with foam?",choices:["Leather","Wood","Rubber","Fiber"],correct:2,
+       expl:"Stauffer propose de remplacer le matériau des semelles de tongs par de la mousse recyclée. Le tableau indique que les tongs Sustainashoes ont une « Recycled rubber sole » → elle remplacerait le caoutchouc (C) par de la mousse.",
+       type:"Question d'inférence croisée",vocab:"foam = mousse | rubber = caoutchouc | sole = semelle | replace = remplacer"}
+    ]
+  },
+  {
+    type:"triple",
+    docType:"Article + Advertisement + E-mail",
+    passages:[
+      {label:"News Article (May 2)",text:`<p><strong>Greenways Initiative Halted</strong></p>
+<p>The City of Genenheim announced today that work on the Greenways Initiative has been halted due to cost overruns.</p>
+<p>The project, first made public in January of this year, envisioned bicycle-friendly lanes and pathways linking Genenheim's downtown to outlying residential areas. Construction began in March and had been scheduled to be completed by the end of June.</p>
+<p>However, the city now reports that the project is unlikely to be finished before February of next year. The Genenheim City Council is discussing ways of raising funds for the project so that work can continue as soon as possible.</p>`},
+      {label:"Advertisement — Genenheim Bicycle World",text:`<p><strong>Genenheim Bicycle World · 101 Maple Street · Sale for a good purpose!</strong></p>
+<p>Stop by our store on May 22 and 23 for up to 35 percent off a new bicycle! Ten percent of each purchase will be donated to Genenheim's Greenways Initiative!</p>
+<p>We have hundreds of bicycles to choose from, including racing, mountain, commuter, electric, and children's bicycles.</p>
+<p><em>Sale excludes Windspeed and High Rider brands.</em></p>`},
+      {label:"E-mail from Melanie Cazals (June 12)",text:`<p class="meta">To: Archer Wilson &lt;awilson@genenheimbicycleworld.com&gt; · From: Melanie Cazals</p>
+<p>Hello Mr. Wilson,</p>
+<p>I purchased a Windspeed racing bicycle on May 23 at your store. You mentioned that you were expecting some of its compatible accessories to arrive at the beginning of June. Do you now have the Devon rack and the Stylus light in stock? If so, I will stop by to purchase them.</p>
+<p>Best regards, Melanie Cazals</p>`}
+    ],
+    qs:[
+      {num:191,text:"When was the Greenways Initiative announced?",choices:["In January","In February","In March","In May"],correct:0,
+       expl:"« The project, first made public in January of this year » → annoncé en janvier (A). La construction a débuté en mars, l'article date de mai.",
+       type:"Question de détail",vocab:"initiative = initiative | made public = rendu public | halt = interrompre"},
+      {num:192,text:"Why did work on the Greenways Initiative stop?",choices:["It got too cold outside.","Materials needed were not available.","The city council opposed the idea.","The city ran out of money for the project."],correct:3,
+       expl:"« halted due to cost overruns » = stoppé en raison de dépassements de budget → manque de financement (D). (A)(B)(C) non mentionnés.",
+       type:"Question de cause",vocab:"cost overrun = dépassement de budget | halt = interrompre | funds = fonds, financement"},
+      {num:193,text:"How will Genenheim Bicycle World's donation most likely be used?",choices:["To resurface footpaths","To build bicycle lanes","To promote bicycle-safety programs","To build parks"],correct:1,
+       expl:"10% des achats vont à l'Initiative Greenways. L'article explique que ce projet vise des pistes cyclables (B). (A)(C)(D) non mentionnés.",
+       type:"Question d'inférence croisée",vocab:"donate = faire un don | bicycle lane = piste cyclable | resurfacing = reprofilage"},
+      {num:194,text:"What is the purpose of the e-mail?",choices:["To complain about an accessory","To inquire about a future purchase","To ask about returning a product","To find out when the store is open"],correct:1,
+       expl:"Cazals demande si des accessoires sont en stock pour les acheter → se renseigner pour un achat futur (B). (A)(C)(D) ne correspondent pas.",
+       type:"Question sur l'objectif du document",vocab:"inquire = se renseigner | in stock = en stock | compatible = compatible"},
+      {num:195,text:"What can be concluded about Ms. Cazals' new bicycle?",choices:["It has not yet been used.","It is an electric bicycle.","It is in need of repair.","It did not qualify for a discount."],correct:3,
+       expl:"Cazals a acheté un vélo Windspeed le 23 mai. L'annonce précise : « Sale excludes Windspeed and High Rider brands » → son vélo n'a pas bénéficié de la réduction (D).",
+       type:"Question d'inférence croisée",vocab:"qualify for = bénéficier de | exclude = exclure | brand = marque"}
+    ]
+  },
+  {
+    type:"double",
+    docType:"Memo + E-mails",
+    passages:[
+      {label:"Memo — Office of Professional Development",text:`<p class="meta">From: Office of Professional Development · To: All Yeoghan Enterprises staff · Date: February 23</p>
+<p>The transition to Reggio DMS, our new database management system, has begun. Training sessions will be held in Meeting Room 10-B in March. All training sessions last two and a half hours. <strong>Attendance at the introductory training session is mandatory</strong>, so please sign up today. You should communicate with your supervisor if you believe you should attend any other sessions, depending on your responsibilities.</p>
+<p>To register, visit the Training tab of your employee portal. Please note that the transition to the new system will be complete on April 1, after which the old system will be archived and no longer available for use.</p>
+<table style="margin-top:10px">
+<tr><th>Module</th><th>Date</th><th>Start Time</th></tr>
+<tr><td>Introduction to Reggio DMS</td><td>March 6 / 7 / 8 / 9</td><td>9:00 A.M. / 1:30 P.M. / 1:30 P.M. / 1:30 P.M.</td></tr>
+<tr><td>Advanced Reggio DMS</td><td>March 13 / 14</td><td>9:00 A.M. / 1:30 P.M.</td></tr>
+<tr><td>Reggio DMS for Managers</td><td>March 10 / 15</td><td>9:00 A.M. / 1:30 P.M.</td></tr>
+<tr><td>Customizing Reggio DMS</td><td>March 20</td><td>9:00 A.M.</td></tr>
+<tr><td>Big Data Analysis with Reggio DMS</td><td>March 21</td><td>9:00 A.M.</td></tr>
+</table>`},
+      {label:"E-mails — Kobayashi / Reyes",text:`<p class="meta">Keiko → Ana (Feb. 24) :</p>
+<p>Have you signed up for the new database training yet? I suggest that we try to attend the same session. We have not seen each other since I transferred to Marketing two months ago. We could do the training and then have lunch. I miss working with you and everyone else in Customer Service.</p>
+<p>I am signing up for the morning introductory session. I hope this will work for you.</p>
+<hr style="margin:10px 0;border-color:var(--border)">
+<p class="meta">Ana → Keiko (Feb. 25) :</p>
+<p>Taking the training together is a great idea, and that session works for me. I will go ahead and register for it. Lunch sounds good, too. I also plan to sign up for the March 15 session in case you'd like to do that one together as well—I'll be out of town between sessions.</p>`}
+    ],
+    qs:[
+      {num:196,text:"What does the memo indicate about the first Reggio DMS training?",choices:["It will be offered again in April.","It will take place in two locations.","It is required of all employees.","It must be approved by a supervisor."],correct:2,
+       expl:"« Attendance at the introductory training session is mandatory » → obligatoire pour tous les employés (C). (A)(B)(D) ne correspondent pas.",
+       type:"Question de détail",vocab:"mandatory = obligatoire | transition = transition | portal = portail interne"},
+      {num:197,text:"According to the memo, what will happen on April 1?",choices:["Use of a data management system will be discontinued.","The company will finish replacing employees' computers.","The company Web site will be unavailable.","Registration for training will close."],correct:0,
+       expl:"« the old system will be archived and no longer available for use » → l'ancien système sera désactivé (A).",
+       type:"Question de détail",vocab:"archive = archiver | discontinued = arrêté, mis hors service | transition = transition"},
+      {num:198,text:"What is suggested about Ms. Kobayashi?",choices:["She will be out of the office in March.","She is a human resources specialist.","She has previously led training sessions.","She used to work with Ms. Reyes."],correct:3,
+       expl:"Kobayashi dit « I miss working with you and everyone else in Customer Service » → elle travaillait avec Reyes dans le Service Client (D).",
+       type:"Question d'inférence",vocab:"transfer = muter | Customer Service = service clientèle | miss = regretter l'absence de"},
+      {num:199,text:"When will Ms. Kobayashi attend an introductory session?",choices:["On March 6","On March 7","On March 8","On March 9"],correct:0,
+       expl:"Kobayashi dit « I am signing up for the morning introductory session ». Seule la session du 6 mars est à 9:00 A.M. (matin). Les autres (7, 8, 9 mars) sont à 13:30 (après-midi) → 6 mars (A).",
+       type:"Question de détail croisée",vocab:"introductory = introductif, d'initiation | morning session = session matinale"},
+      {num:200,text:"What additional training session does Ms. Reyes plan to take?",choices:["Advanced Reggio DMS","Reggio DMS for Managers","Customizing Reggio DMS","Big Data Analysis with Reggio DMS"],correct:1,
+       expl:"Reyes dit « I also plan to sign up for the March 15 session ». Le 15 mars est la session « Reggio DMS for Managers » à 13:30 (B).",
+       type:"Question de détail croisée",vocab:"additional = supplémentaire | sign up for = s'inscrire à | manager = gestionnaire"}
+    ]
+  }
+];
+
+// Flatten Q6
+const Q6_FLAT = [];
+Q6_TEXTS.forEach(t => t.qs.forEach(q => Q6_FLAT.push(q)));
+// Flatten Q7
+const Q7_FLAT = [];
+Q7_PASSAGES.forEach(p => p.qs.forEach(q => Q7_FLAT.push(q)));
+const Q7_IDX = {};
+let _fi = 0;
+Q7_PASSAGES.forEach(p => p.qs.forEach(q => { Q7_IDX[q.num] = _fi++; }));
+
+const STATE = { ans5: new Array(30).fill(-1), ans6: new Array(16).fill(-1), ans7: new Array(54).fill(-1), s5:0, s6:0, s7:0, tmr:null };
+
+function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function startTest(){
+  const nom = document.getElementById('inputNom').value.trim();
+  const prenom = document.getElementById('inputPrenom').value.trim();
+  const err = document.getElementById('formError');
+  if(!nom || !prenom){ err.style.display='block'; return; }
+  err.style.display='none';
+  TRACK.nom = nom;
+  TRACK.prenom = prenom;
+  TRACK.dept = document.getElementById('inputDept').value.trim();
+  TRACK.dateDebut = new Date();
+  TRACK.debutP5 = new Date();
+  showScreen('screen-p5'); buildP5(); startTimer(5);
+}
+
+const TIMES={5:900,6:480,7:2880}, ONG={5:180,6:120,7:300}, RED={5:60,6:60,7:60};
+function startTimer(p){
+  clearInterval(STATE.tmr);
+  let t=TIMES[p];
+  const disp=document.getElementById('td'+p), box=document.getElementById('tb'+p);
+  function tick(){
+    const m=Math.floor(t/60),s=t%60;
+    disp.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    box.classList.remove('orange','red');
+    if(t<=RED[p]) box.classList.add('red'); else if(t<=ONG[p]) box.classList.add('orange');
+    if(t<=0){clearInterval(STATE.tmr);triggerAutoSubmit(p);return;} t--;
+  }
+  tick(); STATE.tmr=setInterval(tick,1000);
+}
+function triggerAutoSubmit(p){
+  document.getElementById('overlayMsg').textContent='Part '+p+' soumise automatiquement.';
+  document.getElementById('overlay').classList.add('show');
+  doSubmit(p);
+}
+function closeOverlay(){ document.getElementById('overlay').classList.remove('show'); }
+
+// ---- PART 5 ----
+function buildP5(){
+  const c=document.getElementById('qc5'); if(c.children.length) return;
+  const L=['A','B','C','D'];
+  Q5.forEach((q,i)=>{
+    const d=document.createElement('div'); d.className='question-card'; d.id='c5'+i;
+    d.innerHTML=`<div class="q-number">Q${q.num}</div><div class="q-sentence">${q.sentence.replace('___','<span class="blank">___</span>')}</div><div class="choices">${q.choices.map((c,ci)=>`<button class="choice-btn" onclick="a5(${i},${ci})"><span class="choice-letter">${L[ci]}</span><span>${c}</span></button>`).join('')}</div>`;
+    c.appendChild(d);
+  });
+}
+function a5(qi,ci){
+  STATE.ans5[qi]=ci;
+  const card=document.getElementById('c5'+qi); card.classList.add('answered');
+  card.querySelectorAll('.choice-btn').forEach((b,i)=>{ b.classList.toggle('selected',i===ci); const cl=b.querySelector('.choice-letter'); cl.style.cssText=i===ci?'background:var(--navy);border-color:var(--navy);color:#fff':''; });
+  updProg(5,STATE.ans5.filter(a=>a>=0).length,30,'pr5','pf5','sb5','sh5');
+}
+
+// ---- PART 6 ----
+function buildP6(){
+  const c=document.getElementById('qc6'); if(c.children.length) return;
+  const L=['A','B','C','D']; let qi=0;
+  Q6_TEXTS.forEach(t=>{
+    const d=document.createElement('div'); d.className='text-block';
+    let qsH=t.qs.map(q=>{ const idx=qi++; const ch=q.choices.map((c,ci)=>`<button class="choice-btn" onclick="a6(${idx},${ci})"><span class="choice-letter">${L[ci]}</span><span>${c}</span></button>`).join(''); return `<div class="q-group" id="g6${idx}"><div class="q-label">Q${q.num}</div><div class="choices">${ch}</div></div>`; }).join('');
+    d.innerHTML=`<h3>${t.title} <span>${t.questions}</span></h3><div class="text-passage">${t.passage}</div><div class="questions-section">${qsH}</div>`;
+    c.appendChild(d);
+  });
+}
+function a6(qi,ci){
+  STATE.ans6[qi]=ci;
+  document.getElementById('g6'+qi).querySelectorAll('.choice-btn').forEach((b,i)=>{ b.classList.toggle('selected',i===ci); b.querySelector('.choice-letter').style.cssText=i===ci?'background:var(--navy);border-color:var(--navy);color:#fff':''; });
+  updProg(6,STATE.ans6.filter(a=>a>=0).length,16,'pr6','pf6','sb6','sh6');
+}
+
+// ---- PART 7 ----
+function buildP7(){
+  const c=document.getElementById('qc7'); if(c.children.length) return;
+  const L=['A','B','C','D'];
+  const bQ=q=>{ const idx=Q7_IDX[q.num]; const ch=q.choices.map((cv,ci)=>`<button class="choice-btn" onclick="a7(${q.num},${ci})"><span class="choice-letter">${L[ci]}</span><span>${cv}</span></button>`).join(''); return `<div class="q-item" id="q7${q.num}"><div class="q-num">Q${q.num}</div><div class="q-text">${q.text}</div><div class="choices">${ch}</div></div>`; };
+  const qsBox=p=>`<div class="questions-box"><h4>Questions</h4>${p.qs.map(bQ).join('')}</div>`;
+  Q7_PASSAGES.forEach(p=>{
+    const w=document.createElement('div');
+    if(p.type==='single'){
+      w.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px" class="two-col"><div class="passage-box"><h4>${p.docType}</h4><div class="passage-text">${p.passage}</div></div>${qsBox(p)}</div>`;
+    } else if(p.type==='double'){
+      w.innerHTML=`<div style="margin-bottom:28px"><div class="section-label">${p.docType}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" class="two-col">${p.passages.map(pp=>`<div class="passage-box"><h4>${pp.label}</h4><div class="passage-text">${pp.text}</div></div>`).join('')}</div>${qsBox(p)}</div>`;
+    } else {
+      w.innerHTML=`<div style="margin-bottom:28px"><div class="section-label">${p.docType}</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px" class="three-col">${p.passages.map(pp=>`<div class="passage-box"><h4>${pp.label}</h4><div class="passage-text">${pp.text}</div></div>`).join('')}</div>${qsBox(p)}</div>`;
+    }
+    c.appendChild(w);
+  });
+  const s=document.createElement('style'); s.textContent='@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr!important}}'; document.head.appendChild(s);
+}
+function a7(qNum,ci){
+  const idx=Q7_IDX[qNum]; STATE.ans7[idx]=ci;
+  document.getElementById('q7'+qNum).querySelectorAll('.choice-btn').forEach((b,i)=>{ b.classList.toggle('selected',i===ci); b.querySelector('.choice-letter').style.cssText=i===ci?'background:var(--navy);border-color:var(--navy);color:#fff':''; });
+  updProg(7,STATE.ans7.filter(a=>a>=0).length,54,'pr7','pf7','sb7','sh7');
+}
+
+function updProg(p,done,tot,prid,pfid,sbid,shid){
+  document.getElementById(prid).textContent=done+' / '+tot;
+  document.getElementById(pfid).style.width=(done/tot*100)+'%';
+  if(done===tot){document.getElementById(sbid).disabled=false;document.getElementById(shid).textContent='Prêt à soumettre.';}
+  else{document.getElementById(sbid).disabled=true;document.getElementById(shid).textContent=(tot-done)+' question(s) sans réponse.';}
+}
+
+function submitPart(p){ clearInterval(STATE.tmr); doSubmit(p); }
+
+function doSubmit(p){
+  if(p===5){
+    TRACK.finP5=new Date();
+    let s=0; Q5.forEach((q,i)=>{if(STATE.ans5[i]===q.correct)s++;}); STATE.s5=s;
+    document.getElementById('is5').textContent=s+' / 30';
+    document.getElementById('ic5').textContent=s+' bonnes réponses sur 30';
+    buildBars('ib5',STATE.ans5,Q5);
+    showScreen('screen-inter5');
+  } else if(p===6){
+    TRACK.finP6=new Date();
+    let s=0; Q6_FLAT.forEach((q,i)=>{if(STATE.ans6[i]===q.correct)s++;}); STATE.s6=s;
+    document.getElementById('is6').textContent=s+' / 16';
+    document.getElementById('ic6').textContent=s+' bonnes réponses sur 16';
+    buildBars('ib6',STATE.ans6,Q6_FLAT);
+    showScreen('screen-inter6');
+  } else {
+    TRACK.finP7=new Date();
+    let s=0; Q7_FLAT.forEach((q,i)=>{if(STATE.ans7[i]===q.correct)s++;}); STATE.s7=s;
+    showFinal();
+  }
+}
+
+function buildBars(id,ans,qs){
+  const c=document.getElementById(id); c.innerHTML='';
+  qs.forEach((q,i)=>{ const d=document.createElement('div'); d.className='interim-bar '+(ans[i]===q.correct?'filled':'wrong'); c.appendChild(d); });
+}
+
+function goToPart(p){
+  if(p===6){TRACK.debutP6=new Date();showScreen('screen-p6');buildP6();startTimer(6);}
+  if(p===7){TRACK.debutP7=new Date();showScreen('screen-p7');buildP7();startTimer(7);}
+}
+
+function showFinal(){
+  const total=STATE.s5+STATE.s6+STATE.s7;
+  const est=Math.min(495,Math.round((total/100)*490)+5);
+  document.getElementById('fr').textContent=total;
+  document.getElementById('ft').textContent='~'+est;
+  [[5,30,'ps5s','ps5p','pb5'],[6,16,'ps6s','ps6p','pb6'],[7,54,'ps7s','ps7p','pb7']].forEach(([p,tot,si,pi,bi])=>{
+    const sc=STATE['s'+p];
+    document.getElementById(si).textContent=sc+' / '+tot;
+    document.getElementById(pi).textContent=Math.round(sc/tot*100)+'%';
+    document.getElementById(bi).style.width=(sc/tot*100)+'%';
+  });
+  buildFinalCorr();
+  envoyerResultats();
+  showScreen('screen-final');
+}
+
+function buildFinalCorr(){
+  const cont=document.getElementById('corrFinal'); cont.innerHTML='';
+  const L=['A','B','C','D'];
+  function cards(qs,ans,title){
+    const hdr=document.createElement('div'); hdr.className='corr-part-header'; hdr.textContent=title; cont.appendChild(hdr);
+    qs.forEach((q,i)=>{
+      const chosen=ans[i], isOk=chosen===q.correct;
+      const div=document.createElement('div'); div.className='corr-card '+(isOk?'correct-ans':'wrong-ans');
+      const chH=q.choices.map((c,ci)=>{ let cls='neutral'; if(ci===q.correct)cls='is-correct'; else if(ci===chosen)cls='is-wrong-pick'; return `<div class="corr-choice ${cls}"><span class="cletter">(${L[ci]})</span>${c}</div>`; }).join('');
+      const bodyLine=q.full?`<div class="corr-sentence">${q.full}</div>`:q.context?`<div class="corr-passage">${q.context}</div>`:`<div class="q-qtext">${q.text||''}</div>`;
+      div.innerHTML=`<div class="corr-header"><span class="corr-num">Q${q.num}</span><span class="badge ${isOk?'badge-ok':'badge-err'}">${isOk?'✓ Correct':'✗ Incorrect'}</span>${!isOk&&chosen>=0?`<span style="font-size:.75rem;color:var(--muted)">Votre réponse : (${L[chosen]}) — Bonne réponse : (${L[q.correct]})</span>`:''}</div>${bodyLine}<div class="corr-choices">${chH}</div><div class="expl"><div class="expl-title">📌 ${q.type}</div><p>${q.expl}</p></div>${q.vocab?`<div class="vocab-box">${q.vocab}</div>`:''}`;
+      cont.appendChild(div);
+    });
+  }
+  cards(Q5,STATE.ans5,'Part 5 — Incomplete Sentences (Q101–130)');
+  cards(Q6_FLAT,STATE.ans6,'Part 6 — Text Completion (Q131–146)');
+  cards(Q7_FLAT,STATE.ans7,'Part 7 — Reading Comprehension (Q147–200)');
+}
+
+// ============================================================
+// TRACKING
+// ============================================================
+const TRACK = {
+  nom: '', prenom: '', dept: '',
+  dateDebut: null,
+  heureDebut: null,
+  heureFin: null,
+  debutP5: null, finP5: null,
+  debutP6: null, finP6: null,
+  debutP7: null, finP7: null
+};
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5r5jhWlcYIQKSSxEC9r_0w9o1m0x1MM7mwSXrE3S_oK5dsOyxMdiYtz7uduuYmwjROg/exec';
+
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+function fmtDate(d){
+  return pad2(d.getDate())+'/'+pad2(d.getMonth()+1)+'/'+d.getFullYear();
+}
+function fmtTime(d){
+  return pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds());
+}
+function dureeMin(d1, d2){
+  if(!d1||!d2) return 0;
+  return Math.round((d2-d1)/1000/60*10)/10; // minutes avec 1 décimale
+}
+
+function envoyerResultats(){
+  TRACK.heureFin = new Date();
+  const total = STATE.s5 + STATE.s6 + STATE.s7;
+  const est   = Math.min(495, Math.round((total/100)*490)+5);
+
+  // Convertir réponses en lettres lisibles (A/B/C/D ou — si non répondu)
+  const L = ['A','B','C','D'];
+  const fmt = arr => arr.map(v => v>=0 ? L[v] : '—').join(',');
+  // Compter bonnes/mauvaises/non répondues
+  const stats = (ans, qs) => {
+    let ok=0, ko=0, nr=0;
+    qs.forEach((q,i)=>{ if(ans[i]<0) nr++; else if(ans[i]===q.correct) ok++; else ko++; });
+    return {ok,ko,nr};
+  };
+  const st5 = stats(STATE.ans5, Q5);
+  const st6 = stats(STATE.ans6, Q6_FLAT);
+  const st7 = stats(STATE.ans7, Q7_FLAT);
+
+  const payload = {
+    // Identité
+    nom:          TRACK.nom,
+    prenom:       TRACK.prenom,
+    departement:  TRACK.dept,
+    // Dates & heures
+    date:         fmtDate(TRACK.dateDebut),
+    heureDebut:   fmtTime(TRACK.dateDebut),
+    heureFin:     fmtTime(TRACK.heureFin),
+    dureeTotal:   dureeMin(TRACK.dateDebut, TRACK.heureFin)+'min',
+    dureeP5:      dureeMin(TRACK.debutP5, TRACK.finP5)+'min',
+    dureeP6:      dureeMin(TRACK.debutP6, TRACK.finP6)+'min',
+    dureeP7:      dureeMin(TRACK.debutP7, TRACK.finP7)+'min',
+    // Scores
+    scoreP5:      STATE.s5,
+    scoreP6:      STATE.s6,
+    scoreP7:      STATE.s7,
+    scoreTotal:   total,
+    toeicEstime:  est,
+    pctP5:        Math.round(STATE.s5/30*100)+'%',
+    pctP6:        Math.round(STATE.s6/16*100)+'%',
+    pctP7:        Math.round(STATE.s7/54*100)+'%',
+    // Détail erreurs
+    bonnesP5: st5.ok, faussesP5: st5.ko, nrP5: st5.nr,
+    bonnesP6: st6.ok, faussesP6: st6.ko, nrP6: st6.nr,
+    bonnesP7: st7.ok, faussesP7: st7.ko, nrP7: st7.nr,
+    // Réponses brutes (A/B/C/D)
+    reponsesP5: fmt(STATE.ans5),
+    reponsesP6: fmt(STATE.ans6),
+    reponsesP7: fmt(STATE.ans7)
+  };
+
+  fetch(SCRIPT_URL, {
+    method:  'POST',
+    mode:    'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload)
+  }).catch(()=>{}); // silencieux si offline
+}
+
+</script>
+</body>
+</html>
