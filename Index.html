@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Test 1</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .test-meta {
+            font-style: italic;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .reading-passage {
+            background-color: #f1f5f9;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 35px;
+            font-size: 1.1rem;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        label:hover {
+            background-color: #f1f5f9;
+        }
+
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.1);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .success { background-color: #dcfce7; color: #166534; }
+        .neutral { background-color: #fef9c3; color: #854d0e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Reading Test 1</h1>
+    <div class="test-meta">ID: index_reading_test1</div>
+
+    <!-- Le texte à lire -->
+    <div class="reading-passage">
+        <h3>Reading Passage</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+    </div>
+
+    <!-- Formulaire des questions -->
+    <form id="quizForm">
+        
+        <!-- Question 1 -->
+        <div class="question-block">
+            <div class="question-title">1. What is the main topic of the text?</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <label><input type="radio" name="q1" value="A"> Option A (Incorrect)</label>
+                </li>
+                <li class="option-item">
+                    <label><input type="radio" name="q1" value="B"> Option B (Correct Answer)</label>
+                </li>
+                <li class="option-item">
+                    <label><input type="radio" name="q1" value="C"> Option C (Incorrect)</label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-block">
+            <div class="question-title">2. According to the author, why does this matter?</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <label><input type="radio" name="q2" value="A"> Option A (Correct Answer)</label>
+                </li>
+                <li class="option-item">
+                    <label><input type="radio" name="q2" value="B"> Option B (Incorrect)</label>
+                </li>
+                <li class="option-item">
+                    <label><input type="radio" name="q2" value="C"> Option C (Incorrect)</label>
+                </li>
+            </ul>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">Submit Test</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkAnswers() {
+        // Définition des bonnes réponses
+        const answers = {
+            q1: 'B',
+            q2: 'A'
+        };
+
+        let score = 0;
+        let total = Object.keys(answers).length;
+        const form = document.getElementById('quizForm');
+        const formData = new FormData(form);
+
+        // Vérification des réponses sélectionnées
+        for (let key in answers) {
+            if (formData.get(key) === answers[key]) {
+                score++;
+            }
+        }
+
+        // Affichage du résultat
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `You scored ${score} out of ${total}.`;
+
+        // Style dynamique selon le résultat
+        if (score === total) {
+            resultDiv.className = 'success';
+        } else {
+            resultDiv.className = 'neutral';
+        }
+    }
+</script>
+
+</body>
+</html>
