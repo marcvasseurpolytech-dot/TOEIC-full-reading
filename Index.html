@@ -3,217 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Test 1</title>
+    <title>English Learning Platform - Test Menu</title>
     <style>
         :root {
             --primary-color: #2563eb;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
+            --text-color: #0f172a;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
+            --accent-reading: #0ea5e9;
+            --accent-listening: #10b981;
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--background-color);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
         }
 
         h1 {
+            font-size: 2.5rem;
             color: var(--primary-color);
-            margin-top: 0;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        .test-meta {
-            font-style: italic;
-            color: #64748b;
-            margin-bottom: 30px;
-        }
-
-        .reading-passage {
-            background-color: #f1f5f9;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 35px;
-            font-size: 1.1rem;
-        }
-
-        .question-block {
-            margin-bottom: 25px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
-        .question-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .options-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .option-item {
             margin-bottom: 10px;
         }
 
-        label {
+        .subtitle {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
-            cursor: pointer;
-            padding: 8px;
+            gap: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
             border-radius: 4px;
-            transition: background 0.2s;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
         }
 
-        label:hover {
-            background-color: #f1f5f9;
-        }
+        /* Couleurs des étiquettes */
+        .tag-reading { background-color: #e0f2fe; color: #0369a1; }
+        .tag-listening { background-color: #dcfce7; color: #15803d; }
+        .tag-locked { background-color: #f1f5f9; color: #94a3b8; }
 
-        input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.1);
-        }
-
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: block;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .submit-btn:hover {
-            background-color: #1d4ed8;
-        }
-
-        #result {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
-            text-align: center;
+        .card-title {
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: #1e293b;
         }
 
-        .success { background-color: #dcfce7; color: #166534; }
-        .neutral { background-color: #fef9c3; color: #854d0e; }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin: 0 0 20px 0;
+        }
+
+        .card-action {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Reading Test 1</h1>
-    <div class="test-meta">ID: index_reading_test1</div>
+    <header>
+        <h1>English Assessments</h1>
+        <div class="subtitle">Select an exercise from the list below to start.</div>
+    </header>
 
-    <!-- Le texte à lire -->
-    <div class="reading-passage">
-        <h3>Reading Passage</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>
-    </div>
+    <main>
+        <!-- Section Reading -->
+        <div class="section-title">
+            <span>📚</span> Reading Comprehension
+        </div>
+        <div class="grid">
+            
+            <!-- Lien vers ton test actif -->
+            <a href="index_reading_test1.html" class="card">
+                <div>
+                    <span class="card-tag tag-reading">Reading</span>
+                    <h2 class="card-title">Reading Test 1</h2>
+                    <p class="card-desc">Text comprehension, vocabulary analysis, and contextual questions.</p>
+                </div>
+                <div class="card-action">Start Test →</div>
+            </a>
 
-    <!-- Formulaire des questions -->
-    <form id="quizForm">
-        
-        <!-- Question 1 -->
-        <div class="question-block">
-            <div class="question-title">1. What is the main topic of the text?</div>
-            <ul class="options-list">
-                <li class="option-item">
-                    <label><input type="radio" name="q1" value="A"> Option A (Incorrect)</label>
-                </li>
-                <li class="option-item">
-                    <label><input type="radio" name="q1" value="B"> Option B (Correct Answer)</label>
-                </li>
-                <li class="option-item">
-                    <label><input type="radio" name="q1" value="C"> Option C (Incorrect)</label>
-                </li>
-            </ul>
+            <!-- Emplacement pour un futur Test 2 -->
+            <a href="#" class="card locked">
+                <div>
+                    <span class="card-tag tag-locked">Coming Soon</span>
+                    <h2 class="card-title">Reading Test 2</h2>
+                    <p class="card-desc">Advanced analysis of academic and professional texts.</p>
+                </div>
+                <div class="card-action">Locked</div>
+            </a>
+
         </div>
 
-        <!-- Question 2 -->
-        <div class="question-block">
-            <div class="question-title">2. According to the author, why does this matter?</div>
-            <ul class="options-list">
-                <li class="option-item">
-                    <label><input type="radio" name="q2" value="A"> Option A (Correct Answer)</label>
-                </li>
-                <li class="option-item">
-                    <label><input type="radio" name="q2" value="B"> Option B (Incorrect)</label>
-                </li>
-                <li class="option-item">
-                    <label><input type="radio" name="q2" value="C"> Option C (Incorrect)</label>
-                </li>
-            </ul>
+        <!-- Section Listening (Optionnelle, prête au cas où) -->
+        <div class="section-title">
+            <span>🎧</span> Listening Comprehension
         </div>
+        <div class="grid">
+            
+            <a href="#" class="card locked">
+                <div>
+                    <span class="card-tag tag-locked">Coming Soon</span>
+                    <h2 class="card-title">Listening Test 1</h2>
+                    <p class="card-desc">Audio comprehension based on short dialogues and lectures.</p>
+                </div>
+                <div class="card-action">Locked</div>
+            </a>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">Submit Test</button>
-    </form>
-
-    <div id="result"></div>
+        </div>
+    </main>
 </div>
-
-<script>
-    function checkAnswers() {
-        // Définition des bonnes réponses
-        const answers = {
-            q1: 'B',
-            q2: 'A'
-        };
-
-        let score = 0;
-        let total = Object.keys(answers).length;
-        const form = document.getElementById('quizForm');
-        const formData = new FormData(form);
-
-        // Vérification des réponses sélectionnées
-        for (let key in answers) {
-            if (formData.get(key) === answers[key]) {
-                score++;
-            }
-        }
-
-        // Affichage du résultat
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `You scored ${score} out of ${total}.`;
-
-        // Style dynamique selon le résultat
-        if (score === total) {
-            resultDiv.className = 'success';
-        } else {
-            resultDiv.className = 'neutral';
-        }
-    }
-</script>
 
 </body>
 </html>
