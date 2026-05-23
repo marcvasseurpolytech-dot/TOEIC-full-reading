@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 5 — Test 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF6ED;
+  --cream-dark: #F0E8D5;
+  --navy: #1A2B4A;
+  --navy-light: #243860;
+  --gold: #C9A020;
+  --gold-light: #E8C84A;
+  --green: #2A7A4B;
+  --green-bg: #E8F5EE;
+  --red: #B0231A;
+  --red-bg: #FDECEA;
+  --text: #2C2416;
+  --muted: #7A6E5C;
+  --border: #D4C9A8;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --display: 'Playfair Display', Georgia, serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh}
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);padding:0;box-shadow:0 2px 12px rgba(0,0,0,.35)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;gap:16px;flex-wrap:wrap}
+.header-left h1{font-family:var(--display);color:var(--gold);font-size:1.15rem;letter-spacing:.02em}
+.header-left p{color:#A8B8D0;font-size:.78rem;font-family:var(--serif);font-weight:300;margin-top:2px}
+.timer-box{display:flex;flex-direction:column;align-items:center;background:var(--navy-light);border:2px solid var(--gold);border-radius:8px;padding:6px 18px;min-width:110px}
+.timer-label{color:var(--gold);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
+.timer-display{font-family:var(--mono);font-size:1.6rem;font-weight:600;color:#fff;letter-spacing:.05em}
+.timer-box.orange{border-color:#E8922A;background:#2A1E10}
+.timer-box.orange .timer-display{color:#E8922A}
+.timer-box.orange .timer-label{color:#E8922A}
+.timer-box.red{border-color:#C0231A;background:#2A1010}
+.timer-box.red .timer-display{color:#ff4444;animation:blink .7s infinite}
+.timer-box.red .timer-label{color:#ff4444}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.progress-box{color:#A8B8D0;font-size:.8rem;text-align:right;font-family:var(--serif)}
+.progress-bar-wrap{width:120px;height:6px;background:var(--navy-light);border-radius:3px;margin-top:5px}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+/* MAIN */
+main{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+.part-intro{background:var(--navy);color:#C8D8F0;padding:18px 24px;border-radius:10px;margin-bottom:32px;border-left:4px solid var(--gold)}
+.part-intro h2{font-family:var(--display);color:var(--gold);font-size:1.1rem;margin-bottom:8px}
+.part-intro p{font-size:.88rem;line-height:1.6}
+/* QUESTIONS */
+.question-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:border-color .2s}
+.question-card.answered{border-left:4px solid var(--gold)}
+.q-number{font-family:var(--mono);font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.08em;margin-bottom:10px;text-transform:uppercase}
+.q-sentence{font-size:1.05rem;line-height:1.7;color:var(--text);margin-bottom:18px;padding:12px 16px;background:var(--cream);border-radius:6px;border-left:3px solid var(--border)}
+.blank{display:inline-block;border-bottom:2px solid var(--navy);min-width:80px;text-align:center;font-weight:600;color:var(--navy)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.choices{grid-template-columns:1fr}}
+.choice-btn{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1.5px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-family:var(--serif);font-size:.92rem;color:var(--text);text-align:left;transition:all .15s;width:100%}
+.choice-btn:hover{border-color:var(--navy);background:#F4F0E8}
+.choice-btn.selected{border-color:var(--navy);background:#EDF1F8;color:var(--navy);font-weight:600}
+.choice-letter{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);font-family:var(--mono);font-size:.75rem;font-weight:600;flex-shrink:0;transition:all .15s}
+.choice-btn.selected .choice-letter{background:var(--navy);border-color:var(--navy);color:#fff}
+/* SUBMIT */
+.submit-wrap{text-align:center;margin:36px 0}
+.submit-btn{background:var(--navy);color:var(--gold);font-family:var(--display);font-size:1.05rem;padding:14px 44px;border:2px solid var(--gold);border-radius:8px;cursor:pointer;letter-spacing:.04em;transition:all .2s}
+.submit-btn:hover{background:var(--gold);color:var(--navy)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.submit-hint{font-size:.82rem;color:var(--muted);margin-top:8px;font-style:italic}
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.overlay-box{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:40px 50px;text-align:center;color:#fff}
+.overlay-box h2{font-family:var(--display);color:var(--gold);font-size:1.5rem;margin-bottom:12px}
+.overlay-box p{color:#A8B8D0;margin-bottom:20px}
+.overlay-box button{background:var(--gold);color:var(--navy);border:none;padding:10px 30px;border-radius:6px;font-family:var(--display);font-size:1rem;cursor:pointer;font-weight:600}
+/* RESULTS */
+#results{display:none}
+.score-banner{background:var(--navy);color:#fff;padding:32px;border-radius:12px;text-align:center;margin-bottom:36px;border:2px solid var(--gold)}
+.score-banner h2{font-family:var(--display);color:var(--gold);font-size:1.4rem;margin-bottom:12px}
+.score-main{font-size:3rem;font-family:var(--mono);font-weight:600;color:#fff;margin:8px 0}
+.score-toeic{font-size:1.1rem;color:#A8B8D0;margin-top:4px}
+.score-toeic span{color:var(--gold-light);font-weight:600}
+/* CORRECTION */
+.correction{margin-top:36px}
+.correction h3{font-family:var(--display);color:var(--navy);font-size:1.2rem;margin-bottom:24px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
+.corr-card{border-radius:10px;padding:22px;margin-bottom:18px;border:1px solid var(--border)}
+.corr-card.correct-ans{background:var(--green-bg);border-left:4px solid var(--green)}
+.corr-card.wrong-ans{background:var(--red-bg);border-left:4px solid var(--red)}
+.corr-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.corr-num{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:600;font-family:var(--mono)}
+.badge-ok{background:#C8EDD6;color:var(--green)}
+.badge-err{background:#FADBD8;color:var(--red)}
+.corr-sentence{font-size:.98rem;line-height:1.7;padding:10px 14px;background:rgba(255,255,255,.6);border-radius:6px;margin-bottom:14px}
+.corr-sentence .highlight{background:#FFF0A0;padding:0 4px;border-radius:3px;font-weight:700;color:var(--navy)}
+.corr-choices{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px}
+@media(max-width:500px){.corr-choices{grid-template-columns:1fr}}
+.corr-choice{padding:7px 12px;border-radius:5px;font-size:.88rem;display:flex;align-items:center;gap:8px}
+.corr-choice.is-correct{background:#C8EDD6;border:1.5px solid var(--green);color:var(--green);font-weight:600}
+.corr-choice.is-wrong-pick{background:#FADBD8;border:1.5px solid var(--red);color:var(--red);text-decoration:line-through}
+.corr-choice.neutral{background:#F4F0E8;border:1.5px solid var(--border);color:var(--muted)}
+.corr-choice .cletter{font-family:var(--mono);font-size:.72rem;font-weight:600;width:20px;flex-shrink:0}
+.expl{background:rgba(255,255,255,.7);border-left:3px solid var(--navy);padding:12px 16px;border-radius:0 6px 6px 0;margin-bottom:10px}
+.expl-title{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);font-weight:600;margin-bottom:6px}
+.expl p{font-size:.87rem;line-height:1.65;color:var(--text)}
+.vocab-box{font-family:var(--mono);font-size:.8rem;background:#F0EDE4;border:1px solid var(--border);border-radius:5px;padding:10px 14px;color:var(--text);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>TOEIC Reading — Part 5</h1>
+      <p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Incomplete Sentences</p>
+    </div>
+    <div class="timer-box" id="timerBox">
+      <span class="timer-label">⏱ Temps</span>
+      <span class="timer-display" id="timerDisplay">15:00</span>
+    </div>
+    <div class="progress-box">
+      <span id="progressText">0 / 30 répondues</span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <h2>⏰ Temps écoulé</h2>
+    <p>Le test a été soumis automatiquement.</p>
+    <button onclick="document.getElementById('overlay').classList.remove('show')">Voir les résultats</button>
+  </div>
+</div>
+
+<main>
+<div class="part-intro">
+  <h2>Part 5 — Incomplete Sentences</h2>
+  <p>30 questions &nbsp;|&nbsp; Durée conseillée : 15 minutes &nbsp;|&nbsp; Choisissez la meilleure réponse pour compléter chaque phrase.</p>
+</div>
+<div id="questionsContainer"></div>
+<div class="submit-wrap">
+  <button class="submit-btn" id="submitBtn" disabled onclick="submitTest()">Soumettre le test</button>
+  <p class="submit-hint" id="submitHint">Répondez à toutes les questions pour soumettre.</p>
+</div>
+<div id="results">
+  <div class="score-banner">
+    <h2>Résultats — Part 5</h2>
+    <div class="score-main" id="scoreMain">—</div>
+    <div class="score-toeic" id="scoreToeic">Estimation Reading TOEIC : <span>—</span></div>
+  </div>
+  <div class="correction">
+    <h3>Correction détaillée</h3>
+    <div id="correctionContainer"></div>
+  </div>
+</div>
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    "num": 101,
+    "sentence": "Board members will vote on a strategic ___ to reduce the company's debt.",
+    "choices": [
+      "plan",
+      "game",
+      "job",
+      "map"
+    ],
+    "correct": 0,
+    "full": "Board members will vote on a strategic <span class='highlight'>plan</span> to reduce the company's debt.",
+    "type": "Collocation — nom",
+    "expl": "(A) <em>strategic plan</em> = plan stratégique. Collocation figée dans le monde des affaires. (B) <em>game</em> = jeu. (C) <em>job</em> = emploi. (D) <em>map</em> = carte. Seul <em>plan</em> collocode avec <em>strategic</em> dans ce contexte.",
+    "vocab": "strategic plan = plan stratégique | vote on = voter sur | reduce the debt = réduire la dette"
+  },
+  {
+    "num": 102,
+    "sentence": "Last year, Enderfen Shoes ___ more than 10,000 pairs of its most popular style.",
+    "choices": [
+      "sell",
+      "is selling",
+      "sold",
+      "has sold"
+    ],
+    "correct": 2,
+    "full": "Last year, Enderfen Shoes <span class='highlight'>sold</span> more than 10,000 pairs of its most popular style.",
+    "type": "Temps verbal — prétérit",
+    "expl": "L'indicateur de temps <em>last year</em> exige le prétérit simple (past simple). (C) <em>sold</em> est correct. (A) <em>sell</em> = présent simple. (B) <em>is selling</em> = présent progressif. (D) <em>has sold</em> = present perfect (incompatible avec <em>last year</em>).",
+    "vocab": "last year = l'année dernière | prétérit = action passée avec repère temporel"
+  },
+  {
+    "num": 103,
+    "sentence": "Coffee and pastries are offered in the lounge ___ 7:00 to 11:00 every morning.",
+    "choices": [
+      "near",
+      "by",
+      "for",
+      "from"
+    ],
+    "correct": 3,
+    "full": "Coffee and pastries are offered in the lounge <span class='highlight'>from</span> 7:00 to 11:00 every morning.",
+    "type": "Préposition de temps",
+    "expl": "La structure <em>from X to Y</em> = de X à Y (plage horaire). (D) <em>from</em> est obligatoire pour ouvrir une plage temporelle. (A) <em>near</em> = vers/près (approximation floue). (B) <em>by</em> = avant telle heure (limite). (C) <em>for</em> = pendant (durée).",
+    "vocab": "from...to = de...à | by 7:00 = avant 7h00 | for three hours = pendant trois heures"
+  },
+  {
+    "num": 104,
+    "sentence": "Mr. Curtin asked Ms. Sweeny to sign documents on ___ behalf.",
+    "choices": [
+      "his",
+      "he",
+      "him",
+      "himself"
+    ],
+    "correct": 0,
+    "full": "Mr. Curtin asked Ms. Sweeny to sign documents on <span class='highlight'>his</span> behalf.",
+    "type": "Pronom possessif",
+    "expl": "Devant le nom <em>behalf</em>, un déterminant possessif est requis. (A) <em>his</em> est le seul déterminant possessif masculin. (B) <em>he</em> = sujet. (C) <em>him</em> = complément. (D) <em>himself</em> = réfléchi.",
+    "vocab": "on behalf of = au nom de, pour le compte de | on his behalf = en son nom"
+  },
+  {
+    "num": 105,
+    "sentence": "Calurilux, Inc., is a leading ___ of electric stoves worldwide.",
+    "choices": [
+      "manufacturer",
+      "instructor",
+      "administrator",
+      "composer"
+    ],
+    "correct": 0,
+    "full": "Calurilux, Inc., is a leading <span class='highlight'>manufacturer</span> of electric stoves worldwide.",
+    "type": "Vocabulaire — nom",
+    "expl": "(A) <em>manufacturer</em> = fabricant. Seul ce terme collocode avec <em>leading</em> + production industrielle. (B) <em>instructor</em> = formateur. (C) <em>administrator</em> = administrateur. (D) <em>composer</em> = compositeur.",
+    "vocab": "leading manufacturer = fabricant de premier plan | stove = cuisinière, poêle | worldwide = dans le monde entier"
+  },
+  {
+    "num": 106,
+    "sentence": "Before the presentation, the team members met ___ to review their notes one last time.",
+    "choices": [
+      "questionably",
+      "briefly",
+      "scarcely",
+      "gradually"
+    ],
+    "correct": 1,
+    "full": "Before the presentation, the team members met <span class='highlight'>briefly</span> to review their notes one last time.",
+    "type": "Vocabulaire — adverbe",
+    "expl": "(B) <em>briefly</em> = brièvement. Se retrouver rapidement avant une présentation est la situation logique. (A) <em>questionably</em> = de façon douteuse. (C) <em>scarcely</em> = à peine. (D) <em>gradually</em> = progressivement.",
+    "vocab": "briefly = brièvement | to review = revoir, passer en revue | notes = notes"
+  },
+  {
+    "num": 107,
+    "sentence": "Objects in this gallery may not be photographed ___ written consent.",
+    "choices": [
+      "about",
+      "below",
+      "without",
+      "around"
+    ],
+    "correct": 2,
+    "full": "Objects in this gallery may not be photographed <span class='highlight'>without</span> written consent.",
+    "type": "Préposition — condition négative",
+    "expl": "(C) <em>without written consent</em> = sans consentement écrit. Structure idiomatique pour exprimer une interdiction conditionnelle. (A) <em>about</em>, (B) <em>below</em>, (D) <em>around</em> ne conviennent pas dans ce contexte.",
+    "vocab": "without consent = sans consentement | written consent = accord écrit | may not = ne peut pas"
+  },
+  {
+    "num": 108,
+    "sentence": "The annual amateur singing ___ is a highlight of Red River Arts Week.",
+    "choices": [
+      "compete",
+      "competitor",
+      "competitive",
+      "competition"
+    ],
+    "correct": 3,
+    "full": "The annual amateur singing <span class='highlight'>competition</span> is a highlight of Red River Arts Week.",
+    "type": "Classe grammaticale — nom",
+    "expl": "Il faut un nom après le groupe nominal <em>annual amateur singing</em>. (D) <em>competition</em> = concours (nom). (A) <em>compete</em> = verbe. (B) <em>competitor</em> = concurrent (personne). (C) <em>competitive</em> = adjectif.",
+    "vocab": "singing competition = concours de chant | highlight = point fort, temps fort | annual = annuel"
+  },
+  {
+    "num": 109,
+    "sentence": "The company ___ the Kalejaiye construction project to be completed by October 15.",
+    "choices": [
+      "to expect",
+      "expects",
+      "expecting",
+      "is expected"
+    ],
+    "correct": 1,
+    "full": "The company <span class='highlight'>expects</span> the Kalejaiye construction project to be completed by October 15.",
+    "type": "Temps verbal — présent simple",
+    "expl": "Sujet actif « The company » + verbe principal à conjuguer → présent simple 3e pers. sing. (B) <em>expects</em>. Structure : <em>expect + objet + to + infinitif passif</em>. (A) infinitif. (C) participe présent. (D) passif (sujet serait le projet).",
+    "vocab": "to expect = s'attendre à, prévoir | to be completed = être achevé | by October 15 = avant le 15 octobre"
+  },
+  {
+    "num": 110,
+    "sentence": "The food at Canellino's is exceptional, ___ the service is often slow during peak hours.",
+    "choices": [
+      "but",
+      "again",
+      "then",
+      "or"
+    ],
+    "correct": 0,
+    "full": "The food at Canellino's is exceptional, <span class='highlight'>but</span> the service is often slow during peak hours.",
+    "type": "Connecteur — opposition/concession",
+    "expl": "(A) <em>but</em> = mais. Introduit un contraste entre la qualité de la nourriture (positive) et la lenteur du service (négative). (B) <em>again</em> = encore. (C) <em>then</em> = alors/ensuite. (D) <em>or</em> = ou.",
+    "vocab": "but = mais (contraste) | however = cependant (équivalent plus formel) | peak hours = heures de pointe"
+  },
+  {
+    "num": 111,
+    "sentence": "Jaenesa International has ___ 23 new software engineers in the last six months.",
+    "choices": [
+      "filled",
+      "applied",
+      "hired",
+      "leased"
+    ],
+    "correct": 2,
+    "full": "Jaenesa International has <span class='highlight'>hired</span> 23 new software engineers in the last six months.",
+    "type": "Vocabulaire — verbe",
+    "expl": "(C) <em>hired</em> = embauché. Collocation naturelle : <em>hire engineers/staff</em>. (A) <em>filled</em> = rempli (positions, formulaires). (B) <em>applied</em> = postuler (intransitif, pas logique). (D) <em>leased</em> = loué (bien immobilier).",
+    "vocab": "to hire = embaucher, recruter | in the last six months = au cours des six derniers mois | software engineer = ingénieur logiciel"
+  },
+  {
+    "num": 112,
+    "sentence": "___ who has not yet completed the staff survey should do so immediately.",
+    "choices": [
+      "Whichever",
+      "Others",
+      "Those",
+      "Anyone"
+    ],
+    "correct": 3,
+    "full": "<span class='highlight'>Anyone</span> who has not yet completed the staff survey should do so immediately.",
+    "type": "Pronom indéfini — personne",
+    "expl": "(D) <em>Anyone who…</em> = toute personne qui… Pronom indéfini générique pour une personne. (A) <em>Whichever</em> = lequel des deux (choix limité). (B) <em>Others</em> = d'autres (pluriel, mais la relative est singulière « has »). (C) <em>Those</em> = ceux (pluriel).",
+    "vocab": "anyone who = toute personne qui | to complete a survey = remplir un sondage | do so = le faire (anaphore)"
+  },
+  {
+    "num": 113,
+    "sentence": "Note that placing a thermometer in the ___ may affect its performance.",
+    "choices": [
+      "shadiest",
+      "shaded",
+      "shade",
+      "shady"
+    ],
+    "correct": 2,
+    "full": "Note that placing a thermometer in the <span class='highlight'>shade</span> may affect its performance.",
+    "type": "Classe grammaticale — nom",
+    "expl": "Après la préposition <em>in the</em>, on attend un nom. (C) <em>shade</em> = ombre (nom). (A) <em>shadiest</em> = superlatif adjectif. (B) <em>shaded</em> = adjectif. (D) <em>shady</em> = adjectif.",
+    "vocab": "in the shade = à l'ombre | affect = affecter, influer sur | performance = performance, fonctionnement"
+  },
+  {
+    "num": 114,
+    "sentence": "Choose Choi Systems as your ___ for the installation of a computer network.",
+    "choices": [
+      "partnering",
+      "partnered",
+      "partnership",
+      "partner"
+    ],
+    "correct": 3,
+    "full": "Choose Choi Systems as your <span class='highlight'>partner</span> for the installation of a computer network.",
+    "type": "Classe grammaticale — nom",
+    "expl": "Après le possessif <em>your</em>, on attend un nom. (D) <em>partner</em> = partenaire (nom singulier). (A) <em>partnering</em> = gérondif/adjectif. (B) <em>partnered</em> = adjectif participial. (C) <em>partnership</em> = partenariat (abstrait, moins naturel dans ce contexte).",
+    "vocab": "partner = partenaire | partnership = partenariat | network installation = installation réseau"
+  },
+  {
+    "num": 115,
+    "sentence": "Tuesday's conference call focused on the need for account executives and their staff to work more ___.",
+    "choices": [
+      "finally",
+      "productively",
+      "variously",
+      "repeatedly"
+    ],
+    "correct": 1,
+    "full": "Tuesday's conference call focused on the need for account executives and their staff to work more <span class='highlight'>productively</span>.",
+    "type": "Vocabulaire — adverbe",
+    "expl": "(B) <em>productively</em> = de façon productive. Seul adverbe qui peut décrire positivement la façon de travailler dans un contexte d'affaires. (A) <em>finally</em> = finalement. (C) <em>variously</em> = de façon variée. (D) <em>repeatedly</em> = de façon répétée.",
+    "vocab": "productively = de façon productive | conference call = réunion téléphonique | account executive = chargé de clientèle"
+  },
+  {
+    "num": 116,
+    "sentence": "There is a ___ difference in experience between the two candidates.",
+    "choices": [
+      "vast",
+      "vastest",
+      "vastly",
+      "vastness"
+    ],
+    "correct": 0,
+    "full": "There is a <span class='highlight'>vast</span> difference in experience between the two candidates.",
+    "type": "Classe grammaticale — adjectif",
+    "expl": "Le mot qualifie le nom <em>difference</em> → adjectif requis. (A) <em>vast</em> = vaste, énorme (adjectif). (B) <em>vastest</em> = superlatif. (C) <em>vastly</em> = adverbe. (D) <em>vastness</em> = nom.",
+    "vocab": "vast difference = énorme différence | candidate = candidat | experience = expérience"
+  },
+  {
+    "num": 117,
+    "sentence": "The interior designer said that adding ___ colored walls and large windows to the café would make the space more attractive.",
+    "choices": [
+      "brightly",
+      "brighten",
+      "brightener",
+      "to brighten"
+    ],
+    "correct": 0,
+    "full": "The interior designer said that adding <span class='highlight'>brightly</span> colored walls and large windows to the café would make the space more attractive.",
+    "type": "Adverbe modifiant un participe passé",
+    "expl": "Le mot modifie le participe passé <em>colored</em> utilisé comme adjectif → adverbe requis. (A) <em>brightly</em> = de façon lumineuse/vive. (B) <em>brighten</em> = verbe. (C) <em>brightener</em> = nom. (D) <em>to brighten</em> = infinitif.",
+    "vocab": "brightly colored = aux couleurs vives | interior designer = designer d'intérieur | attractive = attrayant"
+  },
+  {
+    "num": 118,
+    "sentence": "Ms. Soto finished her report ___ the scheduled meeting with shareholders.",
+    "choices": [
+      "past",
+      "prior to",
+      "aside from",
+      "except"
+    ],
+    "correct": 1,
+    "full": "Ms. Soto finished her report <span class='highlight'>prior to</span> the scheduled meeting with shareholders.",
+    "type": "Préposition composée — antériorité",
+    "expl": "(B) <em>prior to</em> = avant, préalablement à (registre formel). Mme Soto a terminé avant la réunion. (A) <em>past</em> = après, au-delà de (sens contraire). (C) <em>aside from</em> = en dehors de. (D) <em>except</em> = sauf.",
+    "vocab": "prior to = avant (formel) | before = avant (courant) | shareholder = actionnaire"
+  },
+  {
+    "num": 119,
+    "sentence": "Borland Square Hotel is located in the heart of the city's business district and is easily ___ from all the major highways.",
+    "choices": [
+      "accesses",
+      "accessibly",
+      "accessible",
+      "access"
+    ],
+    "correct": 2,
+    "full": "Borland Square Hotel is located in the heart of the city's business district and is easily <span class='highlight'>accessible</span> from all the major highways.",
+    "type": "Adjectif attribut",
+    "expl": "Après <em>is easily</em> → adjectif attribut requis. (C) <em>accessible</em> = facilement accessible (adjectif). (A) <em>accesses</em> = verbe 3e pers. sing. (B) <em>accessibly</em> = adverbe. (D) <em>access</em> = nom ou verbe.",
+    "vocab": "accessible = accessible | business district = quartier d'affaires | highway = autoroute, grand axe"
+  },
+  {
+    "num": 120,
+    "sentence": "New Dash Music Shop has an opening for a sales clerk ___ to work on weekends.",
+    "choices": [
+      "respected",
+      "regular",
+      "willing",
+      "consistent"
+    ],
+    "correct": 2,
+    "full": "New Dash Music Shop has an opening for a sales clerk <span class='highlight'>willing</span> to work on weekends.",
+    "type": "Collocation — adjectif",
+    "expl": "(C) <em>willing to</em> = prêt à, disposé à. Structure figée : <em>willing + to + infinitif</em>. (A) <em>respected</em> = respecté. (B) <em>regular</em> = régulier. (D) <em>consistent</em> = cohérent.",
+    "vocab": "willing to = prêt à, disposé à | opening = poste vacant | sales clerk = vendeur"
+  },
+  {
+    "num": 121,
+    "sentence": "Please use the Reply All option only when the e-mail message is ___ relevant to at least 70 percent of recipients.",
+    "choices": [
+      "direct",
+      "directed",
+      "direction",
+      "directly"
+    ],
+    "correct": 3,
+    "full": "Please use the Reply All option only when the e-mail message is <span class='highlight'>directly</span> relevant to at least 70 percent of recipients.",
+    "type": "Adverbe modifiant un adjectif",
+    "expl": "Le mot modifie <em>relevant</em> (adjectif) → adverbe requis. (D) <em>directly</em> = directement. (A) <em>direct</em> = adjectif. (B) <em>directed</em> = participial adjectif. (C) <em>direction</em> = nom.",
+    "vocab": "directly relevant = directement pertinent | Reply All = Répondre à tous | recipient = destinataire"
+  },
+  {
+    "num": 122,
+    "sentence": "By analyzing a product ___ a can of paint, chemists at Reverse Science can recreate the original formula.",
+    "choices": [
+      "apart",
+      "in full",
+      "moreover",
+      "such as"
+    ],
+    "correct": 3,
+    "full": "By analyzing a product <span class='highlight'>such as</span> a can of paint, chemists at Reverse Science can recreate the original formula.",
+    "type": "Préposition composée — exemple",
+    "expl": "(D) <em>such as</em> = tel que, par exemple. Introduit un exemple concret. (A) <em>apart</em> = séparé (adjectif/adverbe). (B) <em>in full</em> = en entier. (C) <em>moreover</em> = de plus (adverbe d'addition).",
+    "vocab": "such as = tel que, comme par exemple | recreate = recréer | formula = formule"
+  },
+  {
+    "num": 123,
+    "sentence": "Many home-improvement companies ___ data on customers who give explicit permission to do so.",
+    "choices": [
+      "gather",
+      "resolve",
+      "persuade",
+      "place"
+    ],
+    "correct": 0,
+    "full": "Many home-improvement companies <span class='highlight'>gather</span> data on customers who give explicit permission to do so.",
+    "type": "Collocation — verbe",
+    "expl": "(A) <em>gather data</em> = collecter des données. Collocation standard. (B) <em>resolve</em> = résoudre. (C) <em>persuade</em> = persuader. (D) <em>place</em> = placer.",
+    "vocab": "gather data = collecter des données | home-improvement = rénovation domiciliaire | explicit permission = autorisation explicite"
+  },
+  {
+    "num": 124,
+    "sentence": "The new call-in system has brought ___ change, as it allows staff to give more personal attention to customers.",
+    "choices": [
+      "welcome",
+      "single",
+      "delicate",
+      "ready"
+    ],
+    "correct": 0,
+    "full": "The new call-in system has brought <span class='highlight'>welcome</span> change, as it allows staff to give more personal attention to customers.",
+    "type": "Collocation — adjectif",
+    "expl": "(A) <em>welcome change</em> = changement bienvenu. Expression figée positive. (B) <em>single</em> = unique. (C) <em>delicate</em> = délicat. (D) <em>ready</em> = prêt.",
+    "vocab": "welcome change = changement bienvenu | call-in system = système d'appels | personal attention = attention personnalisée"
+  },
+  {
+    "num": 125,
+    "sentence": "At Pointways General Store, ___ products can be found in the clearance section.",
+    "choices": [
+      "discontinue",
+      "discontinues",
+      "discontinued",
+      "discontinuing"
+    ],
+    "correct": 2,
+    "full": "At Pointways General Store, <span class='highlight'>discontinued</span> products can be found in the clearance section.",
+    "type": "Adjectif participial",
+    "expl": "Le mot qualifie <em>products</em> → adjectif requis. (C) <em>discontinued</em> = mis hors vente, arrêté (participe passé utilisé comme adjectif). (A) <em>discontinue</em> = verbe infinitif. (B) <em>discontinues</em> = verbe conjugué. (D) <em>discontinuing</em> = participe présent.",
+    "vocab": "discontinued products = produits arrêtés | clearance section = rayon des soldes | general store = grande surface généraliste"
+  },
+  {
+    "num": 126,
+    "sentence": "Convention greeters ___ information packets to the delegates as they entered.",
+    "choices": [
+      "developed",
+      "distributed",
+      "printed",
+      "held"
+    ],
+    "correct": 1,
+    "full": "Convention greeters <span class='highlight'>distributed</span> information packets to the delegates as they entered.",
+    "type": "Vocabulaire — verbe",
+    "expl": "(B) <em>distributed</em> = ont distribué. Collocation naturelle : <em>distribute packets/materials</em>. (A) <em>developed</em> = développé. (C) <em>printed</em> = imprimé. (D) <em>held</em> = tenu.",
+    "vocab": "to distribute = distribuer | packet = pochette, dossier | delegate = délégué | greeter = accueil, hôtesse"
+  },
+  {
+    "num": 127,
+    "sentence": "All of Mr. Gorski's expenses will be reimbursed ___ he can send us the relevant invoices and receipts.",
+    "choices": [
+      "along with",
+      "provided that",
+      "instead of",
+      "belonging to"
+    ],
+    "correct": 1,
+    "full": "All of Mr. Gorski's expenses will be reimbursed <span class='highlight'>provided that</span> he can send us the relevant invoices and receipts.",
+    "type": "Conjonction conditionnelle",
+    "expl": "(B) <em>provided that</em> = à condition que. Conjonction conditionnelle formelle. (A) <em>along with</em> = ainsi que (préposition). (C) <em>instead of</em> = au lieu de. (D) <em>belonging to</em> = appartenant à.",
+    "vocab": "provided that = à condition que | reimburse = rembourser | invoice = facture | receipt = reçu"
+  },
+  {
+    "num": 128,
+    "sentence": "The expansion of the Fruva Group's caseload solved one problem but created ___, as the firm is now understaffed.",
+    "choices": [
+      "neither",
+      "everything",
+      "each",
+      "another"
+    ],
+    "correct": 3,
+    "full": "The expansion of the Fruva Group's caseload solved one problem but created <span class='highlight'>another</span>, as the firm is now understaffed.",
+    "type": "Pronom indéfini — addition",
+    "expl": "(D) <em>another</em> = un autre (problème). Structure : <em>one problem... another [problem]</em>. (A) <em>neither</em> = aucun des deux. (B) <em>everything</em> = tout. (C) <em>each</em> = chacun.",
+    "vocab": "another = un autre | caseload = charge de travail, volume de dossiers | understaffed = en sous-effectif"
+  },
+  {
+    "num": 129,
+    "sentence": "A proposal to remove parking meters from First Avenue sparked a ___ debate during last night's city council meeting.",
+    "choices": [
+      "lively",
+      "current",
+      "conditional",
+      "primary"
+    ],
+    "correct": 0,
+    "full": "A proposal to remove parking meters from First Avenue sparked a <span class='highlight'>lively</span> debate during last night's city council meeting.",
+    "type": "Collocation — adjectif",
+    "expl": "(A) <em>lively debate</em> = débat animé. Collocation classique. (B) <em>current</em> = actuel. (C) <em>conditional</em> = conditionnel. (D) <em>primary</em> = primaire, principal.",
+    "vocab": "lively debate = débat animé | spark = déclencher | city council = conseil municipal | parking meter = parcmètre"
+  },
+  {
+    "num": 130,
+    "sentence": "Mr. Karides announced the acquisition of new equipment that will speed production in most, ___ all, of our factories.",
+    "choices": [
+      "furthermore",
+      "besides",
+      "if not",
+      "until now"
+    ],
+    "correct": 2,
+    "full": "Mr. Karides announced the acquisition of new equipment that will speed production in most, <span class='highlight'>if not</span> all, of our factories.",
+    "type": "Expression figée — gradation",
+    "expl": "(C) <em>most, if not all</em> = la plupart, voire tous. Expression figée exprimant une gradation ascendante. (A) <em>furthermore</em> = de plus. (B) <em>besides</em> = en outre. (D) <em>until now</em> = jusqu'à présent.",
+    "vocab": "most if not all = la plupart voire tous | acquisition = acquisition | speed production = accélérer la production"
+  }
+];
+
+let userAnswers = new Array(QUESTIONS.length).fill(-1);
+let timerInterval;
+let timeLeft = 900; // 15 min
+let submitted = false;
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){ clearInterval(timerInterval); autoSubmit(); }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60), s=timeLeft%60;
+  document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);
+  const box=document.getElementById('timerBox');
+  box.classList.remove('orange','red');
+  if(timeLeft<=60) box.classList.add('red');
+  else if(timeLeft<=180) box.classList.add('orange');
+}
+
+function autoSubmit(){
+  document.getElementById('overlay').classList.add('show');
+  submitTest();
+}
+
+function selectAnswer(qIdx, choiceIdx){
+  if(submitted) return;
+  userAnswers[qIdx]=choiceIdx;
+  const card=document.getElementById('card-'+qIdx);
+  card.classList.add('answered');
+  card.querySelectorAll('.choice-btn').forEach((btn,i)=>{
+    btn.classList.toggle('selected', i===choiceIdx);
+    btn.querySelector('.choice-letter').style.background = i===choiceIdx?'var(--navy)':'';
+    btn.querySelector('.choice-letter').style.color = i===choiceIdx?'#fff':'';
+    btn.querySelector('.choice-letter').style.borderColor = i===choiceIdx?'var(--navy)':'';
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const answered=userAnswers.filter(a=>a>=0).length;
+  const total=QUESTIONS.length;
+  document.getElementById('progressText').textContent=answered+' / '+total+' répondues';
+  document.getElementById('progressFill').style.width=(answered/total*100)+'%';
+  const btn=document.getElementById('submitBtn');
+  const hint=document.getElementById('submitHint');
+  if(answered===total){
+    btn.disabled=false;
+    hint.textContent='Prêt à soumettre.';
+  } else {
+    btn.disabled=true;
+    hint.textContent=(total-answered)+' question(s) sans réponse.';
+  }
+}
+
+function submitTest(){
+  if(submitted) return;
+  submitted=true;
+  clearInterval(timerInterval);
+  document.getElementById('submitBtn').disabled=true;
+  let score=0;
+  QUESTIONS.forEach((q,i)=>{ if(userAnswers[i]===q.correct) score++; });
+  const est=Math.min(495, Math.round((score/30)*490)+5);
+  document.getElementById('scoreMain').textContent=score+' / 30';
+  document.getElementById('scoreToeic').innerHTML='Estimation Reading TOEIC : <span>~'+est+' / 495</span>';
+  buildCorrection(score);
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function buildCorrection(){
+  const container=document.getElementById('correctionContainer');
+  container.innerHTML='';
+  QUESTIONS.forEach((q,i)=>{
+    const chosen=userAnswers[i];
+    const isOk=(chosen===q.correct);
+    const div=document.createElement('div');
+    div.className='corr-card '+(isOk?'correct-ans':'wrong-ans');
+    const letters=['A','B','C','D'];
+    let choicesHTML=q.choices.map((c,ci)=>{
+      let cls='neutral';
+      if(ci===q.correct) cls='is-correct';
+      else if(ci===chosen) cls='is-wrong-pick';
+      return `<div class="corr-choice ${cls}"><span class="cletter">(${letters[ci]})</span>${c}</div>`;
+    }).join('');
+    let vocabHTML=q.vocab?`<div class="vocab-box">${q.vocab}</div>`:'';
+    div.innerHTML=`
+      <div class="corr-header">
+        <span class="corr-num">Q${q.num}</span>
+        <span class="badge ${isOk?'badge-ok':'badge-err'}">${isOk?'✓ Correct':'✗ Incorrect'}</span>
+        ${!isOk && chosen>=0?`<span style="font-size:.78rem;color:var(--muted)">Votre réponse : (${letters[chosen]}) — Bonne réponse : (${letters[q.correct]})</span>`:''}
+      </div>
+      <div class="corr-sentence">${q.full}</div>
+      <div class="corr-choices">${choicesHTML}</div>
+      <div class="expl">
+        <div class="expl-title">📌 ${q.type}</div>
+        <p>${q.expl}</p>
+      </div>
+      ${vocabHTML}`;
+    container.appendChild(div);
+  });
+}
+
+function buildQuestions(){
+  const container=document.getElementById('questionsContainer');
+  const letters=['A','B','C','D'];
+  QUESTIONS.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='question-card';
+    div.id='card-'+i;
+    const choicesHTML=q.choices.map((c,ci)=>`
+      <button class="choice-btn" onclick="selectAnswer(${i},${ci})">
+        <span class="choice-letter">${letters[ci]}</span>
+        <span>${c}</span>
+      </button>`).join('');
+    div.innerHTML=`
+      <div class="q-number">Question ${q.num}</div>
+      <div class="q-sentence">${q.sentence.replace('___','<span class="blank">___</span>')}</div>
+      <div class="choices">${choicesHTML}</div>`;
+    container.appendChild(div);
+  });
+}
+
+buildQuestions();
+startTimer();
+</script>
+</body>
+</html>

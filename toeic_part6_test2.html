@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 6 — Test 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--navy-light:#243860;--gold:#C9A020;--gold-light:#E8C84A;--green:#2A7A4B;--green-bg:#E8F5EE;--red:#B0231A;--red-bg:#FDECEA;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh}
+.header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.35)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;gap:16px;flex-wrap:wrap}
+.header-left h1{font-family:var(--display);color:var(--gold);font-size:1.15rem;letter-spacing:.02em}
+.header-left p{color:#A8B8D0;font-size:.78rem;font-weight:300;margin-top:2px}
+.timer-box{display:flex;flex-direction:column;align-items:center;background:var(--navy-light);border:2px solid var(--gold);border-radius:8px;padding:6px 18px;min-width:110px}
+.timer-label{color:var(--gold);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
+.timer-display{font-family:var(--mono);font-size:1.6rem;font-weight:600;color:#fff;letter-spacing:.05em}
+.timer-box.orange{border-color:#E8922A;background:#2A1E10}.timer-box.orange .timer-display,.timer-box.orange .timer-label{color:#E8922A}
+.timer-box.red{border-color:#C0231A;background:#2A1010}.timer-box.red .timer-display,.timer-box.red .timer-label{color:#ff4444;animation:blink .7s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.progress-box{color:#A8B8D0;font-size:.8rem;text-align:right}
+.progress-bar-wrap{width:120px;height:6px;background:var(--navy-light);border-radius:3px;margin-top:5px}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+main{max-width:900px;margin:0 auto;padding:32px 20px 80px}
+.part-intro{background:var(--navy);color:#C8D8F0;padding:18px 24px;border-radius:10px;margin-bottom:32px;border-left:4px solid var(--gold)}
+.part-intro h2{font-family:var(--display);color:var(--gold);font-size:1.1rem;margin-bottom:8px}
+.part-intro p{font-size:.88rem;line-height:1.6}
+.text-block{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:28px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+.text-block h3{font-family:var(--display);color:var(--navy);font-size:.95rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:flex;justify-content:space-between;align-items:center}
+.text-block h3 span{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:400}
+.text-passage{font-size:.95rem;line-height:1.85;color:var(--text);padding:16px;background:var(--cream);border-radius:8px;margin-bottom:20px;border-left:3px solid var(--border)}
+.blank-num{display:inline-block;background:var(--navy);color:var(--gold);font-family:var(--mono);font-size:.78rem;font-weight:600;padding:1px 7px;border-radius:4px;margin:0 2px;vertical-align:middle;cursor:default}
+.questions-section{border-top:1px solid var(--border);padding-top:18px}
+.q-group{margin-bottom:16px}
+.q-label{font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:520px){.choices{grid-template-columns:1fr}}
+.choice-btn{display:flex;align-items:center;gap:9px;padding:8px 13px;border:1.5px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-family:var(--serif);font-size:.9rem;color:var(--text);text-align:left;transition:all .15s;width:100%}
+.choice-btn:hover{border-color:var(--navy);background:#F4F0E8}
+.choice-btn.selected{border-color:var(--navy);background:#EDF1F8;color:var(--navy);font-weight:600}
+.choice-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);font-family:var(--mono);font-size:.72rem;font-weight:600;flex-shrink:0;transition:all .15s}
+.choice-btn.selected .choice-letter{background:var(--navy);border-color:var(--navy);color:#fff}
+.submit-wrap{text-align:center;margin:36px 0}
+.submit-btn{background:var(--navy);color:var(--gold);font-family:var(--display);font-size:1.05rem;padding:14px 44px;border:2px solid var(--gold);border-radius:8px;cursor:pointer;letter-spacing:.04em;transition:all .2s}
+.submit-btn:hover{background:var(--gold);color:var(--navy)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.submit-hint{font-size:.82rem;color:var(--muted);margin-top:8px;font-style:italic}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.overlay-box{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:40px 50px;text-align:center;color:#fff}
+.overlay-box h2{font-family:var(--display);color:var(--gold);font-size:1.5rem;margin-bottom:12px}
+.overlay-box p{color:#A8B8D0;margin-bottom:20px}
+.overlay-box button{background:var(--gold);color:var(--navy);border:none;padding:10px 30px;border-radius:6px;font-family:var(--display);font-size:1rem;cursor:pointer;font-weight:600}
+#results{display:none}
+.score-banner{background:var(--navy);color:#fff;padding:32px;border-radius:12px;text-align:center;margin-bottom:36px;border:2px solid var(--gold)}
+.score-banner h2{font-family:var(--display);color:var(--gold);font-size:1.4rem;margin-bottom:12px}
+.score-main{font-size:3rem;font-family:var(--mono);font-weight:600;color:#fff;margin:8px 0}
+.score-toeic{font-size:1.1rem;color:#A8B8D0;margin-top:4px}
+.score-toeic span{color:var(--gold-light);font-weight:600}
+.correction h3{font-family:var(--display);color:var(--navy);font-size:1.2rem;margin-bottom:24px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
+.corr-card{border-radius:10px;padding:22px;margin-bottom:18px;border:1px solid var(--border)}
+.corr-card.correct-ans{background:var(--green-bg);border-left:4px solid var(--green)}
+.corr-card.wrong-ans{background:var(--red-bg);border-left:4px solid var(--red)}
+.corr-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.corr-num{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:600;font-family:var(--mono)}
+.badge-ok{background:#C8EDD6;color:var(--green)}
+.badge-err{background:#FADBD8;color:var(--red)}
+.corr-passage{font-size:.9rem;line-height:1.75;padding:10px 14px;background:rgba(255,255,255,.6);border-radius:6px;margin-bottom:14px;border-left:2px solid var(--border)}
+.highlight{background:#FFF0A0;padding:0 4px;border-radius:3px;font-weight:700;color:var(--navy)}
+.corr-choices{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px}
+@media(max-width:520px){.corr-choices{grid-template-columns:1fr}}
+.corr-choice{padding:7px 12px;border-radius:5px;font-size:.86rem;display:flex;align-items:center;gap:8px}
+.corr-choice.is-correct{background:#C8EDD6;border:1.5px solid var(--green);color:var(--green);font-weight:600}
+.corr-choice.is-wrong-pick{background:#FADBD8;border:1.5px solid var(--red);color:var(--red);text-decoration:line-through}
+.corr-choice.neutral{background:#F4F0E8;border:1.5px solid var(--border);color:var(--muted)}
+.corr-choice .cletter{font-family:var(--mono);font-size:.72rem;font-weight:600;width:20px;flex-shrink:0}
+.expl{background:rgba(255,255,255,.7);border-left:3px solid var(--navy);padding:12px 16px;border-radius:0 6px 6px 0;margin-bottom:10px}
+.expl-title{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);font-weight:600;margin-bottom:6px}
+.expl p{font-size:.86rem;line-height:1.65;color:var(--text)}
+.vocab-box{font-family:var(--mono);font-size:.8rem;background:#F0EDE4;border:1px solid var(--border);border-radius:5px;padding:10px 14px;color:var(--text);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>TOEIC Reading — Part 6</h1>
+      <p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Text Completion</p>
+    </div>
+    <div class="timer-box" id="timerBox">
+      <span class="timer-label">⏱ Temps</span>
+      <span class="timer-display" id="timerDisplay">08:00</span>
+    </div>
+    <div class="progress-box">
+      <span id="progressText">0 / 16 répondues</span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <h2>⏰ Temps écoulé</h2>
+    <p>Le test a été soumis automatiquement.</p>
+    <button onclick="document.getElementById('overlay').classList.remove('show')">Voir les résultats</button>
+  </div>
+</div>
+<main>
+<div class="part-intro">
+  <h2>Part 6 — Text Completion</h2>
+  <p>4 textes lacunaires · 16 questions (Q131–146) · Durée conseillée : 8 minutes · Choisissez la meilleure réponse pour compléter chaque texte.</p>
+</div>
+<div id="textsContainer"></div>
+<div class="submit-wrap">
+  <button class="submit-btn" id="submitBtn" disabled onclick="submitTest()">Soumettre le test</button>
+  <p class="submit-hint" id="submitHint">Répondez à toutes les questions pour soumettre.</p>
+</div>
+<div id="results">
+  <div class="score-banner">
+    <h2>Résultats — Part 6</h2>
+    <div class="score-main" id="scoreMain">—</div>
+    <div class="score-toeic" id="scoreToeic">Estimation Reading TOEIC : <span>—</span></div>
+  </div>
+  <div class="correction">
+    <h3>Correction détaillée</h3>
+    <div id="correctionContainer"></div>
+  </div>
+</div>
+</main>
+<script>
+const TEXTS = [
+  {
+    "title": "E-mail — PTV Security",
+    "questions": "Q131–134",
+    "passage": "To: Charlotte Kenny &lt;ckenny@nordenmail.net&gt;<br>From: Lawrence MacAdam &lt;lmacadam@ptvsecurity.com&gt;<br>Date: May 22<br>Subject: Information for your first day<br><br>Dear Ms. Kenny,<br><br>Welcome to PTV Security. We are delighted that you will be <b class=\"blank-num\">(131)</b> our company. Your start date is May 30. On that day, please report to the main operations center <b class=\"blank-num\">(132)</b> at 8:00 A.M.<br><br>When you arrive, you will be issued an employee identification card and a parking permit for your vehicle. <b class=\"blank-num\">(133)</b>. Following these tasks, you will attend an orientation session with other new hires. There will be an opportunity for you to ask questions, so please feel free to do so. We will be as <b class=\"blank-num\">(134)</b> as possible in answering them so that you have all the information you need.<br><br>Sincerely,<br>Lawrence MacAdam, Human Resources Supervisor",
+    "qs": [
+      {
+        "num": 131,
+        "choices": [
+          "addressing",
+          "joining",
+          "interviewing",
+          "researching"
+        ],
+        "correct": 1,
+        "context": "We are delighted that you will be <span class='highlight'>joining</span> our company.",
+        "type": "Vocabulaire — verbe",
+        "expl": "(B) <em>joining</em> = rejoindre (intégrer une entreprise). Expression idiomatique standard. (A) <em>addressing</em> = s'adressant à. (C) <em>interviewing</em> = faisant passer un entretien. (D) <em>researching</em> = effectuant des recherches.",
+        "vocab": "to join a company = rejoindre/intégrer une entreprise | be delighted = être ravi"
+      },
+      {
+        "num": 132,
+        "choices": [
+          "usually",
+          "promptly",
+          "openly",
+          "frequently"
+        ],
+        "correct": 1,
+        "context": "please report to the main operations center <span class='highlight'>promptly</span> at 8:00 A.M.",
+        "type": "Adverbe de ponctualité",
+        "expl": "(B) <em>promptly</em> = ponctuellement, à l'heure exacte. S'emploie avec une heure précise pour souligner la ponctualité requise. (A) <em>usually</em> = habituellement. (C) <em>openly</em> = ouvertement. (D) <em>frequently</em> = fréquemment.",
+        "vocab": "promptly at 8:00 A.M. = précisément à 8h00 | report to = se présenter à"
+      },
+      {
+        "num": 133,
+        "choices": [
+          "Be sure to bring your job application.",
+          "Contact us with any questions about your training.",
+          "Thank you for applying to PTV Security.",
+          "You also will be fitted for a PTV Security uniform."
+        ],
+        "correct": 3,
+        "context": "you will be issued an employee identification card and a parking permit for your vehicle. <span class='highlight'>You also will be fitted for a PTV Security uniform.</span> Following these tasks, you will attend an orientation session…",
+        "type": "Insertion de phrase — cohérence logique",
+        "expl": "Le contexte liste les procédures d'arrivée (badge, parking). (D) ajoute logiquement une autre étape (tenue de travail) avant l'orientation. (A) la demande d'emploi est déjà traitée. (B) questions → hors séquence. (C) remerciement de candidature : trop tardif.",
+        "vocab": "fitted for = être équipé de, se faire confectionner | uniform = uniforme | orientation session = séance d'accueil"
+      },
+      {
+        "num": 134,
+        "choices": [
+          "thorough",
+          "thoroughness",
+          "thoroughly",
+          "more thorough"
+        ],
+        "correct": 0,
+        "context": "We will be as <span class='highlight'>thorough</span> as possible in answering them…",
+        "type": "Adjectif attribut — as...as",
+        "expl": "Structure <em>as + adjectif + as possible</em> → adjectif requis. (A) <em>thorough</em> = minutieux, complet. (B) <em>thoroughness</em> = nom. (C) <em>thoroughly</em> = adverbe. (D) <em>more thorough</em> = comparatif (incompatible avec <em>as...as</em>).",
+        "vocab": "thorough = minutieux, complet | as thorough as possible = aussi minutieux que possible"
+      }
+    ]
+  },
+  {
+    "title": "Notice — Springtown Zoning Committee",
+    "questions": "Q135–138",
+    "passage": "The city of Springtown's zoning committee is scheduled to meet on September 25. The purpose of the meeting is <b class=\"blank-num\">(135)</b> the ordinances concerning the use of billboards and temporary notices (for example, posters and cardboard signs). Such physical notices are currently permitted in all zoning areas, but they are subject to different rules depending on their specific <b class=\"blank-num\">(136)</b> within each zone. <b class=\"blank-num\">(137)</b>. Members of the community are welcome to attend. We know that <b class=\"blank-num\">(138)</b> are interested in this topic.",
+    "qs": [
+      {
+        "num": 135,
+        "choices": [
+          "having examined",
+          "to examine",
+          "had examined",
+          "will examine"
+        ],
+        "correct": 1,
+        "context": "The purpose of the meeting is <span class='highlight'>to examine</span> the ordinances concerning the use of billboards…",
+        "type": "Infinitif de but",
+        "expl": "Après <em>the purpose is</em>, on utilise l'infinitif (to + V) pour exprimer le but. (B) <em>to examine</em>. (A) <em>having examined</em> = parfait accompli. (C) <em>had examined</em> = plus-que-parfait. (D) <em>will examine</em> = futur (incompatible avec <em>is</em>).",
+        "vocab": "the purpose is to = l'objectif est de | ordinance = règlement, arrêté | billboard = panneau publicitaire"
+      },
+      {
+        "num": 136,
+        "choices": [
+          "location",
+          "suggestion",
+          "illustration",
+          "restoration"
+        ],
+        "correct": 0,
+        "context": "they are subject to different rules depending on their specific <span class='highlight'>location</span> within each zone.",
+        "type": "Vocabulaire — cohérence",
+        "expl": "(A) <em>location</em> = emplacement, situation géographique. Le panneau est soumis à des règles selon son emplacement précis dans la zone. (B) <em>suggestion</em> = suggestion. (C) <em>illustration</em> = illustration. (D) <em>restoration</em> = restauration.",
+        "vocab": "location = emplacement | specific location = emplacement précis | zoning area = zone d'urbanisme"
+      },
+      {
+        "num": 137,
+        "choices": [
+          "Springtown's zoning decisions were approved at that time.",
+          "The committee is elected by the township every two years.",
+          "Springtown has a small number of billboards currently.",
+          "The committee's primary goal at the meeting will be to clarify these rules."
+        ],
+        "correct": 3,
+        "context": "…subject to different rules depending on their specific location within each zone. <span class='highlight'>The committee's primary goal at the meeting will be to clarify these rules.</span> Members of the community are welcome to attend.",
+        "type": "Insertion de phrase — cohérence",
+        "expl": "Après l'évocation des règles complexes, (D) annonce l'objectif de la réunion (clarifier ces règles) avant d'inviter le public. (A) hors contexte. (B) processus électoral : hors sujet. (C) contradictoire avec l'idée que les panneaux sont omniprésents.",
+        "vocab": "primary goal = objectif principal | clarify = clarifier | welcome to attend = bienvenu à assister"
+      },
+      {
+        "num": 138,
+        "choices": [
+          "fewer",
+          "both",
+          "many",
+          "any"
+        ],
+        "correct": 2,
+        "context": "We know that <span class='highlight'>many</span> are interested in this topic.",
+        "type": "Pronom indéfini quantificateur",
+        "expl": "(C) <em>many</em> = beaucoup (de personnes). Employé seul comme pronom sans nom. (A) <em>fewer</em> = moins (comparatif). (B) <em>both</em> = les deux (binaire, limité). (D) <em>any</em> = n'importe lequel (neutre, sans connotation de nombre).",
+        "vocab": "many = beaucoup | interested in = intéressé par | topic = sujet, thème"
+      }
+    ]
+  },
+  {
+    "title": "Notice — Lenoxelle Job Applicants",
+    "questions": "Q139–142",
+    "passage": "<strong>Applicants for entry-level and management roles at Lenoxelle</strong><br><br>After we review their résumés and other required materials, we will invite promising job applicants to our branch offices. They will be directed to the office nearest to where they live, <b class=\"blank-num\">(139)</b> they make a special request to visit a different branch.<br><br><b class=\"blank-num\">(140)</b>. This day will include an individual interview and several group exercises to evaluate leadership abilities and teamwork skills.<br><br>Any applicant who has prior knowledge of our interview questions or exercises <b class=\"blank-num\">(141)</b> this before arriving at the designated office. An <b class=\"blank-num\">(142)</b> type of evaluation will then be used.",
+    "qs": [
+      {
+        "num": 139,
+        "choices": [
+          "despite",
+          "not only",
+          "unless",
+          "as though"
+        ],
+        "correct": 2,
+        "context": "They will be directed to the office nearest to where they live, <span class='highlight'>unless</span> they make a special request to visit a different branch.",
+        "type": "Conjonction conditionnelle négative",
+        "expl": "(C) <em>unless</em> = à moins que. Indique l'exception à la règle. (A) <em>despite</em> = malgré (préposition). (B) <em>not only</em> = non seulement (corrélation). (D) <em>as though</em> = comme si (comparaison irréelle).",
+        "vocab": "unless = à moins que | branch = succursale | request = demande"
+      },
+      {
+        "num": 140,
+        "choices": [
+          "Applicants should proofread their résumés before submitting them.",
+          "Applicants should provide the names of at least three references.",
+          "Applicants will be notified of hiring decisions within two weeks.",
+          "Applicants will be expected to spend a full day at the branch office."
+        ],
+        "correct": 3,
+        "context": "<span class='highlight'>Applicants will be expected to spend a full day at the branch office.</span> This day will include an individual interview and several group exercises…",
+        "type": "Insertion de phrase",
+        "expl": "La phrase suivante commence par <em>This day will include</em> → la phrase insérée doit introduire « un jour » passé au bureau. (D) introduit ce concept (passer une journée entière au bureau). (A)(B) concernent la candidature, déjà passée. (C) parle des décisions → prématuré.",
+        "vocab": "spend a full day = passer toute une journée | branch office = bureau de succursale | expected to = censé"
+      },
+      {
+        "num": 141,
+        "choices": [
+          "had declared",
+          "to declare",
+          "must declare",
+          "was declaring"
+        ],
+        "correct": 2,
+        "context": "Any applicant who has prior knowledge of our interview questions or exercises <span class='highlight'>must declare</span> this before arriving at the designated office.",
+        "type": "Modalité — obligation",
+        "expl": "(C) <em>must declare</em> = doit déclarer (obligation). Verbe modal d'obligation fort. (A) <em>had declared</em> = plus-que-parfait (passé). (B) <em>to declare</em> = infinitif seul. (D) <em>was declaring</em> = progressif passé.",
+        "vocab": "must declare = doit déclarer | prior knowledge = connaissance préalable | designated office = bureau désigné"
+      },
+      {
+        "num": 142,
+        "choices": [
+          "alternate",
+          "eventual",
+          "excusable",
+          "urgent"
+        ],
+        "correct": 0,
+        "context": "An <span class='highlight'>alternate</span> type of evaluation will then be used.",
+        "type": "Vocabulaire — adjectif",
+        "expl": "(A) <em>alternate</em> = alternatif, différent. Si un candidat connaît les questions, on utilise un autre type d'évaluation. (B) <em>eventual</em> = éventuel, final. (C) <em>excusable</em> = excusable. (D) <em>urgent</em> = urgent.",
+        "vocab": "alternate = alternatif, de remplacement | evaluation = évaluation | type = type, forme"
+      }
+    ]
+  },
+  {
+    "title": "Article — Restaurant Chain Parezino",
+    "questions": "Q143–146",
+    "passage": "<strong>Restaurant Chain Parezino Expanding Operations to Spain</strong><br><br>TORONTO (29 November)—Parezino, a Canadian-based restaurant chain <b class=\"blank-num\">(143)</b> in gourmet sandwiches, is opening its first franchise in Spain. The new restaurant is expected to open in Madrid next April.<br><br>Now in its eleventh year of operation, Parezino is headquartered in Toronto. After four years of success in Canada, the company began expanding to <b class=\"blank-num\">(144)</b> markets and now boasts over 6,000 franchises in 24 countries. <b class=\"blank-num\">(145)</b>.<br><br>While every Parezino restaurant offers the same basic menu, each country's traditional cuisine and preferences are taken into consideration. This <b class=\"blank-num\">(146)</b> is the key to the company's success, according to CEO Maria Cancio.",
+    "qs": [
+      {
+        "num": 143,
+        "choices": [
+          "has specialized",
+          "is specializing",
+          "that specializes",
+          "its specialization"
+        ],
+        "correct": 2,
+        "context": "Parezino, a Canadian-based restaurant chain <span class='highlight'>that specializes</span> in gourmet sandwiches, is opening its first franchise in Spain.",
+        "type": "Proposition relative",
+        "expl": "Le sujet principal est <em>Parezino</em> (avec <em>is opening</em> comme verbe). La lacune introduit une relative qualifiant <em>chain</em>. (C) <em>that specializes</em> = qui se spécialise. (A)(B) créent deux verbes principaux. (D) nom seul sans relatif.",
+        "vocab": "that specializes in = qui se spécialise dans | gourmet = gastronomique | franchise = franchise"
+      },
+      {
+        "num": 144,
+        "choices": [
+          "financial",
+          "outdoor",
+          "friendlier",
+          "international"
+        ],
+        "correct": 3,
+        "context": "the company began expanding to <span class='highlight'>international</span> markets and now boasts over 6,000 franchises in 24 countries.",
+        "type": "Vocabulaire — adjectif",
+        "expl": "(D) <em>international markets</em> = marchés internationaux. Cohérent avec l'expansion dans 24 pays. (A) <em>financial</em> = financier. (B) <em>outdoor</em> = extérieur. (C) <em>friendlier</em> = plus convivial (comparatif, inadapté).",
+        "vocab": "international markets = marchés internationaux | expand to = s'étendre à | boast = afficher, se targuer de"
+      },
+      {
+        "num": 145,
+        "choices": [
+          "Parezino was founded by a group of friends who met at university.",
+          "The Parezino brand is now recognized globally.",
+          "Madrid is centrally located for travel within Spain.",
+          "Construction of the new building is almost complete."
+        ],
+        "correct": 1,
+        "context": "the company began expanding to international markets and now boasts over 6,000 franchises in 24 countries. <span class='highlight'>The Parezino brand is now recognized globally.</span>",
+        "type": "Insertion de phrase",
+        "expl": "Après l'annonce de 6 000 franchises dans 24 pays, (B) tire logiquement la conclusion : la marque est reconnue mondialement. (A) création : hors contexte. (C) Madrid : trop spécifique. (D) construction : non mentionnée.",
+        "vocab": "recognized globally = reconnu mondialement | brand = marque"
+      },
+      {
+        "num": 146,
+        "choices": [
+          "flexibility",
+          "efficiency",
+          "equipment",
+          "investment"
+        ],
+        "correct": 0,
+        "context": "This <span class='highlight'>flexibility</span> is the key to the company's success, according to CEO Maria Cancio.",
+        "type": "Vocabulaire — cohérence textuelle",
+        "expl": "(A) <em>flexibility</em> = flexibilité. Le texte décrit comment Parezino adapte son menu aux cuisines locales → flexibilité est la clé. (B) <em>efficiency</em> = efficacité. (C) <em>equipment</em> = équipement. (D) <em>investment</em> = investissement.",
+        "vocab": "flexibility = flexibilité | key to success = clé du succès | take into consideration = prendre en considération"
+      }
+    ]
+  }
+];
+
+// Flatten all questions for answer tracking
+const ALL_QUESTIONS = [];
+TEXTS.forEach(t => t.qs.forEach(q => ALL_QUESTIONS.push(q)));
+let userAnswers = new Array(16).fill(-1);
+let timerInterval;
+let timeLeft = 480;
+let submitted = false;
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{ timeLeft--; updateTimerDisplay(); if(timeLeft<=0){clearInterval(timerInterval);autoSubmit();} },1000);
+}
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);
+  const box=document.getElementById('timerBox');
+  box.classList.remove('orange','red');
+  if(timeLeft<=60) box.classList.add('red');
+  else if(timeLeft<=120) box.classList.add('orange');
+}
+function autoSubmit(){ document.getElementById('overlay').classList.add('show'); submitTest(); }
+
+function selectAnswer(qIdx, choiceIdx){
+  if(submitted) return;
+  userAnswers[qIdx]=choiceIdx;
+  const grp=document.getElementById('qgrp-'+qIdx);
+  grp.querySelectorAll('.choice-btn').forEach((btn,i)=>{
+    btn.classList.toggle('selected',i===choiceIdx);
+    const cl=btn.querySelector('.choice-letter');
+    cl.style.background=i===choiceIdx?'var(--navy)':'';
+    cl.style.color=i===choiceIdx?'#fff':'';
+    cl.style.borderColor=i===choiceIdx?'var(--navy)':'';
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const answered=userAnswers.filter(a=>a>=0).length;
+  document.getElementById('progressText').textContent=answered+' / 16 répondues';
+  document.getElementById('progressFill').style.width=(answered/16*100)+'%';
+  const btn=document.getElementById('submitBtn');
+  if(answered===16){btn.disabled=false;document.getElementById('submitHint').textContent='Prêt à soumettre.';}
+  else{btn.disabled=true;document.getElementById('submitHint').textContent=(16-answered)+' question(s) sans réponse.';}
+}
+
+function submitTest(){
+  if(submitted) return;
+  submitted=true;
+  clearInterval(timerInterval);
+  document.getElementById('submitBtn').disabled=true;
+  let score=0;
+  ALL_QUESTIONS.forEach((q,i)=>{ if(userAnswers[i]===q.correct) score++; });
+  const est=Math.min(495,Math.round((score/16)*490)+5);
+  document.getElementById('scoreMain').textContent=score+' / 16';
+  document.getElementById('scoreToeic').innerHTML='Estimation Reading TOEIC : <span>~'+est+' / 495</span>';
+  buildCorrection();
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function buildCorrection(){
+  const container=document.getElementById('correctionContainer');
+  container.innerHTML='';
+  const letters=['A','B','C','D'];
+  ALL_QUESTIONS.forEach((q,i)=>{
+    const chosen=userAnswers[i];
+    const isOk=(chosen===q.correct);
+    const div=document.createElement('div');
+    div.className='corr-card '+(isOk?'correct-ans':'wrong-ans');
+    const choicesHTML=q.choices.map((c,ci)=>{
+      let cls='neutral';
+      if(ci===q.correct) cls='is-correct';
+      else if(ci===chosen) cls='is-wrong-pick';
+      return `<div class="corr-choice ${cls}"><span class="cletter">(${letters[ci]})</span>${c}</div>`;
+    }).join('');
+    div.innerHTML=`
+      <div class="corr-header">
+        <span class="corr-num">Q${q.num}</span>
+        <span class="badge ${isOk?'badge-ok':'badge-err'}">${isOk?'✓ Correct':'✗ Incorrect'}</span>
+        ${!isOk&&chosen>=0?`<span style="font-size:.78rem;color:var(--muted)">Votre réponse : (${letters[chosen]}) — Bonne réponse : (${letters[q.correct]})</span>`:''}
+      </div>
+      <div class="corr-passage">${q.context_with_answer}</div>
+      <div class="corr-choices">${choicesHTML}</div>
+      <div class="expl"><div class="expl-title">📌 ${q.type}</div><p>${q.expl}</p></div>
+      ${q.vocab?`<div class="vocab-box">${q.vocab}</div>`:''}`;
+    container.appendChild(div);
+  });
+}
+
+function buildTexts(){
+  const container=document.getElementById('textsContainer');
+  const letters=['A','B','C','D'];
+  let qIdx=0;
+  TEXTS.forEach(t=>{
+    const div=document.createElement('div');
+    div.className='text-block';
+    let qsHTML=t.qs.map(q=>{
+      const idx=qIdx++;
+      const choicesHTML=q.choices.map((c,ci)=>`
+        <button class="choice-btn" onclick="selectAnswer(${idx},${ci})">
+          <span class="choice-letter">${letters[ci]}</span>
+          <span>${c}</span>
+        </button>`).join('');
+      return `<div class="q-group" id="qgrp-${idx}">
+        <div class="q-label">Q${q.num}</div>
+        <div class="choices">${choicesHTML}</div>
+      </div>`;
+    }).join('');
+    div.innerHTML=`
+      <h3>${t.title} <span>${t.questions}</span></h3>
+      <div class="text-passage">${t.passage_template}</div>
+      <div class="questions-section">${qsHTML}</div>`;
+    container.appendChild(div);
+  });
+}
+
+buildTexts();
+startTimer();
+</script>
+</body>
+</html>
