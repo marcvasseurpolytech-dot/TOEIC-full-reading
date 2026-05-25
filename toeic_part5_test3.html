@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 5 – TEST 3 · Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--navy-light:#243860;--gold:#C9A020;--gold-light:#E8C84A;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--green:#1B6B3A;--green-bg:#E6F4EC;--red:#B91C1C;--red-bg:#FEF2F2;--orange:#C2630A;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:60px}
+#sticky-header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hdr-left h1{font-family:var(--display);color:var(--gold);font-size:1rem;letter-spacing:.02em}
+.hdr-left p{color:#A8B8D0;font-size:.7rem;margin-top:2px}
+.hdr-center{display:flex;align-items:center;gap:12px}
+#timer-box{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:#fff;background:rgba(255,255,255,.08);padding:6px 18px;border-radius:8px;border:1.5px solid rgba(201,160,32,.4);min-width:90px;text-align:center;transition:color .3s,border-color .3s}
+#timer-box.orange{color:var(--gold-light);border-color:var(--gold-light)}
+#timer-box.red{color:#F87171;border-color:#F87171;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#progress-bar-wrap{flex:1;min-width:120px;max-width:220px}
+#progress-bar-label{font-family:var(--mono);font-size:.6rem;color:#A8B8D0;margin-bottom:4px}
+#progress-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+#progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+.hdr-right{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;text-align:right}
+
+main{max-width:820px;margin:0 auto;padding:32px 20px}
+.test-intro{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:22px 28px;margin-bottom:32px}
+.test-intro h2{font-family:var(--display);color:var(--gold);font-size:1.2rem;margin-bottom:8px}
+.test-intro p{color:#A8B8D0;font-size:.85rem;line-height:1.7}
+
+.question-block{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:16px;transition:border-color .2s}
+.question-block.answered{border-color:#A3C4B5}
+.question-block.correct-final{border-color:var(--green);background:var(--green-bg)}
+.question-block.wrong-final{border-color:var(--red);background:var(--red-bg)}
+.q-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.q-num{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--navy);background:var(--cream-dark);border-radius:6px;padding:4px 10px;white-space:nowrap;flex-shrink:0}
+.q-sentence{font-size:.97rem;line-height:1.65;color:var(--text)}
+.q-blank{font-family:var(--mono);background:var(--cream-dark);border-bottom:2px solid var(--navy);padding:0 6px;border-radius:3px 3px 0 0;font-size:.9rem;color:var(--navy)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:560px){.choices{grid-template-columns:1fr}}
+.choice-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--cream);cursor:pointer;font-family:var(--serif);font-size:.88rem;color:var(--text);transition:all .18s;text-align:left}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);background:var(--cream-dark)}
+.choice-btn.selected{border-color:var(--navy);background:#EDF1F8;font-weight:600}
+.choice-btn:disabled{cursor:default}
+.choice-btn.correct{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
+.choice-btn.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red);text-decoration:line-through}
+.choice-btn.missed{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700;opacity:.75}
+.choice-letter{font-family:var(--mono);font-weight:600;font-size:.78rem;min-width:18px}
+.q-result-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:10px;margin-bottom:10px}
+.badge-ok{background:var(--green);color:#fff}
+.badge-ko{background:var(--red);color:#fff}
+
+/* CORRECTION PANEL */
+.correction{display:none;margin-top:18px;padding-top:18px;border-top:1.5px dashed var(--border)}
+.correction.show{display:block}
+.corr-type{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);background:var(--cream-dark);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.corr-sentence{font-size:.9rem;line-height:1.7;color:var(--text);margin-bottom:12px;padding:10px 14px;background:var(--cream-dark);border-radius:8px;border-left:3px solid var(--gold)}
+.corr-answer-highlight{background:var(--green);color:#fff;padding:1px 6px;border-radius:4px;font-weight:700}
+.corr-expl{font-size:.86rem;line-height:1.7;color:var(--text);margin-bottom:10px}
+.corr-expl strong{color:var(--navy)}
+.vocab-box{font-family:var(--mono);font-size:.75rem;background:#F0EDE4;border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--muted);margin-top:8px;line-height:1.6}
+.vocab-box::before{content:'📚 Vocab : ';font-weight:600;color:var(--navy)}
+
+/* SUBMIT AREA */
+#submit-area{position:fixed;bottom:0;left:0;right:0;background:var(--navy);border-top:2px solid var(--gold);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;z-index:99;gap:12px;flex-wrap:wrap}
+#missing-count{font-family:var(--mono);font-size:.75rem;color:#A8B8D0}
+#submit-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:1rem;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+#submit-btn:hover:not(:disabled){background:var(--gold-light)}
+#submit-btn:disabled{background:#4A5568;color:#9BA3AE;cursor:not-allowed}
+
+/* RESULTS */
+#results{display:none;background:var(--navy);border:2px solid var(--gold);border-radius:16px;padding:32px;margin:32px 0;text-align:center}
+#results.show{display:block}
+.result-score{font-family:var(--display);font-size:3rem;color:var(--gold);margin-bottom:8px}
+.result-label{color:#A8B8D0;font-size:.85rem;margin-bottom:20px}
+.result-grid{display:flex;justify-content:center;gap:0;border-top:1px solid rgba(201,160,32,.2);padding-top:20px;flex-wrap:wrap}
+.result-stat{padding:10px 28px;text-align:center;border-right:1px solid rgba(201,160,32,.15)}
+.result-stat:last-child{border-right:none}
+.result-stat-val{font-family:var(--mono);font-size:1.2rem;font-weight:600;color:var(--gold-light)}
+.result-stat-lbl{font-size:.7rem;color:#A8B8D0;margin-top:2px}
+.result-note{font-size:.78rem;color:#6A7E9C;margin-top:16px;font-style:italic}
+.show-corrections-btn{margin-top:18px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.8rem;padding:8px 20px;border-radius:6px;cursor:pointer;transition:all .2s}
+.show-corrections-btn:hover{background:var(--gold);color:var(--navy)}
+
+/* TIMEOUT OVERLAY */
+#timeout-overlay{display:none;position:fixed;inset:0;background:rgba(26,43,74,.95);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:16px}
+#timeout-overlay.show{display:flex}
+.timeout-icon{font-size:3rem}
+.timeout-title{font-family:var(--display);color:var(--gold);font-size:1.6rem}
+.timeout-msg{color:#A8B8D0;font-size:.9rem}
+.timeout-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:1rem;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;margin-top:8px}
+
+footer{background:var(--navy);border-top:2px solid rgba(201,160,32,.3);padding:16px 32px;text-align:center;color:#6A7E9C;font-size:.72rem;font-family:var(--mono)}
+footer span{color:var(--gold);opacity:.7}
+</style>
+</head>
+<body>
+
+<header id="sticky-header">
+  <div class="hdr-left">
+    <h1>TOEIC · Part 5 · TEST 3</h1>
+    <p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille</p>
+  </div>
+  <div class="hdr-center">
+    <div id="timer-box">15:00</div>
+    <div id="progress-bar-wrap">
+      <div id="progress-bar-label">0 / 30 réponses</div>
+      <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="hdr-right">Incomplete Sentences<br>30 Questions</div>
+</header>
+
+<div id="timeout-overlay">
+  <div class="timeout-icon">⏱</div>
+  <div class="timeout-title">Temps écoulé</div>
+  <div class="timeout-msg">Vos réponses ont été enregistrées automatiquement.</div>
+  <button class="timeout-btn" onclick="document.getElementById('timeout-overlay').classList.remove('show');showResults()">Voir les résultats →</button>
+</div>
+
+<main>
+  <div class="test-intro">
+    <h2>Part 5 — Incomplete Sentences</h2>
+    <p>A word or phrase is missing in each sentence below. Select the best answer to complete the sentence. All 30 questions must be answered before submitting. Timer: <strong style="color:var(--gold)">15 minutes</strong>.</p>
+  </div>
+  <div id="questions-container"></div>
+  <div id="results"></div>
+</main>
+
+<div id="submit-area">
+  <div id="missing-count">Répondez à toutes les questions pour soumettre</div>
+  <button id="submit-btn" disabled onclick="handleSubmit()">Soumettre ▶</button>
+</div>
+
+<footer>
+  <span>TOEIC Practice Hub</span> &nbsp;·&nbsp; Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Usage pédagogique interne
+</footer>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbw5r5jhWlcYIQKSSxEC9r_0w9o1m0x1MM7mwSXrE3S_oK5dsOyxMdiYtz7uduuYmwjROg/exec';
+function logToSheets(data) {
+  try {
+    const url = GAS_URL + '?' + Object.entries(data)
+      .map(([k,v]) => encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
+    fetch(url, {method:'GET', mode:'no-cors'}).catch(()=>{});
+  } catch(e) {}
+}
+
+const QS = [
+  {n:101,s:"The wellness center offers ------- massages to its staff members each month.",c:["frees","freed","freely","free"],a:3,type:"Adjectif épithète",expl:"La phrase requiert un <strong>adjectif épithète</strong> qualifiant le nom « massages ». <em>Free</em> = gratuit. — (A) <em>frees</em> : forme verbale (3e pers. sing.) ; (B) <em>freed</em> : participe passé du verbe <em>to free</em> ; (C) <em>freely</em> : adverbe, ne peut qualifier un nom ; (D) <em>free</em> ✓ : adjectif attribut → <em>free massages</em>.",vocab:"free (adj.) = gratuit | freely (adv.) = librement | to free (v.) = libérer"},
+  {n:102,s:"Because of the higher ------- of metals, Hydrotep's annual purchasing budget must be increased.",c:["place","start","name","price"],a:3,type:"Vocabulaire – Nom",expl:"Le contexte économique implique une hausse du <strong>prix</strong> des métaux qui force une révision budgétaire. — (A) <em>place</em> : lieu ; (B) <em>start</em> : début ; (C) <em>name</em> : nom/appellation ; (D) <em>price</em> ✓ : prix.",vocab:"price (n.) = prix | cost (n.) = coût | budget (n.) = budget"},
+  {n:103,s:"Mr. Yamamoto and I will arrive on time as long as ------- train is not delayed.",c:["our","us","we","ourselves"],a:0,type:"Adjectif possessif",expl:"Il faut un <strong>adjectif possessif</strong> devant « train ». Le sujet composé « Mr. Yamamoto and I » = nous → <em>our</em>. — (B) <em>us</em> : pronom COD ; (C) <em>we</em> : pronom sujet, ne précède pas un nom ; (D) <em>ourselves</em> : pronom réfléchi.",vocab:"our (poss. adj.) = notre, nos | we (subj.) = nous | us (obj.) = nous"},
+  {n:104,s:"Anyone willing to ------- books to the Rosen School's annual book sale should contact Bill Choi.",c:["donate","attend","summon","counsel"],a:0,type:"Vocabulaire – Verbe",expl:"<em>To donate books to a sale</em> = faire don de livres. — (B) <em>attend</em> : assister à (événement, pas objet direct « books ») ; (C) <em>summon</em> : convoquer ; (D) <em>counsel</em> : conseiller.",vocab:"donate (v.) = faire un don | donation (n.) = don | contribute (v.) = contribuer"},
+  {n:105,s:"Tourists are encouraged to travel to Sri Lanka in November, when skies are ------- and temperatures are comfortable.",c:["clear","clearly","clearance","clears"],a:0,type:"Adjectif attribut",expl:"Après le verbe copule « are », on a besoin d'un <strong>adjectif attribut</strong>. <em>Clear</em> = dégagé (météo). — (B) <em>clearly</em> : adverbe, ne peut être attribut ; (C) <em>clearance</em> : dédouanement (nom) ; (D) <em>clears</em> : verbe conjugué.",vocab:"clear (adj.) = dégagé, clair | clear skies = ciel dégagé | clearance (n.) = dédouanement"},
+  {n:106,s:"Telepress Cable Service now permits customers to pay ------- for the channels they select.",c:["widely","highly","enough","only"],a:3,type:"Adverbe – Vocabulaire",expl:"<em>Pay only for</em> = payer uniquement pour (les chaînes choisies). — (A) <em>widely</em> : largement, ne s'emploie pas avec « pay for » ; (B) <em>highly</em> : intensificateur d'adjectif/adverbe ; (C) <em>enough</em> : assez, insertion syntaxique incorrecte ici.",vocab:"only (adv.) = seulement | solely (adv.) = uniquement | exclusively (adv.) = exclusivement"},
+  {n:107,s:"Last year the Kreger Corporation ------- for the Best Workplace in the City Award.",c:["nominates","nominated","is nominating","was nominated"],a:3,type:"Voix passive – Prétérit",expl:"« Last year » impose le <strong>prétérit</strong>. La corporation <em>reçoit</em> la nomination → <strong>voix passive</strong>. — (A) <em>nominates</em> : présent actif ; (B) <em>nominated</em> : prétérit actif (la corp. n'a pas nominé, elle a été nominée) ; (C) présent progressif actif.",vocab:"nominate (v.) = nommer, proposer | was nominated = a été nommé | award (n.) = prix, récompense"},
+  {n:108,s:"The Kemmen Industrial Group has ------- installed a new wastewater recovery system.",c:["especially","commonly","successfully","extremely"],a:2,type:"Adverbe – Vocabulaire",expl:"<em>Has successfully installed</em> = a réussi à installer. Adverbe positif précis. — (A) <em>especially</em> : particulièrement (modifie un adjectif) ; (B) <em>commonly</em> : suggère quelque chose de banal ; (D) <em>extremely</em> ne précède pas seul un participe passé dans ce sens.",vocab:"successfully (adv.) = avec succès | successfully complete = mener à bien"},
+  {n:109,s:"The artists and editors will vote today for the magazine cover ------- prefer.",c:["their","themselves","them","they"],a:3,type:"Pronom sujet (relative)",expl:"Structure : « the cover [that] <strong>they</strong> prefer ». Le pronom est <strong>sujet</strong> du verbe « prefer » → <em>they</em> (antécédent : artists and editors). — (A) <em>their</em> : possessif ; (B) <em>themselves</em> : réfléchi ; (C) <em>them</em> : COD.",vocab:"they (subj.) = ils/elles | them (obj.) = eux/elles | their (poss.) = leur(s)"},
+  {n:110,s:"Passengers may choose ------- vegetarian and nonvegetarian meals on all international flights.",c:["along","between","through","around"],a:1,type:"Préposition – Expression figée",expl:"<em>Choose between X and Y</em> = choisir entre X et Y. Expression idiomatique figée. — (A) <em>along</em> : le long de ; (C) <em>through</em> : à travers ; (D) <em>around</em> : autour de.",vocab:"choose between = choisir entre | select from = sélectionner parmi | opt for = opter pour"},
+  {n:111,s:"Parking for Whelan Inn employees ------- in the garage adjacent to the hotel.",c:["is located","locating","are located","to be located"],a:0,type:"Voix passive – Accord singulier",expl:"Sujet <em>Parking</em> = <strong>singulier</strong>. Voix passive car le parking ne se situe pas lui-même. — (B) <em>locating</em> : participe sans auxiliaire ; (C) <em>are located</em> : pluriel, erreur d'accord ; (D) <em>to be located</em> : infinitif, pas de verbe principal.",vocab:"be located (passif) = se trouver, être situé | adjacent to = adjacent à"},
+  {n:112,s:"The Doubly Great package offered by Lemonwood Spa includes a light meal with ------- a massage or a facial.",c:["both","and","but","either"],a:3,type:"Corrélatives either…or",expl:"Structure <strong>either…or</strong> = soit…soit (alternative). — (A) <em>both…and</em> = les deux simultanément (contredit « or ») ; (B) <em>and</em> seul ne s'accorde pas avec « or » qui suit ; (C) <em>but</em> : concession, incohérent.",vocab:"either…or = soit…soit | both…and = à la fois…et | neither…nor = ni…ni"},
+  {n:113,s:"The human resources director asked ------- to approve the training schedule for next quarter.",c:["myself","my","me","mine"],a:2,type:"Pronom COD",expl:"Le verbe <em>ask</em> régit un <strong>complément d'objet direct</strong>. « Ask me » = me demander. — (A) <em>myself</em> : réfléchi (sujet = COD, impossible ici) ; (B) <em>my</em> : adjectif possessif ; (D) <em>mine</em> : pronom possessif.",vocab:"ask someone to do = demander à qqn de faire | me (COD) = me, moi"},
+  {n:114,s:"Client records must be returned to the file room ------- the end of each business day.",c:["in","on","at","as"],a:2,type:"Préposition idiomatique",expl:"Expression idiomatique : <strong>at the end of</strong> = à la fin de. — (A) <em>in the end</em> = finalement (sens différent) ; (B) <em>on</em> ne s'emploie pas avec « end » dans ce sens ; (D) <em>as</em> : comme, en tant que.",vocab:"at the end of = à la fin de | by the end of = d'ici la fin de"},
+  {n:115,s:"The shipment of tires was delayed but will arrive ------- two days.",c:["actually","within","apart","finally"],a:1,type:"Préposition de délai",expl:"<em>Within two days</em> = dans un délai de deux jours (limite maximale). — (A) <em>actually</em> : adverbe, pas une préposition ; (C) <em>apart</em> : s'emploie dans « apart from » ; (D) <em>finally</em> : adverbe.",vocab:"within (prép.) = d'ici, en moins de | in two days = dans deux jours | by = au plus tard"},
+  {n:116,s:"Although Pennly Restaurant is ------- closed on Sundays, it makes exceptions for special events.",c:["much","daily","normally","perhaps"],a:2,type:"Adverbe de fréquence",expl:"<em>Normally closed</em> = normalement fermé. La conjonction « although » impose un contraste entre la règle habituelle et l'exception. — (A) <em>much</em> + adjectif seul est incorrect ; (B) <em>daily</em> = quotidien, sens contradictoire ; (D) <em>perhaps</em> : doute, incompatible avec « although ».",vocab:"normally = normalement | usually = d'habitude | typically = en général"},
+  {n:117,s:"Mr. Bates announced today that Bates Transportation ------- with Rolfson Trucking at the end of this month.",c:["are merged","to merge","has merged","will be merging"],a:3,type:"Futur progressif",expl:"« At the end of this month » = futur planifié. Le <strong>futur progressif</strong> <em>will be merging</em> indique une action imminente/organisée. — (A) passif présent ; (B) infinitif incomplet ; (C) present perfect actif = passé.",vocab:"merge (v.) = fusionner | merger (n.) = fusion | acquisition (n.) = rachat"},
+  {n:118,s:"Tecury Mills, a company which sells most of its textiles in India, is ------- to widen its customer base.",c:["inviting","seeking","causing","sending"],a:1,type:"Vocabulaire – Verbe",expl:"<em>Seeking to widen</em> = cherchant à élargir. — (A) <em>inviting</em> : inviter (objet = personne) ; (C) <em>causing</em> : causer (implique un résultat négatif non voulu) ; (D) <em>sending</em> : envoyer.",vocab:"seek to do = chercher à faire | aim to do = viser à | endeavour to do = s'efforcer de"},
+  {n:119,s:"The Wilson Canning Machine ensures that jars are ------- sealed before they are packed for delivery.",c:["secure","securely","secures","secured"],a:1,type:"Adverbe modifiant un participe",expl:"Il faut un <strong>adverbe</strong> modifiant le participe « sealed ». <em>Securely sealed</em> = hermétiquement scellé. — (A) <em>secure</em> : adjectif, ne modifie pas un participe ; (C) <em>secures</em> : verbe conjugué ; (D) <em>secured</em> : second participe sans raison syntaxique.",vocab:"securely (adv.) = solidement, hermétiquement | seal (v.) = sceller | pack (v.) = emballer"},
+  {n:120,s:"Due to the rain, the reception will be held in Ballroom A instead ------- in the Founders' Garden.",c:["beyond","of","with","to"],a:1,type:"Expression idiomatique instead of",expl:"Expression figée <strong>instead of</strong> = à la place de. Inséparable. — (A) <em>beyond</em> : au-delà ; (C) <em>with</em> : avec ; (D) <em>to</em> : incohérent.",vocab:"instead of = à la place de | rather than = plutôt que | as opposed to = par opposition à"},
+  {n:121,s:"Mr. Ostweiler was commended for his ------- in the product rollout.",c:["involvement","involving","involve","involved"],a:0,type:"Dérivation – Nom après possessif",expl:"Après « his », il faut un <strong>nom</strong>. <em>Involvement</em> = implication, participation. — (B) <em>involving</em> : participe présent ; (C) <em>involve</em> : verbe infinitif, ne suit pas « his » ; (D) <em>involved</em> : adjectif/participe, « his involved » est incorrect.",vocab:"involvement (n.) = implication | involvement in = participation à | involve (v.) = impliquer"},
+  {n:122,s:"Among the machinists at the Newville factory, Peter Sakano is one of the -------.",c:["industry","industrial","more industrialism","most industrious"],a:3,type:"Superlatif",expl:"Structure <strong>one of the most + adjectif superlatif</strong>. <em>Most industrious</em> = les plus assidus/travailleurs. — (A) <em>industry</em> : nom, « one of the industry » est incohérent ; (B) <em>industrial</em> : adjectif de classification, pas un superlatif ; (C) <em>more industrialism</em> : comparatif d'un nom, impossible.",vocab:"industrious (adj.) = travailleur, assidu | industry (n.) = industrie | diligent (adj.) = appliqué"},
+  {n:123,s:"Company finance expert Emily Lareau has ------- the operating budget numerous times in response to executive feedback.",c:["anticipated","amended","declared","satisfied"],a:1,type:"Vocabulaire – Verbe formel",expl:"<em>Amended the budget</em> = a modifié/révisé le budget (terme administratif précis). — (A) <em>anticipated</em> : anticiper (pas modifier) ; (C) <em>declared</em> : déclarer des revenus, pas réviser un budget ; (D) <em>satisfied</em> : satisfaire.",vocab:"amend (v.) = modifier, réviser | amendment (n.) = amendement | revise (v.) = revoir"},
+  {n:124,s:"All male employees must wear button-down, collared shirts, but ties are -------.",c:["persistent","minimal","optional","minor"],a:2,type:"Vocabulaire – Règlement",expl:"Contraste avec l'obligation des chemises : les cravates sont <strong>facultatives</strong>. — (A) <em>persistent</em> : persistant ; (B) <em>minimal</em> : minimal, ne signifie pas « facultatif » ; (D) <em>minor</em> : mineur, moins précis.",vocab:"optional (adj.) = facultatif, optionnel | mandatory (adj.) = obligatoire | required (adj.) = requis"},
+  {n:125,s:"------- the design team was very busy this week, the report will not be ready on time.",c:["When","Since","In addition to","Because of"],a:1,type:"Conjonctions causales",expl:"La phrase exprime une <strong>relation causale</strong> avec une proposition complète. <em>Since</em> = étant donné que, puisque. — (A) <em>When</em> : temporel, pas causal ; (C) <em>In addition to</em> : préposition → GN obligatoire ; (D) <em>Because of</em> : préposition → GN obligatoire.",vocab:"since (conj.) = puisque | because (conj.) = parce que | due to (prép.) = en raison de"},
+  {n:126,s:"The success of last week's fund-raising event was a result of the ------- between Kelmon's marketing and development divisions.",c:["collaboration","collaborate","collaborator","collaboratively"],a:0,type:"Dérivation – Nom",expl:"Après « the » et avant « between », il faut un <strong>nom</strong>. — (B) <em>collaborate</em> : verbe ; (C) <em>collaborator</em> : personne (pas un phénomène abstrait) ; (D) <em>collaboratively</em> : adverbe.",vocab:"collaboration (n.) = collaboration | collaborate (v.) = collaborer | partnership (n.) = partenariat"},
+  {n:127,s:"The receipt of the grant was a big step ------- getting the bridge project completed.",c:["even","away","however","toward"],a:3,type:"Préposition de direction",expl:"Expression idiomatique : <strong>a step toward</strong> = un pas vers (la réalisation de). — (A) <em>even</em> : même (adverbe) ; (B) <em>away from</em> = s'éloigner de (sens opposé) ; (C) <em>however</em> : conjonction de concession.",vocab:"toward(s) = vers | a step toward = un pas vers | progress toward = avancer vers"},
+  {n:128,s:"Stieg Art Gallery will be holding an interactive ------- in July on the history of sculpture.",c:["application","proposal","link","exhibit"],a:3,type:"Vocabulaire – Lieu/Événement culturel",expl:"Une galerie d'art organise une <strong>exposition</strong>. — (A) <em>application</em> : candidature/application ; (B) <em>proposal</em> : proposition ; (C) <em>link</em> : lien.",vocab:"exhibit (n.) = exposition | exhibition (n.) = exposition (plus formel) | display (n.) = présentation"},
+  {n:129,s:"Varten Motors has designed a new engine for cargo ships that works ------- than the previous models.",c:["more efficiently","most efficient","efficiently","efficient"],a:0,type:"Comparatif d'adverbe",expl:"« Than » impose un <strong>comparatif</strong>. <em>Efficiently</em> est un adverbe → comparatif = <em>more efficiently</em>. — (B) <em>most efficient</em> : superlatif d'adjectif ; (C) positif sans comparaison ; (D) <em>efficient</em> : adjectif, ne modifie pas « works ».",vocab:"efficiently (adv.) = efficacement | more efficiently = plus efficacement | efficiency (n.) = efficacité"},
+  {n:130,s:"Despite his lack of formal training, Mr. Tung is a highly ------- negotiator.",c:["effective","descriptive","festive","tentative"],a:0,type:"Vocabulaire – Adjectif",expl:"<em>A highly effective negotiator</em> = un négociateur très efficace, malgré l'absence de formation. — (B) <em>descriptive</em> : qui décrit ; (C) <em>festive</em> : festif ; (D) <em>tentative</em> : hésitant, provisoire (sens contraire au voulu).",vocab:"effective (adj.) = efficace (résultats) | efficient (adj.) = efficace (méthode) | skilled (adj.) = compétent"}
+];
+
+let answers = new Array(QS.length).fill(null);
+let submitted = false;
+let timerInterval;
+let timeLeft = 900;
+
+function pad(n){return String(n).padStart(2,'0')}
+
+function initTimer(){
+  const box = document.getElementById('timer-box');
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60), s = timeLeft%60;
+    box.textContent = `${m}:${pad(s)}`;
+    box.classList.toggle('orange', timeLeft<=180 && timeLeft>60);
+    if(timeLeft<=60){box.classList.remove('orange');box.classList.add('red');}
+    if(timeLeft<=0){clearInterval(timerInterval);autoSubmit();}
+  },1000);
+}
+
+function autoSubmit(){
+  document.getElementById('timeout-overlay').classList.add('show');
+}
+
+function updateProgress(){
+  const done = answers.filter(a=>a!==null).length;
+  document.getElementById('progress-fill').style.width=(done/QS.length*100)+'%';
+  document.getElementById('progress-bar-label').textContent=`${done} / ${QS.length} réponses`;
+  const missing = QS.length - done;
+  document.getElementById('missing-count').textContent = missing>0 ? `${missing} question${missing>1?'s':''} sans réponse` : 'Prêt à soumettre !';
+  document.getElementById('submit-btn').disabled = (done < QS.length);
+}
+
+function selectAnswer(qi, ci){
+  if(submitted) return;
+  answers[qi] = ci;
+  const block = document.getElementById('q'+qi);
+  block.classList.add('answered');
+  block.querySelectorAll('.choice-btn').forEach((btn,idx)=>{
+    btn.classList.toggle('selected', idx===ci);
+  });
+  updateProgress();
+}
+
+function estimateScore(raw, total){
+  const pct = raw/total;
+  const t=[[0,5],[.1,55],[.2,100],[.3,150],[.4,200],[.5,255],[.6,310],[.7,370],[.8,415],[.9,460],[1,495]];
+  for(let i=1;i<t.length;i++){
+    if(pct<=t[i][0]){
+      const f=(pct-t[i-1][0])/(t[i][0]-t[i-1][0]);
+      return Math.round(t[i-1][1]+f*(t[i][1]-t[i-1][1]));
+    }
+  }
+  return 495;
+}
+
+function handleSubmit(){
+  if(answers.some(a=>a===null)) return;
+  clearInterval(timerInterval);
+  submitted = true;
+  document.getElementById('submit-area').style.display='none';
+  showResults();
+}
+
+function showResults(){
+  submitted = true;
+  let correct=0;
+  QS.forEach((q,i)=>{
+    const block=document.getElementById('q'+i);
+    if(answers[i]===null) answers[i]=-1;
+    if(answers[i]===q.a) correct++;
+    block.classList.add(answers[i]===q.a?'correct-final':'wrong-final');
+  });
+  const toeic = estimateScore(correct, QS.length);
+  const pct = Math.round(correct/QS.length*100);
+  const res = document.getElementById('results');
+  res.className='show';
+  res.innerHTML=`
+    <div class="result-score">${correct} <span style="font-size:1.5rem;color:#A8B8D0">/ ${QS.length}</span></div>
+    <div class="result-label">Score Part 5 — Incomplete Sentences</div>
+    <div class="result-grid">
+      <div class="result-stat"><div class="result-stat-val">${pct}%</div><div class="result-stat-lbl">Réussite</div></div>
+      <div class="result-stat"><div class="result-stat-val">≈ ${toeic}</div><div class="result-stat-lbl">Estimation TOEIC /495</div></div>
+      <div class="result-stat"><div class="result-stat-val">${correct}/${QS.length}</div><div class="result-stat-lbl">Bonnes réponses</div></div>
+    </div>
+    <div class="result-note">Estimation indicative basée sur les performances habituelles ETS. Score réel calculé sur l'ensemble du Reading test.</div>
+    <button class="show-corrections-btn" onclick="revealCorrections()">📋 Voir la correction détaillée</button>
+  `;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+  logToSheets({test:'Part5_Test3',date:new Date().toLocaleString('fr-FR'),score:correct,total:QS.length,toeic,pct:Math.round(correct/QS.length*100)});
+}
+
+function revealCorrections(){
+  QS.forEach((q,i)=>{
+    const block=document.getElementById('q'+i);
+    const badge = document.createElement('div');
+    badge.className='q-result-badge '+(answers[i]===q.a?'badge-ok':'badge-ko');
+    badge.innerHTML = answers[i]===q.a ? '✓ Correct' : `✗ Votre réponse : (${['A','B','C','D'][answers[i]]})`;
+    block.querySelector('.q-header').after(badge);
+    block.querySelectorAll('.choice-btn').forEach((btn,ci)=>{
+      btn.disabled=true;
+      if(ci===q.a) btn.classList.add('correct');
+      else if(ci===answers[i] && answers[i]!==q.a) btn.classList.add('wrong');
+    });
+    const corr = block.querySelector('.correction');
+    const filled = q.s.replace('-------',`<span class="corr-answer-highlight">${q.c[q.a]}</span>`);
+    corr.innerHTML=`<div class="corr-type">${q.type}</div>
+      <div class="corr-sentence">${filled}</div>
+      <div class="corr-expl">${q.expl}</div>
+      ${q.vocab?`<div class="vocab-box">${q.vocab}</div>`:''}`;
+    corr.classList.add('show');
+  });
+  document.querySelector('.show-corrections-btn').style.display='none';
+}
+
+function renderQuestions(){
+  const cont = document.getElementById('questions-container');
+  QS.forEach((q,i)=>{
+    const labels=['A','B','C','D'];
+    const choicesHTML = q.c.map((ch,ci)=>`
+      <button class="choice-btn" onclick="selectAnswer(${i},${ci})">
+        <span class="choice-letter">${labels[ci]}</span>${ch}
+      </button>`).join('');
+    const sentHTML = q.s.replace('-------','<span class="q-blank">-------</span>');
+    cont.innerHTML+=`
+      <div class="question-block" id="q${i}">
+        <div class="q-header">
+          <span class="q-num">${q.n}</span>
+          <div class="q-sentence">${sentHTML}</div>
+        </div>
+        <div class="choices">${choicesHTML}</div>
+        <div class="correction"></div>
+      </div>`;
+  });
+}
+
+renderQuestions();
+updateProgress();
+initTimer();
+</script>
+</body>
+</html>

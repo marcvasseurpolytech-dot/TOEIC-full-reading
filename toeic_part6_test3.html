@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 6 – TEST 3 · Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--gold:#C9A020;--gold-light:#E8C84A;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--green:#1B6B3A;--green-bg:#E6F4EC;--red:#B91C1C;--red-bg:#FEF2F2;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:60px}
+#sticky-header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hdr-left h1{font-family:var(--display);color:var(--gold);font-size:1rem}
+.hdr-left p{color:#A8B8D0;font-size:.7rem;margin-top:2px}
+.hdr-center{display:flex;align-items:center;gap:12px}
+#timer-box{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:#fff;background:rgba(255,255,255,.08);padding:6px 18px;border-radius:8px;border:1.5px solid rgba(201,160,32,.4);min-width:90px;text-align:center}
+#timer-box.orange{color:var(--gold-light);border-color:var(--gold-light)}
+#timer-box.red{color:#F87171;border-color:#F87171;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#progress-bar-wrap{flex:1;min-width:120px;max-width:220px}
+#progress-bar-label{font-family:var(--mono);font-size:.6rem;color:#A8B8D0;margin-bottom:4px}
+#progress-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+#progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+.hdr-right{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;text-align:right}
+main{max-width:820px;margin:0 auto;padding:32px 20px}
+.test-intro{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:22px 28px;margin-bottom:32px}
+.test-intro h2{font-family:var(--display);color:var(--gold);font-size:1.2rem;margin-bottom:8px}
+.test-intro p{color:#A8B8D0;font-size:.85rem;line-height:1.7}
+
+.text-group{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:24px}
+.text-group-label{font-family:var(--mono);font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px}
+.passage-box{background:var(--cream-dark);border-left:3px solid var(--gold);border-radius:6px;padding:16px 18px;margin-bottom:18px;font-size:.92rem;line-height:1.85}
+.blank-num{display:inline-block;font-family:var(--mono);font-size:.72rem;background:var(--navy);color:var(--gold);padding:1px 7px;border-radius:4px;vertical-align:middle;margin:0 2px}
+.questions-set{display:flex;flex-direction:column;gap:14px}
+.q-item{border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;transition:border-color .2s}
+.q-item.answered{border-color:#A3C4B5}
+.q-item.correct-final{border-color:var(--green);background:var(--green-bg)}
+.q-item.wrong-final{border-color:var(--red);background:var(--red-bg)}
+.q-num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.q-num{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--navy);background:var(--cream-dark);padding:3px 9px;border-radius:5px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:560px){.choices{grid-template-columns:1fr}}
+.choice-btn{display:flex;align-items:center;gap:9px;padding:9px 13px;border:1.5px solid var(--border);border-radius:7px;background:var(--cream);cursor:pointer;font-family:var(--serif);font-size:.86rem;color:var(--text);transition:all .18s;text-align:left}
+.choice-btn:hover:not(:disabled){border-color:var(--navy);background:var(--cream-dark)}
+.choice-btn.selected{border-color:var(--navy);background:#EDF1F8;font-weight:600}
+.choice-btn:disabled{cursor:default}
+.choice-btn.correct{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
+.choice-btn.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red);text-decoration:line-through}
+.choice-letter{font-family:var(--mono);font-weight:600;font-size:.75rem;min-width:16px}
+.q-result-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.63rem;font-weight:600;padding:2px 7px;border-radius:10px;margin-bottom:8px}
+.badge-ok{background:var(--green);color:#fff}
+.badge-ko{background:var(--red);color:#fff}
+.correction{display:none;margin-top:14px;padding-top:14px;border-top:1.5px dashed var(--border)}
+.correction.show{display:block}
+.corr-type{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);background:var(--cream-dark);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:8px}
+.corr-expl{font-size:.84rem;line-height:1.7;color:var(--text)}
+.corr-expl strong{color:var(--navy)}
+.corr-highlight{background:var(--green);color:#fff;padding:1px 5px;border-radius:3px;font-weight:700}
+.vocab-box{font-family:var(--mono);font-size:.73rem;background:#F0EDE4;border:1px solid var(--border);border-radius:6px;padding:7px 11px;color:var(--muted);margin-top:8px;line-height:1.6}
+.vocab-box::before{content:'📚 ';font-weight:600}
+
+#submit-area{position:fixed;bottom:0;left:0;right:0;background:var(--navy);border-top:2px solid var(--gold);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;z-index:99;gap:12px;flex-wrap:wrap}
+#missing-count{font-family:var(--mono);font-size:.75rem;color:#A8B8D0}
+#submit-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:1rem;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+#submit-btn:hover:not(:disabled){background:var(--gold-light)}
+#submit-btn:disabled{background:#4A5568;color:#9BA3AE;cursor:not-allowed}
+#results{display:none;background:var(--navy);border:2px solid var(--gold);border-radius:16px;padding:32px;margin:32px 0;text-align:center}
+#results.show{display:block}
+.result-score{font-family:var(--display);font-size:3rem;color:var(--gold);margin-bottom:8px}
+.result-label{color:#A8B8D0;font-size:.85rem;margin-bottom:20px}
+.result-grid{display:flex;justify-content:center;gap:0;border-top:1px solid rgba(201,160,32,.2);padding-top:20px;flex-wrap:wrap}
+.result-stat{padding:10px 28px;text-align:center;border-right:1px solid rgba(201,160,32,.15)}
+.result-stat:last-child{border-right:none}
+.result-stat-val{font-family:var(--mono);font-size:1.2rem;font-weight:600;color:var(--gold-light)}
+.result-stat-lbl{font-size:.7rem;color:#A8B8D0;margin-top:2px}
+.result-note{font-size:.78rem;color:#6A7E9C;margin-top:16px;font-style:italic}
+.show-corrections-btn{margin-top:18px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.8rem;padding:8px 20px;border-radius:6px;cursor:pointer}
+.show-corrections-btn:hover{background:var(--gold);color:var(--navy)}
+#timeout-overlay{display:none;position:fixed;inset:0;background:rgba(26,43,74,.95);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:16px}
+#timeout-overlay.show{display:flex}
+.timeout-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:1rem;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;margin-top:8px}
+footer{background:var(--navy);border-top:2px solid rgba(201,160,32,.3);padding:16px 32px;text-align:center;color:#6A7E9C;font-size:.72rem;font-family:var(--mono)}
+footer span{color:var(--gold);opacity:.7}
+</style>
+</head>
+<body>
+<header id="sticky-header">
+  <div class="hdr-left"><h1>TOEIC · Part 6 · TEST 3</h1><p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille</p></div>
+  <div class="hdr-center">
+    <div id="timer-box">08:00</div>
+    <div id="progress-bar-wrap">
+      <div id="progress-bar-label">0 / 16 réponses</div>
+      <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="hdr-right">Text Completion<br>16 Questions · 4 Textes</div>
+</header>
+<div id="timeout-overlay">
+  <div style="font-size:3rem">⏱</div>
+  <div style="font-family:var(--display);color:var(--gold);font-size:1.6rem">Temps écoulé</div>
+  <div style="color:#A8B8D0;font-size:.9rem">Vos réponses ont été enregistrées automatiquement.</div>
+  <button class="timeout-btn" onclick="document.getElementById('timeout-overlay').classList.remove('show');showResults()">Voir les résultats →</button>
+</div>
+<main>
+  <div class="test-intro">
+    <h2>Part 6 — Text Completion</h2>
+    <p>Read the texts below. A word, phrase, or sentence is missing in parts of each text. Select the best answer to complete each text. All 16 questions must be answered. Timer: <strong style="color:var(--gold)">8 minutes</strong>.</p>
+  </div>
+  <div id="texts-container"></div>
+  <div id="results"></div>
+</main>
+<div id="submit-area">
+  <div id="missing-count">Répondez à toutes les questions pour soumettre</div>
+  <button id="submit-btn" disabled onclick="handleSubmit()">Soumettre ▶</button>
+</div>
+<footer><span>TOEIC Practice Hub</span> &nbsp;·&nbsp; Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Usage pédagogique interne</footer>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbw5r5jhWlcYIQKSSxEC9r_0w9o1m0x1MM7mwSXrE3S_oK5dsOyxMdiYtz7uduuYmwjROg/exec';
+function logToSheets(data) {
+  try {
+    const url = GAS_URL + '?' + Object.entries(data)
+      .map(([k,v]) => encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
+    fetch(url, {method:'GET', mode:'no-cors'}).catch(()=>{});
+  } catch(e) {}
+}
+
+const TEXTS = [
+  {
+    label:"Questions 131–134 · Advertisement (Mobile App)",
+    passage:`Skywatch Airlines understands that time is a valuable resource for busy professionals. That's <span class="blank-num">131</span> we have created a new mobile phone app that works to add precious minutes to your already tight schedule. The app gives you access to the most up-to-date arrival and departure times <span class="blank-num">132</span>, allowing you to plan your trip to the airport without wasting even a minute. <span class="blank-num">133</span>. You won't believe how smoothly business travel can go!<br><br>Skywatch Airlines is known throughout the world for its <span class="blank-num">134</span>. See how our new app is upholding our reputation at skywatchairlines.com.uk.`,
+    questions:[
+      {n:131,c:["how","why","when","because"],a:1,type:"Pronom interrogatif / Connecteur",
+       expl:"Structure « That's <strong>why</strong> we have created… » = C'est pourquoi nous avons créé… Connecteur de cause/résultat introduisant une proposition complète. — (A) <em>how</em> : manière ; (C) <em>when</em> : temps ; (D) <em>because</em> : conjonction, « That's because » est possible mais moins idiomatique que « That's why » ici car on annonce une conséquence.",
+       vocab:"That's why = c'est pourquoi | That's how = c'est ainsi que | That's when = c'est alors que"},
+      {n:132,c:["briefly","recently","previously","instantly"],a:3,type:"Adverbe de temps / Technologie",
+       expl:"L'application donne accès aux horaires <strong>instantanément</strong> = en temps réel, sans délai. Cohérent avec « most up-to-date ». — (A) <em>briefly</em> : brièvement ; (B) <em>recently</em> : récemment (passé, pas instantané) ; (C) <em>previously</em> : précédemment (passé).",
+       vocab:"instantly (adv.) = instantanément | in real time = en temps réel | up-to-date (adj.) = à jour"},
+      {n:133,c:["In addition, the airline offers the lowest prices you will find.","Gate information is easy to find at airport kiosks.","We also offer in-flight Internet service on all flights.","You can also book or change reservations easily."],a:3,type:"Insertion de phrase – Cohérence textuelle",
+       expl:"Le paragraphe décrit les fonctionnalités de l'<strong>application</strong> (consulter les horaires, planifier son trajet). L'option (D) est la seule qui prolonge naturellement les avantages de l'app (réserver/modifier une réservation via l'appli). — (A) parle de prix (hors sujet app) ; (B) information aux kiosques (pas l'app) ; (C) Internet en vol (pas l'app en question).",
+       vocab:"reservation (n.) = réservation | book (v.) = réserver | itinerary (n.) = itinéraire"},
+      {n:134,c:["dependably","dependable","dependability","depending"],a:2,type:"Dérivation – Nom après possessif",
+       expl:"Après « known for its », on a besoin d'un <strong>nom abstrait</strong>. <em>Dependability</em> = fiabilité. — (A) <em>dependably</em> : adverbe ; (B) <em>dependable</em> : adjectif ; (D) <em>depending</em> : participe, ne peut suivre « its ».",
+       vocab:"dependability (n.) = fiabilité | reliability (n.) = fiabilité | reputation (n.) = réputation"}
+    ]
+  },
+  {
+    label:"Questions 135–138 · Press Release (Envirokast)",
+    passage:`VANCOUVER (6 April)—Envirokast reported today that its efforts to increase production of EvK16, its <span class="blank-num">135</span> wood treatment product, have been successful. As a result, the company will be able to deliver current orders <span class="blank-num">136</span> schedule. The popular formula provides high levels of protection from sun damage when applied directly to the exterior of wood products.<br><br><span class="blank-num">137</span>.<br><br>When EvK16 first came on the market, sales were initially slow. <span class="blank-num">138</span>, demand grew after placement on a well-known home improvement show. Profits have since increased, and the Vancouver manufacturing facility will likely be busy for some time.`,
+    questions:[
+      {n:135,c:["patent","patented","patenting","patents"],a:1,type:"Adjectif participial (forme -ed)",
+       expl:"Adjectif épithète devant le nom « product » : <em>patented</em> = breveté. — (A) <em>patent</em> : nom (brevet) ou verbe ; (C) <em>patenting</em> : participe présent/gérondif ; (D) <em>patents</em> : nom pluriel ou verbe.",
+       vocab:"patented (adj.) = breveté | patent (n.) = brevet | trademark (n.) = marque déposée"},
+      {n:136,c:["about","beneath","ahead of","next to"],a:2,type:"Expression idiomatique – Délai",
+       expl:"<strong>Ahead of schedule</strong> = avant le délai prévu, en avance. Résultat positif de l'augmentation de production. — (A) <em>about schedule</em> : incohérent ; (B) <em>beneath schedule</em> : inexistant ; (D) <em>next to schedule</em> : inexistant.",
+       vocab:"ahead of schedule = en avance sur le calendrier | on schedule = dans les temps | behind schedule = en retard"},
+      {n:137,c:["The company had hoped for more reviews.","Unfortunately, the EvK16 tube is not recyclable.","In addition, the growth of mold is reduced.","Envirokast will offer a discount on bulk purchases."],a:2,type:"Insertion de phrase – Avantages du produit",
+       expl:"Le paragraphe liste les propriétés d'EvK16 (protection anti-UV). L'option (C) ajoute un avantage supplémentaire <strong>cohérent</strong> (réduction de la moisissure). — (A) hors sujet (avis clients) ; (B) information négative sur l'emballage, incohérente avec le ton promotionnel ; (D) remises (hors sujet description produit).",
+       vocab:"mold (n.) = moisissure | reduce (v.) = réduire | in addition = de plus"},
+      {n:138,c:["In fact","Instead","Similarly","However"],a:3,type:"Connecteur de concession",
+       expl:"Contraste : ventes d'abord lentes → <strong>However</strong> (cependant), la demande a augmenté. — (A) <em>In fact</em> : renforcement, pas de contraste ; (B) <em>Instead</em> : substitution ; (C) <em>Similarly</em> : ajout de ressemblance.",
+       vocab:"however = cependant | nevertheless = néanmoins | nonetheless = toutefois"}
+    ]
+  },
+  {
+    label:"Questions 139–142 · Letter (Pacific Bedding)",
+    passage:`<em>May 19</em><br><br>Ms. Andrea Birney, Director, Purchasing Department, Millen Glen Hotel, 400 Leona Avenue, Seattle, WA 98120<br><br>Dear Ms. Birney,<br><br>Thank you for your inquiry into purchasing our products for your guests with allergies. We applaud your decision to alter your <span class="blank-num">139</span> to accommodate these clients. We have a number of alternatives to the bedding you currently use. While it is true that feather down <span class="blank-num">140</span> for its warmth and softness, it can also lead to health problems for some people. <span class="blank-num">141</span>. Our luxurious quilts and pillows are filled with synthetic materials that are very soft but do not cause allergic reactions. <span class="blank-num">142</span>, the fabric we use to cover these products is treated to eliminate dust, which is another common allergen.<br><br>We are enclosing a fully illustrated product list with our current prices.<br><br>Sincerely,<br>Dominic Parenti, Sales Manager, Pacific Bedding`,
+    questions:[
+      {n:139,c:["tours","loans","rooms","computers"],a:2,type:"Vocabulaire – Contexte hôtelier",
+       expl:"La direction d'un hôtel modifie ses <strong>chambres</strong> pour accueillir des clients allergiques (changement de literie). — (A) <em>tours</em> : excursions ; (B) <em>loans</em> : prêts ; (D) <em>computers</em> : ordinateurs.",
+       vocab:"rooms (n.) = chambres | accommodate (v.) = accueillir | bedding (n.) = literie"},
+      {n:140,c:["knows","is known","knowledgeable","has knowledge"],a:1,type:"Voix passive – Expression idiomatique",
+       expl:"Expression idiomatique : <strong>be known for</strong> = être connu pour. La plume (feather down) <em>is known</em> pour sa chaleur. — (A) <em>knows</em> : actif, sujet = chose → impossible ; (C) <em>knowledgeable</em> : adjectif (= érudit) ; (D) <em>has knowledge</em> : actif, impossible pour un matériau.",
+       vocab:"be known for = être connu pour | renowned for = renommé pour | famous for = célèbre pour"},
+      {n:141,c:["Many others are allergic to nuts.","Down is more expensive than other materials.","Our company has been in business for more than 30 years.","At Pacific Bedding, we have the solution to this problem."],a:3,type:"Insertion de phrase – Transition vendeur",
+       expl:"Après avoir signalé le problème allergique, la lettre doit <strong>pivoter vers la solution</strong>. L'option (D) introduit naturellement la présentation des produits hypoallergéniques. — (A) hors sujet (allergies alimentaires) ; (B) prix, pas pertinent ici ; (C) ancienneté de l'entreprise, hors contexte.",
+       vocab:"solution (n.) = solution | alternative (n.) = alternative | hypoallergenic (adj.) = hypoallergénique"},
+      {n:142,c:["In general","Moreover","Nevertheless","On the other hand"],a:1,type:"Connecteur additif",
+       expl:"Le texte <strong>ajoute</strong> un avantage supplémentaire (tissu traité anti-acariens). <em>Moreover</em> = de plus, en outre. — (A) <em>In general</em> : généralisation ; (C) <em>Nevertheless</em> : concession ; (D) <em>On the other hand</em> : contraste.",
+       vocab:"moreover = de plus | furthermore = qui plus est | in addition = par ailleurs"}
+    ]
+  },
+  {
+    label:"Questions 143–146 · Advertisement (Strafford Autos)",
+    passage:`<strong>Strafford Autos Anniversary</strong><br><br>Strafford Autos is marking its twenty-fifth year of selling cars. To celebrate, our entire <span class="blank-num">143</span> is on sale all month long. Our cars are now available at bargain prices.<br><br>And from the moment you walk through our doors to the moment you depart with keys to your new vehicle, you will receive the <span class="blank-num">144</span> level of customer service in all of Strafford County. We can also ensure that you will be pleased with your purchase for years to come. <span class="blank-num">145</span>.<br><br>Visit our showroom today and see all that we <span class="blank-num">146</span> you.`,
+    questions:[
+      {n:143,c:["inventory","structure","equipment","gallery"],a:0,type:"Vocabulaire – Commerce automobile",
+       expl:"Un concessionnaire automobile met l'ensemble de son <strong>stock/inventaire</strong> en vente. <em>Inventory</em> = inventaire, stock de véhicules. — (B) <em>structure</em> : structure ; (C) <em>equipment</em> : équipement ; (D) <em>gallery</em> : galerie (usage artistique).",
+       vocab:"inventory (n.) = inventaire, stock | fleet (n.) = flotte | stock (n.) = stock"},
+      {n:144,c:["high","higher","highly","highest"],a:3,type:"Superlatif – The + superlatif",
+       expl:"Structure « the ------- level » → <strong>superlatif</strong> obligatoire avec <em>the</em>. <em>Highest</em> = le plus élevé. — (A) <em>high</em> : positif ; (B) <em>higher</em> : comparatif ; (C) <em>highly</em> : adverbe (ne modifie pas « level » dans ce sens).",
+       vocab:"highest level = le plus haut niveau | superlative: high → highest | best = meilleur"},
+      {n:145,c:["This is because our mechanics have the skills to keep your car running like new.","As a result, you can even trade in your old car for credit toward your purchase.","Furthermore, we just received a new shipment of Vaddex cars.","This is subsequently our biggest sale of the year."],a:0,type:"Insertion de phrase – Service après-vente",
+       expl:"La phrase précédente garantit la satisfaction « for years to come » → l'option (A) explique <strong>comment</strong> cette promesse est tenue (mécaniciens compétents). — (B) reprise de l'ancienne voiture : changement de sujet abrupt ; (C) nouveau stock : hors contexte de la garantie de satisfaction ; (D) adverbe <em>subsequently</em> mal utilisé.",
+       vocab:"mechanic (n.) = mécanicien | keep running = maintenir en état de marche | after-sales service = service après-vente"},
+      {n:146,c:["offering","offered","can offer","to offer"],a:2,type:"Verbe modal – Syntaxe",
+       expl:"Structure : « all that we <strong>can offer</strong> you » = tout ce que nous pouvons vous offrir. Proposition relative avec verbe conjugué. — (A) <em>offering</em> : participe présent sans auxiliaire ; (B) <em>offered</em> : prétérit (passé, pas présent) ; (D) <em>to offer</em> : infinitif, incorrect dans une relative.",
+       vocab:"can offer = peut offrir | have to offer = avoir à offrir | provide (v.) = fournir"}
+    ]
+  }
+];
+
+const totalQ = TEXTS.reduce((s,t)=>s+t.questions.length,0);
+let answers = {};
+let submitted = false;
+let timeLeft = 480;
+let timerInterval;
+
+function pad(n){return String(n).padStart(2,'0')}
+function initTimer(){
+  const box=document.getElementById('timer-box');
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    box.textContent=`${Math.floor(timeLeft/60)}:${pad(timeLeft%60)}`;
+    box.classList.toggle('orange',timeLeft<=120&&timeLeft>60);
+    if(timeLeft<=60){box.classList.remove('orange');box.classList.add('red');}
+    if(timeLeft<=0){clearInterval(timerInterval);document.getElementById('timeout-overlay').classList.add('show');}
+  },1000);
+}
+function updateProgress(){
+  const done=Object.keys(answers).length;
+  document.getElementById('progress-fill').style.width=(done/totalQ*100)+'%';
+  document.getElementById('progress-bar-label').textContent=`${done} / ${totalQ} réponses`;
+  const missing=totalQ-done;
+  document.getElementById('missing-count').textContent=missing>0?`${missing} question${missing>1?'s':''} sans réponse`:'Prêt à soumettre !';
+  document.getElementById('submit-btn').disabled=(done<totalQ);
+}
+function selectAnswer(ti,qi,ci){
+  if(submitted)return;
+  const key=`${ti}_${qi}`;
+  answers[key]=ci;
+  document.querySelectorAll(`.choices[data-key="${key}"] .choice-btn`).forEach((b,i)=>b.classList.toggle('selected',i===ci));
+  document.getElementById(`qitem_${ti}_${qi}`).classList.add('answered');
+  updateProgress();
+}
+function estimateScore(raw,total){
+  const pct=raw/total;
+  const t=[[0,5],[.1,55],[.2,100],[.3,150],[.4,200],[.5,255],[.6,310],[.7,370],[.8,415],[.9,460],[1,495]];
+  for(let i=1;i<t.length;i++){if(pct<=t[i][0]){const f=(pct-t[i-1][0])/(t[i][0]-t[i-1][0]);return Math.round(t[i-1][1]+f*(t[i][1]-t[i-1][1]));}}
+  return 495;
+}
+function handleSubmit(){
+  clearInterval(timerInterval);submitted=true;
+  document.getElementById('submit-area').style.display='none';
+  showResults();
+}
+function showResults(){
+  submitted=true;
+  let correct=0;
+  TEXTS.forEach((text,ti)=>text.questions.forEach((q,qi)=>{
+    const key=`${ti}_${qi}`;
+    if(answers[key]===undefined)answers[key]=-1;
+    if(answers[key]===q.a)correct++;
+    const item=document.getElementById(`qitem_${ti}_${qi}`);
+    if(item)item.classList.add(answers[key]===q.a?'correct-final':'wrong-final');
+  }));
+  const toeic=estimateScore(correct,totalQ);
+  const res=document.getElementById('results');
+  res.className='show';
+  res.innerHTML=`
+    <div class="result-score">${correct} <span style="font-size:1.5rem;color:#A8B8D0">/ ${totalQ}</span></div>
+    <div class="result-label">Score Part 6 — Text Completion</div>
+    <div class="result-grid">
+      <div class="result-stat"><div class="result-stat-val">${Math.round(correct/totalQ*100)}%</div><div class="result-stat-lbl">Réussite</div></div>
+      <div class="result-stat"><div class="result-stat-val">≈ ${toeic}</div><div class="result-stat-lbl">Estimation TOEIC /495</div></div>
+      <div class="result-stat"><div class="result-stat-val">${correct}/${totalQ}</div><div class="result-stat-lbl">Bonnes réponses</div></div>
+    </div>
+    <div class="result-note">Estimation indicative basée sur les performances habituelles ETS.</div>
+    <button class="show-corrections-btn" onclick="revealCorrections()">📋 Voir la correction détaillée</button>`;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+  logToSheets({test:'Part6_Test3',date:new Date().toLocaleString('fr-FR'),score:correct,total:totalQ,toeic,pct:Math.round(correct/totalQ*100)});
+}
+function revealCorrections(){
+  TEXTS.forEach((text,ti)=>text.questions.forEach((q,qi)=>{
+    const key=`${ti}_${qi}`;const labels=['A','B','C','D'];
+    const item=document.getElementById(`qitem_${ti}_${qi}`);
+    if(!item)return;
+    const badge=document.createElement('div');
+    badge.className='q-result-badge '+(answers[key]===q.a?'badge-ok':'badge-ko');
+    badge.innerHTML=answers[key]===q.a?'✓ Correct':`✗ Votre réponse : (${labels[answers[key]]||'?'})`;
+    item.querySelector('.q-num-row').after(badge);
+    item.querySelectorAll('.choice-btn').forEach((btn,ci)=>{
+      btn.disabled=true;
+      if(ci===q.a)btn.classList.add('correct');
+      else if(ci===answers[key]&&answers[key]!==q.a)btn.classList.add('wrong');
+    });
+    const corr=item.querySelector('.correction');
+    corr.innerHTML=`<div class="corr-type">${q.type}</div><div class="corr-expl">${q.expl}</div>${q.vocab?`<div class="vocab-box">${q.vocab}</div>`:''}`;
+    corr.classList.add('show');
+  }));
+  document.querySelector('.show-corrections-btn').style.display='none';
+}
+function render(){
+  const cont=document.getElementById('texts-container');
+  TEXTS.forEach((text,ti)=>{
+    const qHTML=text.questions.map((q,qi)=>{
+      const key=`${ti}_${qi}`;
+      const choicesHTML=q.c.map((ch,ci)=>`<button class="choice-btn" onclick="selectAnswer(${ti},${qi},${ci})"><span class="choice-letter">${['A','B','C','D'][ci]}</span>${ch}</button>`).join('');
+      return `<div class="q-item" id="qitem_${ti}_${qi}">
+        <div class="q-num-row"><span class="q-num">${q.n}</span></div>
+        <div class="choices" data-key="${key}">${choicesHTML}</div>
+        <div class="correction"></div>
+      </div>`;
+    }).join('');
+    cont.innerHTML+=`<div class="text-group">
+      <div class="text-group-label">${text.label}</div>
+      <div class="passage-box">${text.passage}</div>
+      <div class="questions-set">${qHTML}</div>
+    </div>`;
+  });
+}
+render();updateProgress();initTimer();
+</script>
+</body>
+</html>

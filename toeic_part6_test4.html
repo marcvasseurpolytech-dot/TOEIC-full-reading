@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOEIC Part 6 – TEST 4 · Polytech Lille</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--gold:#C9A020;--gold-light:#E8C84A;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--green:#1B6B3A;--green-bg:#E6F4EC;--red:#B91C1C;--red-bg:#FEF2F2;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:60px}
+#sh{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#sh .hl h1{font-family:var(--display);color:var(--gold);font-size:1rem}#sh .hl p{color:#A8B8D0;font-size:.7rem;margin-top:2px}
+#sh .hc{display:flex;align-items:center;gap:10px}
+#tb{font-family:var(--mono);font-size:1.4rem;font-weight:600;color:#fff;background:rgba(255,255,255,.08);padding:5px 16px;border-radius:8px;border:1.5px solid rgba(201,160,32,.4);min-width:82px;text-align:center}
+#tb.orange{color:var(--gold-light);border-color:var(--gold-light)}
+#tb.red{color:#F87171;border-color:#F87171;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#pbw{flex:1;min-width:90px;max-width:180px}
+#pbl{font-family:var(--mono);font-size:.58rem;color:#A8B8D0;margin-bottom:3px}
+#pb{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+#pf{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+.hr{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;text-align:right}
+main{max-width:900px;margin:0 auto;padding:28px 16px}
+.intro{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:20px 26px;margin-bottom:28px}
+.intro h2{font-family:var(--display);color:var(--gold);font-size:1.2rem;margin-bottom:6px}
+.intro p{color:#A8B8D0;font-size:.84rem;line-height:1.6}
+.pg{background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:22px 24px;margin-bottom:22px}
+.pgl{font-family:var(--mono);font-size:.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.pc{font-size:.9rem;line-height:1.75;color:var(--text);margin-bottom:16px;padding:13px;background:var(--cream-dark);border-radius:7px;border-left:3px solid var(--gold)}
+.pc h3{font-family:var(--display);font-size:1rem;color:var(--navy);margin-bottom:8px}
+.pc table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.86rem}
+.pc td,.pc th{padding:7px;border:1px solid var(--border);text-align:left}
+.pc th{background:var(--navy);color:var(--gold);font-weight:600}
+.qb{border:1.5px solid var(--border);border-radius:10px;padding:15px 17px;margin-bottom:11px;transition:border-color .2s}
+.qb.answered{border-color:#A3C4B5}
+.qb.cf{border-color:var(--green);background:var(--green-bg)}
+.qb.wf{border-color:var(--red);background:var(--red-bg)}
+.qn{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--navy);background:var(--cream-dark);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:7px}
+.qs{font-size:.88rem;line-height:1.65;color:var(--text);margin-bottom:9px;font-weight:500}
+.qblank{font-family:var(--mono);background:var(--cream-dark);border-bottom:2px solid var(--navy);padding:0 4px;border-radius:3px 3px 0 0}
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.c1{display:flex;flex-direction:column;gap:6px}
+@media(max-width:540px){.c2{grid-template-columns:1fr}}
+.cb{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--cream);cursor:pointer;font-family:var(--serif);font-size:.84rem;color:var(--text);text-align:left;line-height:1.45;transition:all .15s}
+.cb:hover:not(:disabled){border-color:var(--navy);background:var(--cream-dark)}
+.cb.sel{border-color:var(--navy);background:#EDF1F8;font-weight:600}
+.cb:disabled{cursor:default}
+.cb.ok{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
+.cb.ko{background:var(--red-bg);border-color:var(--red);color:var(--red);text-decoration:line-through}
+.cl{font-family:var(--mono);font-weight:600;font-size:.74rem;min-width:15px;flex-shrink:0}
+.rbb{font-family:var(--mono);font-size:.6rem;font-weight:600;padding:2px 6px;border-radius:9px;display:inline-flex;align-items:center;gap:4px;margin-bottom:6px}
+.rok{background:var(--green);color:#fff}.rko{background:var(--red);color:#fff}
+.corr{display:none;margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--border)}
+.corr.on{display:block}
+.corr-type{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);background:var(--cream-dark);padding:2px 7px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.corr-sent{font-size:.86rem;line-height:1.65;margin-bottom:8px;padding:7px 11px;background:var(--cream-dark);border-radius:5px;border-left:3px solid var(--gold)}
+.ahl{background:var(--green);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+.corr-expl{font-size:.82rem;line-height:1.65;color:var(--text)}
+.corr-expl strong{color:var(--navy)}
+.vb{font-family:var(--mono);font-size:.7rem;background:#F0EDE4;border:1px solid var(--border);border-radius:5px;padding:5px 9px;color:var(--muted);margin-top:6px}
+#results{display:none;background:var(--navy);border:2px solid var(--gold);border-radius:14px;padding:28px;margin:28px 0;text-align:center}
+#results.on{display:block}
+.rscore{font-family:var(--display);font-size:3rem;color:var(--gold);margin-bottom:6px}
+.rlabel{color:#A8B8D0;font-size:.82rem;margin-bottom:18px}
+.rgrid{display:flex;justify-content:center;border-top:1px solid rgba(201,160,32,.2);padding-top:18px;flex-wrap:wrap}
+.rstat{padding:9px 24px;text-align:center;border-right:1px solid rgba(201,160,32,.15)}
+.rstat:last-child{border-right:none}
+.rsv{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--gold-light)}
+.rsl{font-size:.68rem;color:#A8B8D0;margin-top:2px}
+.rnote{font-size:.76rem;color:#6A7E9C;margin-top:14px;font-style:italic}
+.scb{margin-top:16px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.77rem;padding:7px 18px;border-radius:5px;cursor:pointer}
+.scb:hover{background:var(--gold);color:var(--navy)}
+.ls{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;margin-top:7px}
+#sa{position:fixed;bottom:0;left:0;right:0;background:var(--navy);border-top:2px solid var(--gold);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;z-index:99;gap:10px}
+#mc{font-family:var(--mono);font-size:.7rem;color:#A8B8D0}
+#sb{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:.95rem;padding:8px 24px;border:none;border-radius:7px;cursor:pointer}
+#sb:hover:not(:disabled){background:var(--gold-light)}
+#sb:disabled{background:#4A5568;color:#9BA3AE;cursor:not-allowed}
+#to{display:none;position:fixed;inset:0;background:rgba(26,43,74,.95);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:14px}
+#to.on{display:flex}
+.tob{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:.95rem;padding:9px 24px;border:none;border-radius:7px;cursor:pointer;margin-top:6px}
+footer{background:var(--navy);border-top:2px solid rgba(201,160,32,.3);padding:14px 32px;text-align:center;color:#6A7E9C;font-size:.7rem;font-family:var(--mono)}
+footer span{color:var(--gold);opacity:.7}
+</style></head>
+<body>
+<header id="sh"><div class="hl"><h1>TOEIC · Part 6 · TEST 4</h1><p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille</p></div>
+<div class="hc"><div id="tb">08:00</div><div id="pbw"><div id="pbl">0 / 16 réponses</div><div id="pb"><div id="pf" style="width:0%"></div></div></div></div>
+<div class="hr">Text Completion<br>16 Questions</div></header>
+<div id="to"><div style="font-size:3rem">⏱</div>
+<div style="font-family:var(--display);color:var(--gold);font-size:1.5rem">Temps écoulé</div>
+<div style="color:#A8B8D0;font-size:.88rem">Vos réponses ont été enregistrées automatiquement.</div>
+<button class="tob" onclick="this.parentElement.classList.remove('on');showResults()">Voir les résultats →</button></div>
+<main>
+<div class="intro"><h2>Part 6 — Text Completion</h2><p>Read each text and select the best answer to fill in each blank. 16 questions · 8 minutes.</p></div>
+<div id="qcont"></div><div id="results"></div></main>
+<div id="sa"><div id="mc">Répondez à toutes les questions</div><button id="sb" disabled onclick="showResults()">Soumettre ▶</button></div>
+<footer><span>TOEIC Practice Hub</span> &nbsp;·&nbsp; Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Usage pédagogique interne</footer>
+<script>
+
+const GAS='https://script.google.com/macros/s/AKfycbw5r5jhWlcYIQKSSxEC9r_0w9o1m0x1MM7mwSXrE3S_oK5dsOyxMdiYtz7uduuYmwjROg/exec';
+function log(d){try{const u=GAS+'?'+Object.entries(d).map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');fetch(u,{method:'GET',mode:'no-cors'}).catch(()=>{});}catch(e){}}
+
+const P6=[{"n": 131, "pi": 0, "c": ["In conclusion", "As a result", "For example", "In contrast"], "a": 1, "type": "Connecteur causatif", "expl": "Le texte expose une conséquence de l'initiative : la subvention des abonnements → <strong>As a result</strong> = en conséquence. (C) « For example » nécessiterait une illustration générale, pas un résultat direct."}, {"n": 132, "pi": 0, "c": ["participate", "participating", "participated", "to participate"], "a": 1, "type": "Adjectif participial", "expl": "Épithète modifiant « Employees » → participe présent <strong>participating</strong>. Structure : « Employees participating in… » = les employés qui participent à…"}, {"n": 133, "pi": 0, "c": ["Detailed information about gym locations will be e-mailed separately.", "The initiative has been in place for several years.", "Attendance at all sessions is required.", "The HR department is currently understaffed."], "a": 0, "type": "Insertion", "expl": "Cohérent avec le contexte : l'inscription est en cours et des détails pratiques doivent être communiqués. (A) fournit les informations complémentaires attendues sur les lieux de gym."}, {"n": 134, "pi": 0, "c": ["benefits", "beneficial", "benefiting", "beneficially"], "a": 0, "type": "Dérivation – Nom", "expl": "Après l'adjectif « direct », nom requis → <strong>benefits</strong> = avantages. (B) adjectif ; (C) participe ; (D) adverbe."}, {"n": 135, "pi": 1, "c": ["enhance", "enhancing", "enhanced", "enhancement"], "a": 2, "type": "Adjectif participial", "expl": "Épithète devant « data protection » → adjectif → <strong>enhanced</strong> = renforcé. « Enhance » (v.) et « enhancing » (gérondif) ne peuvent pas modifier un nom directement ici."}, {"n": 136, "pi": 1, "c": ["Even so", "In general", "As a result", "Later on"], "a": 2, "type": "Connecteur de résultat", "expl": "Le logiciel a été testé rigoureusement → il a obtenu d'excellentes notes. Relation de cause à effet → <strong>As a result</strong>. (A) marque un contraste ; (B) généralisation."}, {"n": 137, "pi": 1, "c": ["free of charge", "freely", "free", "at no charge"], "a": 1, "type": "Adverbe", "expl": "Modifie le verbe « downloaded » → adverbe → <strong>freely</strong> = librement/gratuitement. (A)(D) expressions nominales qui ne peuvent pas modifier un verbe directement ici."}, {"n": 138, "pi": 1, "c": ["serving", "served", "service", "serves"], "a": 0, "type": "Participe présent", "expl": "« is currently ------- » = structure progressive → participe présent → <strong>serving</strong>. (D) « serves » = verbe simple (incompatible avec « is currently »)."}, {"n": 139, "pi": 2, "c": ["inquire", "inquiry", "inquired", "inquiring"], "a": 0, "type": "Verbe à l'infinitif", "expl": "Après « to » (infinitif de but) → forme de base → <strong>inquire</strong> = se renseigner. (B) nom ; (C) participe passé ; (D) gérondif."}, {"n": 140, "pi": 2, "c": ["attend", "attendees", "attendance", "attended"], "a": 1, "type": "Dérivation – Nom", "expl": "Approximativement 180 <strong>attendees</strong> = participants. Nom désignant des personnes. (A) verbe ; (C) nom abstrait (présence) ; (D) adjectif/participe."}, {"n": 141, "pi": 2, "c": ["We will arrange our own catering for both days.", "The hotel's current rates are too high for our budget.", "Our team has never organized an event before.", "We would like to cancel the reservation immediately."], "a": 0, "type": "Insertion", "expl": "La phrase suivante demande un devis — cohérent avec l'ajout d'une demande de restauration sur deux jours. (A) prolonge naturellement la liste des besoins (équipement AV → restauration)."}, {"n": 142, "pi": 2, "c": ["convenient", "conveniently", "convenience", "conveniences"], "a": 2, "type": "Dérivation – Nom", "expl": "Expression idiomatique : <strong>at your earliest convenience</strong> = dès que possible (formule épistolaire standard). (A) adjectif ; (B) adverbe."}, {"n": 143, "pi": 3, "c": ["introduce", "introduced", "introducing", "introduction"], "a": 0, "type": "Gérondif", "expl": "Après « are excited to », infinitif → forme de base → <strong>introduce</strong> = présenter. (B) participe passé ; (C) gérondif après « to » uniquement si « to » est une préposition, ce qui n'est pas le cas ici."}, {"n": 144, "pi": 3, "c": ["entitle", "entitled", "entitling", "entitlement"], "a": 1, "type": "Adjectif participial passif", "expl": "<strong>be entitled to</strong> = avoir droit à. Passif adjectival → <strong>entitled</strong>. (A) verbe ; (C) participe présent ; (D) nom."}, {"n": 145, "pi": 3, "c": ["Our new catalogue is available for free download on our Web site.", "All membership cards must be returned to the store.", "We regret to inform you that our store will close permanently.", "Your discount has already been applied to your account."], "a": 0, "type": "Insertion", "expl": "Cohérent avec la mention des achats en ligne (fenmorehome.com) et en boutique. (A) redirige naturellement le lecteur vers le catalogue des nouveautés."}, {"n": 146, "pi": 3, "c": ["applicable", "apply", "application", "applied"], "a": 0, "type": "Adjectif", "expl": "<strong>applicable to</strong> = applicable à, valable pour. Adjectif après « not » et avant « to ». (B) verbe ; (C) nom ; (D) participe/adjectif mais « applied to » a un sens différent (appliqué à)."}];
+const P6P=[{"title": "Internal Memo — Employee Wellness Initiative", "text": "<strong>To:</strong> All Staff &nbsp;|&nbsp; <strong>From:</strong> Human Resources Department<br><strong>Subject:</strong> New Employee Wellness Initiative<br><hr style=\"border-color:#ddd;margin:10px 0\"><p>We are pleased to announce the launch of our Employee Wellness Initiative beginning on the first of next month. The initiative aims to improve both the physical and mental well-being of all staff members. <u>[131]</u>, the company will be subsidizing gym memberships at three local fitness centers.</p><p>Employees <u>[132]</u> in the program will be required to complete a short registration form, available from the HR department. Participation is entirely voluntary. <u>[133]</u>.</p><p>We believe that investing in your health leads to direct <u>[134]</u> for both individuals and the organization as a whole. We look forward to your participation.</p>"}, {"title": "Press Release — Veritas Technologies", "text": "<p>MONTREAL, 3 March — Veritas Technologies today announced the release of its flagship data security software, <em>ShieldCore 4.0</em>. The product has been developed over two years to address the growing need for <u>[135]</u> data protection in corporate environments.</p><p>ShieldCore 4.0 was rigorously tested in partnership with several Fortune 500 companies. <u>[136]</u>, it received top marks in all performance categories. The software is now available through authorized distributors, and a free thirty-day trial can be downloaded <u>[137]</u> at www.veritastech.com.</p><p>Veritas Technologies was founded in 2008 and is currently <u>[138]</u> over two million clients worldwide. For further information, press@veritastech.com.</p>"}, {"title": "E-mail — Conference Venue Booking", "text": "<p><strong>From:</strong> Carolyn Brent &lt;cbrent@alderconsulting.com&gt;<br><strong>To:</strong> events@grandpalmhotel.com<br><strong>Subject:</strong> Annual Leadership Summit — Booking Inquiry</p><hr style=\"border-color:#ddd;margin:10px 0\"><p>Dear Events Team, I am writing to <u>[139]</u> about the availability of your Grand Ballroom for our company's annual leadership summit, scheduled for 14–15 September.</p><p>We anticipate approximately 180 <u>[140]</u> and will require the room to be set up in a theatre-style arrangement. We would also need audiovisual equipment, including a projector and microphones. <u>[141]</u>.</p><p>Could you please send me a quote at your earliest <u>[142]</u>? I look forward to your reply.</p><p>Kind regards, Carolyn Brent, Alder Consulting Group</p>"}, {"title": "Customer Newsletter — Fenmore Home Furnishings", "text": "<p>Dear Valued Customer, Thank you for being a loyal member of the Fenmore Family. This month, we are excited to <u>[143]</u> our brand-new summer collection, featuring over two hundred new products for every room in your home.</p><p>As a rewards member, you are <u>[144]</u> to a fifteen-percent discount on all regular-priced items throughout July. Simply present your membership card at the checkout or enter your membership number online.</p><p><u>[145]</u>. We hope to see you soon, either in-store or at fenmorehome.com.</p><p>Please note that sale items and clearance products are not <u>[146]</u> to this offer.</p>"}];
+let _tl=0,_ti=null;
+function pad(n){return String(n).padStart(2,'0')}
+function initTimer(sec,w,u,cb){
+  _tl=sec;clearInterval(_ti);const b=document.getElementById('tb');b.className='';
+  b.textContent=Math.floor(sec/60)+':'+pad(sec%60);
+  _ti=setInterval(()=>{_tl--;const m=Math.floor(_tl/60),s=_tl%60;
+    b.textContent=m+':'+pad(s);
+    b.className=_tl<=u?'red':_tl<=w?'orange':'';
+    if(_tl<=0){clearInterval(_ti);cb();}},1000);
+}
+let _ans={};let _done=0;
+function upd(){
+  document.getElementById('pf').style.width=(_done/16*100)+'%';
+  document.getElementById('pbl').textContent=_done+' / 16 réponses';
+  const m=16-_done;
+  document.getElementById('mc').textContent=m>0?m+' question'+(m>1?'s':'')+' sans réponse':'Prêt à soumettre !';
+  document.getElementById('sb').disabled=(_done<16);
+}
+function est(r,t){const p=r/t,tv=[[0,5],[.1,55],[.2,100],[.3,150],[.4,200],[.5,255],[.6,310],[.7,370],[.8,415],[.9,460],[1,495]];for(let i=1;i<tv.length;i++){if(p<=tv[i][0]){const f=(p-tv[i-1][0])/(tv[i][0]-tv[i-1][0]);return Math.round(tv[i-1][1]+f*(tv[i][1]-tv[i-1][1]));}}return 495;}
+function showResults(){
+  clearInterval(_ti);
+  let correct=0;
+  QS.forEach((q,i)=>{if(_ans[i]===undefined)_ans[i]=-1;if(_ans[i]===q.a)correct++;});
+  const toeic=est(correct,16);
+  document.getElementById('sa').style.display='none';
+  const r=document.getElementById('results');r.className='on';
+  r.innerHTML='<div class="rscore">'+correct+' <span style="font-size:1.4rem;color:#A8B8D0">/ 16</span></div>'
+    +'<div class="rlabel">Score Part 6 — Text Completion</div>'
+    +'<div class="rgrid"><div class="rstat"><div class="rsv">'+Math.round(correct/16*100)+'%</div><div class="rsl">Réussite</div></div>'
+    +'<div class="rstat"><div class="rsv">≈ '+toeic+'</div><div class="rsl">Estimation TOEIC /495</div></div>'
+    +'<div class="rstat"><div class="rsv">'+correct+'/16</div><div class="rsl">Bonnes réponses</div></div></div>'
+    +'<div class="rnote">Estimation indicative · barèmes ETS.</div>'
+    +'<button class="scb" onclick="showCorr()">📋 Correction détaillée</button>'
+    +'<div class="ls" id="ls">⏳ Envoi vers Google Sheets…</div>';
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+  log({test:'Part6_Test4',date:new Date().toLocaleString('fr-FR'),score:correct,total:16,toeic,pct:Math.round(correct/16*100)});
+  setTimeout(()=>{const e=document.getElementById('ls');if(e)e.textContent='✓ Résultats envoyés vers Google Sheets';},2200);
+}
+function showCorr(){
+  const L=['A','B','C','D'];
+  P6P.forEach((pass,pi)=>{
+    const pq=document.getElementById('ptxt'+pi);if(pq)pq.style.display='block';
+  });
+  P6.forEach((q,i)=>{
+    const a=_ans[i],ok=a===q.a,b=document.getElementById('q'+i);
+    const badge=document.createElement('div');badge.className='rbb '+(ok?'rok':'rko');
+    badge.innerHTML=ok?'✓ Correct':'✗ Votre réponse : ('+L[a||0]+')';
+    b.querySelector('.qn').after(badge);
+    b.querySelectorAll('.cb').forEach((btn,ci)=>{btn.disabled=true;if(ci===q.a)btn.classList.add('ok');else if(ci===a&&!ok)btn.classList.add('ko');});
+    const cd=b.querySelector('.corr');
+    cd.innerHTML='<div class="corr-type">'+q.type+'</div><div class="corr-expl">'+q.expl+'</div>';
+    cd.classList.add('on');
+  });
+  document.querySelector('.scb').style.display='none';
+}
+function sel(i,ci){if(_ans[i]===undefined)_done++;_ans[i]=ci;document.querySelectorAll('#q'+i+' .cb').forEach((b,x)=>b.classList.toggle('sel',x===ci));document.getElementById('q'+i).classList.add('answered');upd();}
+function render(){
+  const c=document.getElementById('qcont');const L=['A','B','C','D'];
+  P6P.forEach((pass,pi)=>{
+    const qs=P6.filter(q=>q.pi===pi);
+    const qnums=qs.map(q=>q.n).join('–');
+    const isLong=qs.some(q=>q.c.some(ch=>ch.length>40));
+    let html='<div class="pg"><div class="pgl">Questions '+qnums+' · '+pass.title+'</div><div class="pc" id="ptxt'+pi+'">'+pass.text+'</div>';
+    qs.forEach(q=>{
+      const i=P6.indexOf(q);
+      const ch=q.c.map((ch,ci)=>'<button class="cb" onclick="sel('+i+','+ci+')"><span class="cl">'+L[ci]+'</span>'+ch+'</button>').join('');
+      html+='<div class="qb" id="q'+i+'" style="margin-bottom:10px"><span class="qn">'+q.n+'</span><div class="'+(isLong?'c1':'c2')+'">'+ch+'</div><div class="corr"></div></div>';
+    });
+    html+='</div>';c.innerHTML+=html;
+  });
+}
+render();upd();initTimer(480,120,60,()=>{document.getElementById('to').classList.add('on');});
+</script></body></html>

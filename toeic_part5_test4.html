@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOEIC Part 5 – TEST 4 · Polytech Lille</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>
+:root{--cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--gold:#C9A020;--gold-light:#E8C84A;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;--green:#1B6B3A;--green-bg:#E6F4EC;--red:#B91C1C;--red-bg:#FEF2F2;--mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:60px}
+#sh{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:3px solid var(--gold);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#sh .hl h1{font-family:var(--display);color:var(--gold);font-size:1rem}#sh .hl p{color:#A8B8D0;font-size:.7rem;margin-top:2px}
+#sh .hc{display:flex;align-items:center;gap:10px}
+#tb{font-family:var(--mono);font-size:1.4rem;font-weight:600;color:#fff;background:rgba(255,255,255,.08);padding:5px 16px;border-radius:8px;border:1.5px solid rgba(201,160,32,.4);min-width:82px;text-align:center}
+#tb.orange{color:var(--gold-light);border-color:var(--gold-light)}
+#tb.red{color:#F87171;border-color:#F87171;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#pbw{flex:1;min-width:90px;max-width:180px}
+#pbl{font-family:var(--mono);font-size:.58rem;color:#A8B8D0;margin-bottom:3px}
+#pb{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+#pf{height:100%;background:var(--gold);border-radius:3px;transition:width .3s}
+.hr{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;text-align:right}
+main{max-width:900px;margin:0 auto;padding:28px 16px}
+.intro{background:var(--navy);border:2px solid var(--gold);border-radius:12px;padding:20px 26px;margin-bottom:28px}
+.intro h2{font-family:var(--display);color:var(--gold);font-size:1.2rem;margin-bottom:6px}
+.intro p{color:#A8B8D0;font-size:.84rem;line-height:1.6}
+.pg{background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:22px 24px;margin-bottom:22px}
+.pgl{font-family:var(--mono);font-size:.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.pc{font-size:.9rem;line-height:1.75;color:var(--text);margin-bottom:16px;padding:13px;background:var(--cream-dark);border-radius:7px;border-left:3px solid var(--gold)}
+.pc h3{font-family:var(--display);font-size:1rem;color:var(--navy);margin-bottom:8px}
+.pc table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.86rem}
+.pc td,.pc th{padding:7px;border:1px solid var(--border);text-align:left}
+.pc th{background:var(--navy);color:var(--gold);font-weight:600}
+.qb{border:1.5px solid var(--border);border-radius:10px;padding:15px 17px;margin-bottom:11px;transition:border-color .2s}
+.qb.answered{border-color:#A3C4B5}
+.qb.cf{border-color:var(--green);background:var(--green-bg)}
+.qb.wf{border-color:var(--red);background:var(--red-bg)}
+.qn{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--navy);background:var(--cream-dark);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:7px}
+.qs{font-size:.88rem;line-height:1.65;color:var(--text);margin-bottom:9px;font-weight:500}
+.qblank{font-family:var(--mono);background:var(--cream-dark);border-bottom:2px solid var(--navy);padding:0 4px;border-radius:3px 3px 0 0}
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.c1{display:flex;flex-direction:column;gap:6px}
+@media(max-width:540px){.c2{grid-template-columns:1fr}}
+.cb{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--cream);cursor:pointer;font-family:var(--serif);font-size:.84rem;color:var(--text);text-align:left;line-height:1.45;transition:all .15s}
+.cb:hover:not(:disabled){border-color:var(--navy);background:var(--cream-dark)}
+.cb.sel{border-color:var(--navy);background:#EDF1F8;font-weight:600}
+.cb:disabled{cursor:default}
+.cb.ok{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
+.cb.ko{background:var(--red-bg);border-color:var(--red);color:var(--red);text-decoration:line-through}
+.cl{font-family:var(--mono);font-weight:600;font-size:.74rem;min-width:15px;flex-shrink:0}
+.rbb{font-family:var(--mono);font-size:.6rem;font-weight:600;padding:2px 6px;border-radius:9px;display:inline-flex;align-items:center;gap:4px;margin-bottom:6px}
+.rok{background:var(--green);color:#fff}.rko{background:var(--red);color:#fff}
+.corr{display:none;margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--border)}
+.corr.on{display:block}
+.corr-type{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);background:var(--cream-dark);padding:2px 7px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.corr-sent{font-size:.86rem;line-height:1.65;margin-bottom:8px;padding:7px 11px;background:var(--cream-dark);border-radius:5px;border-left:3px solid var(--gold)}
+.ahl{background:var(--green);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+.corr-expl{font-size:.82rem;line-height:1.65;color:var(--text)}
+.corr-expl strong{color:var(--navy)}
+.vb{font-family:var(--mono);font-size:.7rem;background:#F0EDE4;border:1px solid var(--border);border-radius:5px;padding:5px 9px;color:var(--muted);margin-top:6px}
+#results{display:none;background:var(--navy);border:2px solid var(--gold);border-radius:14px;padding:28px;margin:28px 0;text-align:center}
+#results.on{display:block}
+.rscore{font-family:var(--display);font-size:3rem;color:var(--gold);margin-bottom:6px}
+.rlabel{color:#A8B8D0;font-size:.82rem;margin-bottom:18px}
+.rgrid{display:flex;justify-content:center;border-top:1px solid rgba(201,160,32,.2);padding-top:18px;flex-wrap:wrap}
+.rstat{padding:9px 24px;text-align:center;border-right:1px solid rgba(201,160,32,.15)}
+.rstat:last-child{border-right:none}
+.rsv{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--gold-light)}
+.rsl{font-size:.68rem;color:#A8B8D0;margin-top:2px}
+.rnote{font-size:.76rem;color:#6A7E9C;margin-top:14px;font-style:italic}
+.scb{margin-top:16px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.77rem;padding:7px 18px;border-radius:5px;cursor:pointer}
+.scb:hover{background:var(--gold);color:var(--navy)}
+.ls{font-family:var(--mono);font-size:.62rem;color:#6A7E9C;margin-top:7px}
+#sa{position:fixed;bottom:0;left:0;right:0;background:var(--navy);border-top:2px solid var(--gold);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;z-index:99;gap:10px}
+#mc{font-family:var(--mono);font-size:.7rem;color:#A8B8D0}
+#sb{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:.95rem;padding:8px 24px;border:none;border-radius:7px;cursor:pointer}
+#sb:hover:not(:disabled){background:var(--gold-light)}
+#sb:disabled{background:#4A5568;color:#9BA3AE;cursor:not-allowed}
+#to{display:none;position:fixed;inset:0;background:rgba(26,43,74,.95);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:14px}
+#to.on{display:flex}
+.tob{background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:.95rem;padding:9px 24px;border:none;border-radius:7px;cursor:pointer;margin-top:6px}
+footer{background:var(--navy);border-top:2px solid rgba(201,160,32,.3);padding:14px 32px;text-align:center;color:#6A7E9C;font-size:.7rem;font-family:var(--mono)}
+footer span{color:var(--gold);opacity:.7}
+</style></head>
+<body>
+<header id="sh"><div class="hl"><h1>TOEIC · Part 5 · TEST 4</h1><p>Marc VASSEUR &nbsp;·&nbsp; Polytech Lille</p></div>
+<div class="hc"><div id="tb">15:00</div><div id="pbw"><div id="pbl">0 / 30 réponses</div><div id="pb"><div id="pf" style="width:0%"></div></div></div></div>
+<div class="hr">Incomplete Sentences<br>30 Questions</div></header>
+<div id="to"><div style="font-size:3rem">⏱</div>
+<div style="font-family:var(--display);color:var(--gold);font-size:1.5rem">Temps écoulé</div>
+<div style="color:#A8B8D0;font-size:.88rem">Vos réponses ont été enregistrées automatiquement.</div>
+<button class="tob" onclick="this.parentElement.classList.remove('on');showResults()">Voir les résultats →</button></div>
+<main>
+<div class="intro"><h2>Part 5 — Incomplete Sentences</h2><p>A word or phrase is missing in each sentence. Select the best answer. 30 questions · 15 minutes.</p></div>
+<div id="qcont"></div><div id="results"></div></main>
+<div id="sa"><div id="mc">Répondez à toutes les questions</div><button id="sb" disabled onclick="showResults()">Soumettre ▶</button></div>
+<footer><span>TOEIC Practice Hub</span> &nbsp;·&nbsp; Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Usage pédagogique interne</footer>
+<script>
+
+const GAS='https://script.google.com/macros/s/AKfycbw5r5jhWlcYIQKSSxEC9r_0w9o1m0x1MM7mwSXrE3S_oK5dsOyxMdiYtz7uduuYmwjROg/exec';
+function log(d){try{const u=GAS+'?'+Object.entries(d).map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');fetch(u,{method:'GET',mode:'no-cors'}).catch(()=>{});}catch(e){}}
+
+const QS=[{"n": 101, "s": "The ------- of the new advertising campaign exceeded everyone's expectations.", "c": ["succeed", "successful", "success", "successfully"], "a": 2, "type": "Dérivation – Nom", "expl": "Après l'article « The », un <strong>nom</strong> est requis → <strong>success</strong>. (A) verbe ; (B) adjectif ; (D) adverbe.", "vocab": "success (n.) = succès | succeed (v.) = réussir | successful (adj.) = réussi"}, {"n": 102, "s": "Ms. Ibarra ------- reviewed all the contracts before approving them.", "c": ["thorough", "thoroughness", "thoroughly", "thorougher"], "a": 2, "type": "Adverbe", "expl": "Modifie le verbe « reviewed » → adverbe → <strong>thoroughly</strong> = minutieusement. (A) adjectif ; (B) nom.", "vocab": "thoroughly (adv.) = minutieusement | thorough (adj.) = minutieux"}, {"n": 103, "s": "Petrollo Industries ------- its factory workers a bonus last December.", "c": ["gives", "is giving", "gave", "have given"], "a": 2, "type": "Prétérit", "expl": "« Last December » → action passée révolue → prétérit simple → <strong>gave</strong>. (D) present perfect incompatible avec « last ».", "vocab": "give a bonus = accorder une prime"}, {"n": 104, "s": "The director will ------- all staff members of the schedule change by e-mail.", "c": ["notify", "notice", "notable", "notified"], "a": 0, "type": "Vocabulaire", "expl": "<strong>notify someone of something</strong> = informer quelqu'un de quelque chose. (B) avis/remarque (nom) ; (C) adjectif.", "vocab": "notify = informer | notification = avis"}, {"n": 105, "s": "The seminar will be held ------- the main conference room on the third floor.", "c": ["at", "in", "on", "by"], "a": 1, "type": "Préposition de lieu", "expl": "On est <strong>in</strong> une salle (espace fermé). (A) « at » s'utilise pour un lieu général ; (C) « on » = sur une surface.", "vocab": "in the conference room = dans la salle de conférence"}, {"n": 106, "s": "Registration for the training workshop is now ------- on the company intranet.", "c": ["opened", "opening", "open", "opens"], "a": 2, "type": "Adjectif attribut", "expl": "Après « is », adjectif attribut → <strong>open</strong> = disponible/ouvert. (A)(B)(D) formes verbales incohérentes ici.", "vocab": "open (adj.) = ouvert | registration is open = les inscriptions sont ouvertes"}, {"n": 107, "s": "The renovation plans for the city hall ------- by the council last spring.", "c": ["approved", "were approved", "are approving", "has approved"], "a": 1, "type": "Passif · Prétérit", "expl": "« Last spring » → prétérit + passif (les plans ne peuvent pas approuver eux-mêmes) → <strong>were approved</strong>.", "vocab": "were approved = ont été approuvés"}, {"n": 108, "s": "Please submit your feedback ------- the end of the business day.", "c": ["until", "by", "at", "since"], "a": 1, "type": "Préposition de délai", "expl": "<strong>by the end of</strong> = d'ici la fin de (deadline). « Until » indique une durée continue, pas une limite.", "vocab": "by the end of = d'ici la fin de | deadline = date limite"}, {"n": 109, "s": "The revised proposal is ------- than the original version submitted last month.", "c": ["clearer", "clearly", "most clear", "clarity"], "a": 0, "type": "Comparatif d'adjectif", "expl": "Structure comparative avec « than » → comparatif d'adjectif → <strong>clearer</strong>. (B) adverbe ; (C) superlatif ; (D) nom.", "vocab": "clearer = plus clair | comparative: adj + -er (short adj.)"}, {"n": 110, "s": "Candidates should be ------- in at least two programming languages before applying.", "c": ["proficient", "proficiency", "proficiently", "proficiencies"], "a": 0, "type": "Adjectif attribut", "expl": "<strong>be proficient in</strong> = être compétent en. Adjectif après « be ». (B) nom ; (C) adverbe.", "vocab": "proficient (adj.) = compétent | proficiency (n.) = maîtrise"}, {"n": 111, "s": "The team's ------- on the Johnson project was acknowledged by the regional director.", "c": ["perform", "performance", "performed", "performing"], "a": 1, "type": "Dérivation – Nom", "expl": "Après l'article contracté « team's », nom requis → <strong>performance</strong> = performance/résultats. (A) verbe ; (C) participe passé.", "vocab": "performance (n.) = performance | perform (v.) = accomplir"}, {"n": 112, "s": "The budget committee will review ------- the quarterly reports and the annual projections.", "c": ["either", "neither", "both", "not only"], "a": 2, "type": "Corrélatives", "expl": "Structure <strong>both…and</strong> = à la fois…et (les deux éléments inclus). (A) either…or = l'un ou l'autre ; (B) neither…nor = ni l'un ni l'autre.", "vocab": "both…and = à la fois…et | either…or = soit…soit"}, {"n": 113, "s": "The marketing department submitted ------- budget proposal ahead of the deadline.", "c": ["it", "its", "itself", "theirs"], "a": 1, "type": "Adjectif possessif", "expl": "Devant « budget proposal » → adjectif possessif <strong>its</strong> (department = singulier). (A) pronom COD ; (C) réfléchi.", "vocab": "its = son/sa (singulier) | their = leur (pluriel)"}, {"n": 114, "s": "The afternoon sessions were ------- due to the unexpected power outage.", "c": ["cancelled", "cancellation", "cancels", "cancelling"], "a": 0, "type": "Passif · Participe passé", "expl": "<strong>were cancelled</strong> = ont été annulées. Passif = be + past participle. (B) nom ; (C)(D) formes actives.", "vocab": "cancel = annuler | power outage = panne de courant"}, {"n": 115, "s": "The repairs will be completed ------- three business days.", "c": ["on", "during", "within", "along"], "a": 2, "type": "Préposition de délai", "expl": "<strong>within three business days</strong> = dans un délai de trois jours ouvrables. (B) « during » ne peut pas précéder une durée chiffrée.", "vocab": "within = en moins de, d'ici | business days = jours ouvrables"}, {"n": 116, "s": "------- the training program is voluntary, most employees choose to participate.", "c": ["Despite", "However", "Although", "Because"], "a": 2, "type": "Conjonction de concession", "expl": "Deux propositions complètes avec contraste → conjonction <strong>Although</strong> = bien que. (A)(B) ne peuvent pas introduire une proposition complète avec le même sens.", "vocab": "although = bien que | despite = malgré (+ nom/V-ing)"}, {"n": 117, "s": "All visitors to the laboratory must ------- safety goggles at all times.", "c": ["wearing", "wore", "wear", "worn"], "a": 2, "type": "Verbe modal", "expl": "Après « must », verbe à la forme de base → <strong>wear</strong>. (A) gérondif ; (B) prétérit ; (D) participe passé.", "vocab": "must wear = doit porter | safety goggles = lunettes de protection"}, {"n": 118, "s": "All guests will receive a ------- breakfast during their stay at the Harrington Hotel.", "c": ["complimentary", "complementary", "compliment", "completing"], "a": 0, "type": "Vocabulaire", "expl": "<strong>complimentary</strong> = gratuit (offert). « Complementary » = complémentaire (différent sens). Faux-ami classique TOEIC.", "vocab": "complimentary = gratuit | complementary = complémentaire"}, {"n": 119, "s": "The new assembly process is ------- more efficient than the previous method.", "c": ["considerable", "considering", "considerably", "consider"], "a": 2, "type": "Adverbe intensificateur", "expl": "Modifie l'adjectif comparatif « more efficient » → adverbe → <strong>considerably</strong> = considérablement. (A) adjectif ; (D) verbe.", "vocab": "considerably (adv.) = considérablement | considerable (adj.) = important"}, {"n": 120, "s": "Ms. Nakamura is ------- for overseeing the company's international partnerships.", "c": ["responsible", "responsibly", "responsibility", "responded"], "a": 0, "type": "Adjectif attribut", "expl": "Structure <strong>be responsible for</strong> = être responsable de. Adjectif après « is ». (B) adverbe ; (C) nom.", "vocab": "be responsible for = être chargé de | responsibility (n.) = responsabilité"}, {"n": 121, "s": "The firm's ------- decision to relocate has surprised many industry observers.", "c": ["recent", "recently", "recency", "recentness"], "a": 0, "type": "Adjectif épithète", "expl": "Modifie le nom « decision » → adjectif épithète → <strong>recent</strong> = récent. (B) adverbe ; (C)(D) noms rares/incorrects.", "vocab": "recent (adj.) = récent | recently (adv.) = récemment"}, {"n": 122, "s": "Of all the candidates interviewed, Mr. Torres presented the ------- qualifications.", "c": ["most impressive", "more impressive", "impressively", "impression"], "a": 0, "type": "Superlatif", "expl": "« Of all the candidates » → superlatif → <strong>most impressive</strong>. (B) comparatif (nécessiterait « than ») ; (C) adverbe ; (D) nom.", "vocab": "most impressive = les plus impressionnants | superlative: most + long adj."}, {"n": 123, "s": "The customer service team will ------- all complaints within twenty-four hours.", "c": ["address", "addressed", "addresses", "addressing"], "a": 0, "type": "Vocabulaire", "expl": "<strong>address a complaint</strong> = traiter/répondre à une plainte. Forme de base après « will ». (B)(C)(D) formes incorrectes après modal.", "vocab": "address = traiter, s'occuper de | complaint = plainte"}, {"n": 124, "s": "The company redesigned its Web site ------- customers could navigate it more easily.", "c": ["so that", "despite", "because of", "however"], "a": 0, "type": "Connecteur de but", "expl": "<strong>so that</strong> = afin que (exprime le but, suivi d'une proposition complète). (B)(C) prépositions ; (D) adverbe.", "vocab": "so that = afin que | in order to + V = pour"}, {"n": 125, "s": "The ------- of the new parking regulations has been welcomed by most residents.", "c": ["implement", "implemented", "implementation", "implementing"], "a": 2, "type": "Dérivation – Nom", "expl": "Après « The », nom requis → <strong>implementation</strong> = mise en œuvre. (A) verbe ; (B) adjectif/participe ; (D) gérondif.", "vocab": "implementation = mise en œuvre | implement (v.) = mettre en œuvre"}, {"n": 126, "s": "The resort offers water sports ------- its regular beach and poolside activities.", "c": ["except for", "in addition to", "rather than", "regardless of"], "a": 1, "type": "Préposition additive", "expl": "<strong>in addition to</strong> = en plus de (s'ajoute à). (A) sauf ; (C) plutôt que ; (D) indépendamment de.", "vocab": "in addition to = en plus de | in addition = de plus"}, {"n": 127, "s": "Sales ------- dramatically since the product was featured in a national magazine.", "c": ["increase", "are increasing", "have increased", "increased"], "a": 2, "type": "Present perfect", "expl": "« since » + passé → present perfect → <strong>have increased</strong>. (D) prétérit incompatible avec « since » dans ce contexte de résultat continu.", "vocab": "have increased = ont augmenté | since = depuis"}, {"n": 128, "s": "The position requires candidates with ------- experience in project management.", "c": ["extent", "extensive", "extension", "extending"], "a": 1, "type": "Adjectif épithète", "expl": "Modifie le nom « experience » → adjectif → <strong>extensive</strong> = approfondi, important. (A)(C) noms ; (D) participe présent.", "vocab": "extensive (adj.) = approfondi, étendu | extensive experience = expérience solide"}, {"n": 129, "s": "Kelton Industries plans to ------- its operations to three new international markets next year.", "c": ["extend", "extensive", "extension", "extending"], "a": 0, "type": "Verbe", "expl": "Après « to » (infinitif), verbe à la forme de base → <strong>extend</strong> = étendre. (B) adjectif ; (C) nom ; (D) gérondif.", "vocab": "extend operations = étendre les activités | expansion = expansion"}, {"n": 130, "s": "Mr. Wagner signed the agreement ------- the entire board of directors.", "c": ["on behalf of", "instead", "in spite of", "regardless"], "a": 0, "type": "Expression idiomatique", "expl": "<strong>on behalf of</strong> = au nom de, pour le compte de. Expression idiomatique courante en TOEIC pour les contextes formels.", "vocab": "on behalf of = au nom de | on someone's behalf = de la part de quelqu'un"}];
+let _tl=0,_ti=null;
+function pad(n){return String(n).padStart(2,'0')}
+function initTimer(sec,w,u,cb){
+  _tl=sec;clearInterval(_ti);const b=document.getElementById('tb');b.className='';
+  b.textContent=Math.floor(sec/60)+':'+pad(sec%60);
+  _ti=setInterval(()=>{_tl--;const m=Math.floor(_tl/60),s=_tl%60;
+    b.textContent=m+':'+pad(s);
+    b.className=_tl<=u?'red':_tl<=w?'orange':'';
+    if(_tl<=0){clearInterval(_ti);cb();}},1000);
+}
+let _ans={};let _done=0;
+function upd(){
+  document.getElementById('pf').style.width=(_done/30*100)+'%';
+  document.getElementById('pbl').textContent=_done+' / 30 réponses';
+  const m=30-_done;
+  document.getElementById('mc').textContent=m>0?m+' question'+(m>1?'s':'')+' sans réponse':'Prêt à soumettre !';
+  document.getElementById('sb').disabled=(_done<30);
+}
+function est(r,t){const p=r/t,tv=[[0,5],[.1,55],[.2,100],[.3,150],[.4,200],[.5,255],[.6,310],[.7,370],[.8,415],[.9,460],[1,495]];for(let i=1;i<tv.length;i++){if(p<=tv[i][0]){const f=(p-tv[i-1][0])/(tv[i][0]-tv[i-1][0]);return Math.round(tv[i-1][1]+f*(tv[i][1]-tv[i-1][1]));}}return 495;}
+function showResults(){
+  clearInterval(_ti);
+  let correct=0;
+  QS.forEach((q,i)=>{if(_ans[i]===undefined)_ans[i]=-1;if(_ans[i]===q.a)correct++;});
+  const toeic=est(correct,30);
+  document.getElementById('sa').style.display='none';
+  const r=document.getElementById('results');r.className='on';
+  r.innerHTML='<div class="rscore">'+correct+' <span style="font-size:1.4rem;color:#A8B8D0">/ 30</span></div>'
+    +'<div class="rlabel">Score Part 5 — Incomplete Sentences</div>'
+    +'<div class="rgrid"><div class="rstat"><div class="rsv">'+Math.round(correct/30*100)+'%</div><div class="rsl">Réussite</div></div>'
+    +'<div class="rstat"><div class="rsv">≈ '+toeic+'</div><div class="rsl">Estimation TOEIC /495</div></div>'
+    +'<div class="rstat"><div class="rsv">'+correct+'/30</div><div class="rsl">Bonnes réponses</div></div></div>'
+    +'<div class="rnote">Estimation indicative · barèmes ETS.</div>'
+    +'<button class="scb" onclick="showCorr()">📋 Correction détaillée</button>'
+    +'<div class="ls" id="ls">⏳ Envoi vers Google Sheets…</div>';
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+  log({test:'Part5_Test4',date:new Date().toLocaleString('fr-FR'),score:correct,total:30,toeic,pct:Math.round(correct/30*100)});
+  setTimeout(()=>{const e=document.getElementById('ls');if(e)e.textContent='✓ Résultats envoyés vers Google Sheets';},2200);
+}
+function showCorr(){
+  const L=['A','B','C','D'];
+  QS.forEach((q,i)=>{
+    const a=_ans[i],ok=a===q.a,b=document.getElementById('q'+i);
+    const badge=document.createElement('div');
+    badge.className='rbb '+(ok?'rok':'rko');
+    badge.innerHTML=ok?'✓ Correct':'✗ Votre réponse : ('+L[a||0]+')';
+    b.querySelector('.qn').after(badge);
+    b.querySelectorAll('.cb').forEach((btn,ci)=>{btn.disabled=true;if(ci===q.a)btn.classList.add('ok');else if(ci===a&&!ok)btn.classList.add('ko');});
+    const sHL=q.s.replace('-------','<span class="ahl">'+q.c[q.a]+'</span>');
+    const cd=b.querySelector('.corr');
+    cd.innerHTML='<div class="corr-type">'+q.type+'</div><div class="corr-sent">'+sHL+'</div><div class="corr-expl">'+q.expl+'</div>'+(q.vocab?'<div class="vb">'+q.vocab+'</div>':'');
+    cd.classList.add('on');
+  });
+  document.querySelector('.scb').style.display='none';
+}
+function sel(i,ci){if(_ans[i]===undefined)_done++;_ans[i]=ci;document.querySelectorAll('#q'+i+' .cb').forEach((b,x)=>b.classList.toggle('sel',x===ci));document.getElementById('q'+i).classList.add('answered');upd();}
+function render(){const c=document.getElementById('qcont');const L=['A','B','C','D'];QS.forEach((q,i)=>{const s=q.s.replace('-------','<span class="qblank">-------</span>');const ch=q.c.map((ch,ci)=>'<button class="cb" onclick="sel('+i+','+ci+')"><span class="cl">'+L[ci]+'</span>'+ch+'</button>').join('');c.innerHTML+='<div class="pg"><div class="qb" id="q'+i+'"><span class="qn">'+q.n+'</span><div class="qs">'+s+'</div><div class="c2">'+ch+'</div><div class="corr"></div></div></div>';});}
+render();upd();initTimer(900,180,60,()=>{document.getElementById('to').classList.add('on');});
+</script></body></html>

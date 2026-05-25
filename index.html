@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Practice — Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAF6ED;--cream-dark:#F0E8D5;--navy:#1A2B4A;--navy-light:#243860;
+  --gold:#C9A020;--gold-light:#E8C84A;--text:#2C2416;--muted:#7A6E5C;--border:#D4C9A8;
+  --green:#2A7A4B;--green-bg:#E8F5EE;
+  --mono:'JetBrains Mono',monospace;--serif:'Source Serif 4',Georgia,serif;
+  --display:'Playfair Display',Georgia,serif
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--cream);color:var(--text);min-height:100vh}
+
+.site-header{background:var(--navy);border-bottom:3px solid var(--gold);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.site-header-left h1{font-family:var(--display);color:var(--gold);font-size:1.25rem;letter-spacing:.02em}
+.site-header-left p{color:#A8B8D0;font-size:.78rem;font-weight:300;margin-top:3px}
+.site-header-right{font-family:var(--mono);font-size:.68rem;color:#6A7E9C;text-align:right;line-height:1.6}
+
+.hero{background:var(--navy);background-image:radial-gradient(ellipse at 15% 50%,rgba(201,160,32,.1) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(201,160,32,.07) 0%,transparent 50%);padding:52px 32px 44px;text-align:center}
+.hero-label{font-family:var(--mono);font-size:.68rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;opacity:.8}
+.hero-title{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;line-height:1.2;margin-bottom:10px}
+.hero-title span{color:var(--gold)}
+.hero-sub{color:#A8B8D0;font-size:.9rem;font-weight:300;max-width:520px;margin:0 auto;line-height:1.7}
+.stats-row{display:flex;justify-content:center;gap:0;background:rgba(255,255,255,.04);border-top:1px solid rgba(201,160,32,.2);margin-top:32px}
+.stat{padding:14px 32px;text-align:center;border-right:1px solid rgba(201,160,32,.15)}
+.stat:last-child{border-right:none}
+.stat-val{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--gold)}
+.stat-label{font-size:.7rem;color:#A8B8D0;margin-top:3px;letter-spacing:.04em}
+
+main{max-width:920px;margin:0 auto;padding:48px 20px 80px}
+
+.section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--gold)}
+.section-header h2{font-family:var(--display);color:var(--navy);font-size:1.15rem}
+.section-header span{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.section-note{font-size:.82rem;color:var(--muted);margin-bottom:24px;font-style:italic}
+
+/* FULL TEST CARDS */
+.full-tests-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:40px}
+@media(max-width:680px){.full-tests-grid{grid-template-columns:1fr}}
+
+.full-card{background:var(--navy);border:2px solid var(--gold);border-radius:14px;padding:24px 28px;text-decoration:none;transition:all .2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+.full-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 0% 50%,rgba(201,160,32,.1) 0%,transparent 60%);pointer-events:none}
+.full-card:hover{border-color:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.full-card-badge{font-family:var(--mono);font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;opacity:.8}
+.full-card h3{font-family:var(--display);color:var(--gold);font-size:1.1rem}
+.full-card p{color:#A8B8D0;font-size:.82rem;line-height:1.6}
+.full-card-parts{display:flex;gap:8px;flex-wrap:wrap}
+.part-chip{font-family:var(--mono);font-size:.66rem;padding:3px 9px;border-radius:4px;border:1px solid rgba(201,160,32,.35);color:#A8B8D0}
+.full-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.full-card-footer .duration{font-family:var(--mono);font-size:.72rem;color:var(--gold-light)}
+.go-btn{background:var(--gold);color:var(--navy);font-family:var(--display);font-size:.9rem;font-weight:700;padding:9px 22px;border-radius:7px;white-space:nowrap}
+
+/* PART CARDS */
+.parts-section-title{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.parts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+@media(max-width:660px){.parts-row{grid-template-columns:1fr}}
+
+.test-group{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.test-group:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.test-group-label{font-family:var(--mono);font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.test-group-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.part-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:18px 16px;text-decoration:none;color:var(--text);transition:all .2s;display:flex;flex-direction:column;gap:8px}
+.part-card:hover{border-color:var(--navy);box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+.part-card-top{display:flex;align-items:center;justify-content:space-between}
+.part-tag{font-family:var(--mono);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:2px 8px;border-radius:4px}
+.tag-p5{background:#EDF1F8;color:var(--navy)}
+.tag-p6{background:#F0EDE4;color:#5A4A2A}
+.tag-p7{background:var(--green-bg);color:var(--green)}
+.part-card-title{font-family:var(--display);color:var(--navy);font-size:.92rem;line-height:1.3}
+.part-card-desc{font-size:.78rem;color:var(--muted);line-height:1.55}
+.part-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:2px;padding-top:8px;border-top:1px solid var(--border)}
+.part-card-meta{font-family:var(--mono);font-size:.64rem;color:var(--muted)}
+.part-card-arrow{font-size:.9rem;color:var(--gold);font-weight:700}
+
+/* COMING SOON */
+.coming-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:660px){.coming-grid{grid-template-columns:1fr}}
+.coming-card{background:var(--cream-dark);border:1.5px dashed var(--border);border-radius:12px;padding:20px;opacity:.65}
+.coming-card-tag{font-family:var(--mono);font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.coming-card-title{font-family:var(--display);color:var(--muted);font-size:.93rem;margin-bottom:5px}
+.coming-card-badge{display:inline-block;font-family:var(--mono);font-size:.6rem;background:var(--border);color:var(--muted);padding:2px 7px;border-radius:4px;margin-top:5px}
+
+footer{background:var(--navy);border-top:2px solid rgba(201,160,32,.3);padding:20px 32px;text-align:center;color:#6A7E9C;font-size:.75rem;font-family:var(--mono)}
+footer span{color:var(--gold);opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-left">
+    <h1>TOEIC Practice Hub</h1>
+    <p>Marc VASSEUR &nbsp;·&nbsp; Département Langues &nbsp;·&nbsp; Polytech Lille</p>
+  </div>
+  <div class="site-header-right">
+    Reading · Listening<br>Tests interactifs
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-label">Entraînement TOEIC</div>
+  <div class="hero-title">Tests de <span>préparation</span><br>interactifs</div>
+  <div class="hero-sub">Simulation des conditions réelles d'examen — Timer, correction détaillée en français, estimation du score TOEIC, logs Google Sheets.</div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">Tests complets</div></div>
+    <div class="stat"><div class="stat-val">400</div><div class="stat-label">Questions Reading</div></div>
+    <div class="stat"><div class="stat-val">71 min</div><div class="stat-label">Par test</div></div>
+    <div class="stat"><div class="stat-val">/495</div><div class="stat-label">Score ETS</div></div>
+  </div>
+</div>
+
+<main>
+
+  <!-- FULL TESTS -->
+  <div class="section-header">
+    <h2>Tests complets</h2>
+    <span>Reading · Parts 5 + 6 + 7 enchaînés</span>
+  </div>
+  <p class="section-note">Simulation complète avec enchaînement automatique des parties, score intermédiaire, correction globale à la fin, logs automatiques dans Google Sheets.</p>
+
+  <div class="full-tests-grid">
+
+    <a class="full-card" href="index_reading_test1.html">
+      <div class="full-card-badge">Full Reading</div>
+      <h3>TEST 1</h3>
+      <p>Incomplete Sentences · Text Completion · Reading Comprehension — 100 questions, correction détaillée en français.</p>
+      <div class="full-card-parts">
+        <span class="part-chip">Part 5 · 30 Q · 15 min</span>
+        <span class="part-chip">Part 6 · 16 Q · 8 min</span>
+        <span class="part-chip">Part 7 · 54 Q · 48 min</span>
+      </div>
+      <div class="full-card-footer">
+        <span class="duration">⏱ 71 minutes</span>
+        <span class="go-btn">Commencer ▶</span>
+      </div>
+    </a>
+
+    <a class="full-card" href="index_reading_test2.html">
+      <div class="full-card-badge">Full Reading</div>
+      <h3>TEST 2</h3>
+      <p>Incomplete Sentences · Text Completion · Reading Comprehension — 100 questions, correction détaillée en français.</p>
+      <div class="full-card-parts">
+        <span class="part-chip">Part 5 · 30 Q · 15 min</span>
+        <span class="part-chip">Part 6 · 16 Q · 8 min</span>
+        <span class="part-chip">Part 7 · 54 Q · 48 min</span>
+      </div>
+      <div class="full-card-footer">
+        <span class="duration">⏱ 71 minutes</span>
+        <span class="go-btn">Commencer ▶</span>
+      </div>
+    </a>
+
+    <a class="full-card" href="index_reading_test3.html">
+      <div class="full-card-badge">Full Reading</div>
+      <h3>TEST 3</h3>
+      <p>Incomplete Sentences · Text Completion · Reading Comprehension — 100 questions, correction détaillée en français.</p>
+      <div class="full-card-parts">
+        <span class="part-chip">Part 5 · 30 Q · 15 min</span>
+        <span class="part-chip">Part 6 · 16 Q · 8 min</span>
+        <span class="part-chip">Part 7 · 54 Q · 48 min</span>
+      </div>
+      <div class="full-card-footer">
+        <span class="duration">⏱ 71 minutes</span>
+        <span class="go-btn">Commencer ▶</span>
+      </div>
+
+    <a class="full-card" href="index_reading_test4.html">
+      <div class="full-card-badge">Full Reading</div>
+      <h3>TEST 4</h3>
+      <p>Incomplete Sentences · Text Completion · Reading Comprehension — 100 questions originales, correction détaillée en français.</p>
+      <div class="full-card-parts">
+        <span class="part-chip">Part 5 · 30 Q · 15 min</span>
+        <span class="part-chip">Part 6 · 16 Q · 8 min</span>
+        <span class="part-chip">Part 7 · 54 Q · 48 min</span>
+      </div>
+      <div class="full-card-footer">
+        <span class="duration">⏱ 71 minutes</span>
+        <span class="go-btn">Commencer ▶</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- PARTS BY PART -->
+  <div class="section-header">
+    <h2>Par partie</h2>
+    <span>Entraînement ciblé</span>
+  </div>
+  <p class="section-note">Mêmes questions que les tests complets, accessibles partie par partie.</p>
+
+  <div class="test-group">
+    <div class="test-group-label">TEST 1</div>
+    <div class="parts-row">
+      <a class="part-card" href="toeic_part5_testN.html">
+        <div class="part-card-top"><span class="part-tag tag-p5">Part 5</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">30 Q</span></div>
+        <div class="part-card-title">Incomplete Sentences</div>
+        <div class="part-card-desc">Grammaire, vocabulaire, prépositions, temps verbaux.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 15 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part6_testN.html">
+        <div class="part-card-top"><span class="part-tag tag-p6">Part 6</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">16 Q</span></div>
+        <div class="part-card-title">Text Completion</div>
+        <div class="part-card-desc">4 textes lacunaires — cohérence, connecteurs, insertion.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 8 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part7_testN.html">
+        <div class="part-card-top"><span class="part-tag tag-p7">Part 7</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">54 Q</span></div>
+        <div class="part-card-title">Reading Comprehension</div>
+        <div class="part-card-desc">Documents simples, doubles et triples — inférence, vocabulaire.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 48 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <div class="test-group-label">TEST 2</div>
+    <div class="parts-row">
+      <a class="part-card" href="toeic_part5_test2.html">
+        <div class="part-card-top"><span class="part-tag tag-p5">Part 5</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">30 Q</span></div>
+        <div class="part-card-title">Incomplete Sentences</div>
+        <div class="part-card-desc">Grammaire, vocabulaire, prépositions, temps verbaux.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 15 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part6_test2.html">
+        <div class="part-card-top"><span class="part-tag tag-p6">Part 6</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">16 Q</span></div>
+        <div class="part-card-title">Text Completion</div>
+        <div class="part-card-desc">4 textes lacunaires — cohérence, connecteurs, insertion.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 8 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part7_test2.html">
+        <div class="part-card-top"><span class="part-tag tag-p7">Part 7</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">54 Q</span></div>
+        <div class="part-card-title">Reading Comprehension</div>
+        <div class="part-card-desc">Documents simples, doubles et triples — inférence, vocabulaire.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 48 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="test-group">
+    <div class="test-group-label">TEST 3</div>
+    <div class="parts-row">
+      <a class="part-card" href="toeic_part5_test3.html">
+        <div class="part-card-top"><span class="part-tag tag-p5">Part 5</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">30 Q</span></div>
+        <div class="part-card-title">Incomplete Sentences</div>
+        <div class="part-card-desc">Grammaire, vocabulaire, prépositions, temps verbaux.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 15 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part6_test3.html">
+        <div class="part-card-top"><span class="part-tag tag-p6">Part 6</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">16 Q</span></div>
+        <div class="part-card-title">Text Completion</div>
+        <div class="part-card-desc">4 textes lacunaires — cohérence, connecteurs, insertion.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 8 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part7_test3.html">
+        <div class="part-card-top"><span class="part-tag tag-p7">Part 7</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">54 Q</span></div>
+        <div class="part-card-title">Reading Comprehension</div>
+        <div class="part-card-desc">Documents simples, doubles et triples — inférence, vocabulaire.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 48 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+
+
+  <div class="test-group">
+    <div class="test-group-label">TEST 4</div>
+    <div class="parts-row">
+      <a class="part-card" href="toeic_part5_test4.html">
+        <div class="part-card-top"><span class="part-tag tag-p5">Part 5</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">30 Q</span></div>
+        <div class="part-card-title">Incomplete Sentences</div>
+        <div class="part-card-desc">Grammaire, vocabulaire, prépositions, temps verbaux.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 15 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part6_test4.html">
+        <div class="part-card-top"><span class="part-tag tag-p6">Part 6</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">16 Q</span></div>
+        <div class="part-card-title">Text Completion</div>
+        <div class="part-card-desc">4 textes lacunaires — cohérence, connecteurs, insertion.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 8 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+      <a class="part-card" href="toeic_part7_test4.html">
+        <div class="part-card-top"><span class="part-tag tag-p7">Part 7</span><span style="font-family:var(--mono);font-size:.72rem;color:var(--gold)">54 Q</span></div>
+        <div class="part-card-title">Reading Comprehension</div>
+        <div class="part-card-desc">Documents simples, doubles et triples — inférence, vocabulaire.</div>
+        <div class="part-card-footer"><span class="part-card-meta">⏱ 48 min</span><span class="part-card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="section-header" style="margin-top:40px">
+    <h2>À venir</h2>
+    <span>Prochains tests</span>
+  </div>
+  <div class="coming-grid">
+    <div class="coming-card">
+      <div class="coming-card-tag">Full Reading</div>
+      <div class="coming-card-title">TEST 5</div>
+      <span class="coming-card-badge">À venir</span>
+    </div>
+    <div class="coming-card">
+      <div class="coming-card-tag">Full Reading</div>
+      <div class="coming-card-title">TEST 6</div>
+      <span class="coming-card-badge">À venir</span>
+    </div>
+    <div class="coming-card">
+      <div class="coming-card-tag">Full Listening</div>
+      <div class="coming-card-title">TEST 1</div>
+      <span class="coming-card-badge">À venir</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>TOEIC Practice Hub</span> &nbsp;·&nbsp; Marc VASSEUR &nbsp;·&nbsp; Polytech Lille &nbsp;·&nbsp; Usage pédagogique interne
+</footer>
+
+</body>
+</html>
